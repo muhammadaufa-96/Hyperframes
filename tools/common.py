@@ -50,3 +50,35 @@ def find(words, token, after=0.0, before=1e9):
         if after <= w[1] < before and w[0].lower().strip(".,?!") == token.lower():
             return w[1]
     raise KeyError(f"{token} after {after}")
+
+
+DC_FIX = {"rafan": "Rafhan", "puat": "puas", "pesen": "pesakit", "budu-duyun": "berduyun-duyun", "konsak": "konsult",
+          "kofil": "Coalfields", "passion": "pesakit", "ratingnya": "waiting", "belah": "boleh", "kamu": "korang",
+          "bagian": "bahagian", "saya": "saya"}
+DC_DROP = {"berambil", "kasem", "sikli", "haa", "eh", "oh", "untuk"}
+
+
+def load_words_dc(path, offset=0.0):
+    raw = json.load(open(path))
+    out = []
+    for w in raw:
+        core = re.sub(r"[^\w\-']", "", w["text"]).lower()
+        if core in DC_DROP:
+            continue
+        t = DC_FIX.get(core) or re.sub(r"[.,!?]+$", "", w["text"])
+        out.append([t, w["start"] + offset, w["end"] + offset])
+    return out
+
+
+def map_words(words_by_clip, segs):
+    """words_by_clip: {clip: [[text, t0, t1], ...]} in that clip's proxy time.
+    Returns [[text, out0, out1, speaker]] on the assembled A-roll timeline."""
+    out = []
+    for s in segs["segments"]:
+        spk = s["tag"].split(":")[1] if ":" in s["tag"] else "me"
+        for w, a, b in words_by_clip.get(s["clip"], []):
+            if s["src_in"] - 0.05 <= a < s["src_out"]:
+                o = s["out_in"] + (a - s["src_in"])
+                out.append([w, o, o + (b - a), spk])
+    out.sort(key=lambda x: x[1])
+    return out

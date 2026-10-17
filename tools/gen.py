@@ -38,6 +38,19 @@ html, body { margin: 0; overflow: hidden; background: #0d0f12; }
 .cap { position: absolute; left: 60px; right: 60px; top: 1240px; text-align: center; font-weight: 800; font-size: 74px; line-height: 1.12; text-transform: uppercase; }
 .cap .w { display: inline-block; margin: 0 10px; color: #fff; text-shadow: 0 5px 0 rgba(0,0,0,0.6), 0 0 26px rgba(0,0,0,0.75); }
 
+/* Minimal captions (two speakers) */
+.capm { position: absolute; left: 90px; right: 90px; top: 1330px; text-align: center; font-weight: 600; font-size: 44px; line-height: 1.25; }
+.capm .w { display: inline-block; margin: 0 6px; opacity: 0.72; text-shadow: 0 2px 10px rgba(0,0,0,0.85), 0 1px 2px rgba(0,0,0,0.9); }
+.capm.me .w { color: #ffffff; }
+.capm.cl .w { color: #ffd34d; }
+.name { position: absolute; left: 70px; top: 1190px; display: flex; flex-direction: column; gap: 2px; background: rgba(15,17,20,0.78); border-left: 6px solid #ffd34d; padding: 12px 20px; border-radius: 8px; }
+.name b { font-weight: 800; font-size: 38px; }
+.name span { font-weight: 600; font-size: 28px; color: #d9dadc; }
+.label { position: absolute; left: 70px; top: 300px; font-weight: 600; font-size: 36px; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; padding: 10px 18px; background: rgba(15,17,20,0.55); border-radius: 6px; }
+.shot { position: absolute; left: 140px; right: 140px; top: 260px; border-radius: 26px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.6); }
+.shot img { display: block; width: 100%; }
+.hl { position: absolute; border: 6px solid #ffd34d; border-radius: 14px; box-shadow: 0 0 0 9999px rgba(0,0,0,0); }
+
 /* Comparison */
 .vs { position: absolute; left: 60px; right: 60px; top: 300px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
 .vs-box { background: rgba(15,17,20,0.86); border-radius: 22px; padding: 26px 22px; display: flex; flex-direction: column; gap: 8px; align-items: center; text-align: center; border-top: 12px solid #f5c22e; }
@@ -243,6 +256,66 @@ class Comp:
                 self.js.append(f'tl.fromTo("#{cid}w{i}", {{ color: "#ffffff" }}, {{ color: "#f5c22e", duration: 0.04 }}, {max(w[1], st):.3f});')
                 if i + 1 < len(g):
                     self.js.append(f'tl.to("#{cid}w{i}", {{ color: "#ffffff", duration: 0.04 }}, {g[i + 1][1]:.3f});')
+
+    def captions_min(self, words, hide=()):
+        """words: [(text, start, end, speaker)] speaker in {"me","cl"}; minimal one-line captions."""
+        words = [w for w in words if not any(a <= w[1] < b for a, b in hide)]
+        groups, cur = [], []
+        for w in words:
+            if cur and (cur[-1][3] != w[3] or len(cur) >= 5 or sum(len(x[0]) + 1 for x in cur) + len(w[0]) > 26 or w[1] - cur[-1][2] > 0.45):
+                groups.append(cur); cur = []
+            cur.append(w)
+        if cur:
+            groups.append(cur)
+        for gi, g in enumerate(groups):
+            st = g[0][1]
+            nxt = groups[gi + 1][0][1] if gi + 1 < len(groups) else g[-1][2] + 0.4
+            en = min(nxt, g[-1][2] + 0.5)
+            for a, b in hide:
+                if st < a < en:
+                    en = a
+            if en - st < 0.15:
+                continue
+            cid = self.uid("cm")
+            spans = "".join(f'<span class="w" id="{cid}w{i}">{esc(w[0])}</span>' for i, w in enumerate(g))
+            self.layers.append(f'<section id="{cid}" class="clip" data-start="{st:.3f}" data-duration="{en - st:.3f}" data-track-index="8"><div class="capm {g[0][3]}">{spans}</div></section>')
+            self.js.append(f'tl.fromTo("#{cid} .capm", {{ y: 10, opacity: 0 }}, {{ y: 0, opacity: 1, duration: 0.12 }}, {st:.3f});')
+            for i, w in enumerate(g):
+                self.js.append(f'tl.fromTo("#{cid}w{i}", {{ opacity: 0.72 }}, {{ opacity: 1, duration: 0.05 }}, {max(w[1], st):.3f});')
+
+    def name(self, title, sub, start, dur):
+        nid = self.uid("nm")
+        self.layers.append(f'<section id="{nid}" class="clip" data-start="{start:.3f}" data-duration="{dur:.3f}" data-track-index="6">'
+                           f'<div class="name" id="{nid}b"><b>{esc(title)}</b><span>{esc(sub)}</span></div></section>')
+        self.js.append(f'tl.fromTo("#{nid}b", {{ x: -60, opacity: 0 }}, {{ x: 0, opacity: 1, duration: 0.35, ease: "power3.out" }}, {start:.3f});')
+        self.js.append(f'tl.to("#{nid}b", {{ x: -40, opacity: 0, duration: 0.25 }}, {start + dur - 0.25:.3f});')
+
+    def label(self, text, start, dur, top=300):
+        lid = self.uid("lb")
+        self.layers.append(f'<section id="{lid}" class="clip" data-start="{start:.3f}" data-duration="{dur:.3f}" data-track-index="6">'
+                           f'<div class="label" id="{lid}b" style="top:{top}px">{esc(text)}</div></section>')
+        self.js.append(f'tl.fromTo("#{lid}b", {{ y: 16, opacity: 0 }}, {{ y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }}, {start + 0.1:.3f});')
+        self.js.append(f'tl.to("#{lid}b", {{ opacity: 0, duration: 0.2 }}, {start + dur - 0.2:.3f});')
+
+    def screenshot(self, src, start, dur, highlights=()):
+        """highlights: [(x, y, w, h, at)] in screenshot-display pixels (width 800)."""
+        sid = self.uid("ss")
+        hls = "".join(f'<div class="hl" id="{sid}h{i}" style="left:{x}px;top:{y}px;width:{w}px;height:{h}px"></div>' for i, (x, y, w, h, at) in enumerate(highlights))
+        self.layers.append(f'<section id="{sid}" class="clip" data-start="{start:.3f}" data-duration="{dur:.3f}" data-track-index="7">'
+                           f'<div class="clip" style="background:rgba(10,11,13,0.72)" id="{sid}bg"></div>'
+                           f'<div class="shot" id="{sid}b"><img src="{src}" alt="Feedback klien di WhatsApp">{hls}</div></section>')
+        self.js.append(f'tl.fromTo("#{sid}bg", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.25 }}, {start:.3f});')
+        self.js.append(f'tl.fromTo("#{sid}b", {{ y: 900 }}, {{ y: 0, duration: 0.5, ease: "power3.out" }}, {start:.3f});')
+        for i, (x, y, w, h, at) in enumerate(highlights):
+            self.js.append(f'tl.fromTo("#{sid}h{i}", {{ scale: 1.25, opacity: 0 }}, {{ scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2)" }}, {at:.3f});')
+            self.sfx("ping", at, 0.4)
+        self.js.append(f'tl.to(["#{sid}b", "#{sid}bg"], {{ opacity: 0, duration: 0.3 }}, {start + dur - 0.3:.3f});')
+        self.sfx("whoosh", start, 0.45)
+
+    def music(self, src, start, dur, media_start=0.0, vol=0.8, fade=1.5):
+        mid = self.uid("mu")
+        auto = json.dumps({"volume": [[0, 0], [0.4, vol], [max(0.5, dur - fade), vol], [dur, 0]]})
+        self.layers.append(f"<audio id=\"{mid}\" src=\"{src}\" data-start=\"{start:.3f}\" data-duration=\"{dur:.3f}\" data-media-start=\"{media_start:.3f}\" data-track-index=\"10\" data-volume=\"{vol}\"></audio>")
 
     def laser(self, start, dur=5.0, bg_src="../assets/footage/IMG_5104.mp4", kicker="UPGRADE 🔧", title="Laser measure", badge="Ukur dalam 1 saat"):
         p = self.uid("lz")

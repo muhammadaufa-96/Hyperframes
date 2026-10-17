@@ -1,7 +1,7 @@
 import json, re
 
 FIX = {"tab": "tape", "tap": "tape", "side": "site", "risah": "risau", "undui": "on the way",
-       "outway": "on the way", "sexy": "seksi", "terliu": "terliur", "kelisah": "risau", "gelisah": "risau", "beri": "beli", "bag": "beg", "conduit": "on the way", "single": "singgah", "seksi": "seksi", "menja": "", "rebu": "jerebu"}
+       "outway": "on the way", "sexy": "seksi", "terliu": "terliur", "kelisah": "gelisah", "gelisah": "gelisah", "risau": "gelisah", "beri": "beli", "bag": "beg", "conduit": "on the way", "single": "singgah", "seksi": "seksi", "menja": "", "rebu": "jerebu"}
 DROP = {"oh", "dikibayah", "diki-diki", "bukankah", "eh", "hmm", "ah"}
 
 

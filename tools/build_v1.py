@@ -43,6 +43,9 @@ lv = find(words, "LV", s0)
 c.strike("GUCCI", g - 0.1, lv - g + 0.1, strike_at=g + 0.5, y=330)
 c.strike("LV", lv, 1.5, strike_at=lv + 0.45, y=330)
 con = find(words, "contractor", s0)
+# "...terliur tengok apa tau, benda ni guys": cut to the Milwaukee close-up he points at
+tr = find(words, "terliur", con)
+c.broll(F + "IMG_5105.mp4", tr, s1 - tr + 0.4, media_start=16.8, zoom=(1.0, 1.12))
 c.chip("🔧 Contractor terliur tengok ni", con, s1 - con + 0.2, x=70, y=330, yellow=True)
 
 # Problem: tape b-roll and counter

@@ -21,7 +21,7 @@ Brand ini menyokong bisnes Enoxin.Fitout, tetapi content berdiri atas **kepakara
 ## Platform & matlamat
 - **Instagram:** @bangfasz
 - **TikTok:** bangfasz
-- **Matlamat:** naikkan follower secara signifikan. **Target & tempoh: BELUM DITETAPKAN** (tanya Fasz)
+- **Matlamat:** **20,000 follower sebelum 1 Januari 2027** (ditetapkan pada 17 Okt 2026, jadi kira-kira 2.5 bulan)
 - **Format utama:** Reels / TikTok video pendek, menegak 9:16. Format ini lebih mudah berkembang berbanding post statik, sebab niche ini agak B2B.
 
 ## Audiens
@@ -38,7 +38,7 @@ Audiens **bukan** sesama kontraktor. Tulis untuk orang yang bijak tetapi bukan o
 4. **Motivasi**
 
 ## Suara & gaya
-- **Bahasa:** Bahasa Melayu santai, campur sedikit English *(contoh awal daripada Fasz, belum disahkan)*
+- **Bahasa:** santai, **macam borak dengan kawan-kawan**. Bahasa Melayu harian, guna "aku/korang", boleh campur sedikit English. Bukan bahasa skema atau bahasa iklan.
 - **Tone:** yakin, terus terang, mesra, macam abang yang berpengalaman *(contoh awal daripada Fasz, belum disahkan)*
 - Terangkan setiap istilah teknikal dalam satu ayat mudah (contoh: "CKAPS — unit KKM yang luluskan klinik swasta")
 - Hook kuat dalam 1–3 saat pertama; satu idea utama sahaja bagi setiap video
@@ -58,6 +58,8 @@ Audiens **bukan** sesama kontraktor. Tulis untuk orang yang bijak tetapi bukan o
 - **Website enoxin.my** (dibuat oleh Cybercypher) masih ada content placeholder, termasuk **testimoni palsu** dan copy yang tak relevan. **Jangan arahkan traffic ke enoxin.my dalam CTA atau bio sehingga website itu dibetulkan.**
 
 ## Perlu disahkan oleh Fasz
-- [ ] Target follower & tempoh
-- [ ] Bahasa dan tone muktamad (sekarang masih contoh)
+- [x] Target follower & tempoh: 20K sebelum 2027
+- [x] Bahasa: santai macam borak dengan kawan
+- [ ] Tone muktamad (sekarang masih contoh)
+- [ ] Jumlah follower semasa (IG + TikTok)
 - [ ] Handle TikTok yang tepat

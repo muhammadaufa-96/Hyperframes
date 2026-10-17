@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Sample: laser measure b-roll</title>
+    <script src="../assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Montserrat";
+        font-weight: 800;
+        src: url("../assets/fonts/montserrat-latin-800-normal.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "Montserrat";
+        font-weight: 600;
+        src: url("../assets/fonts/montserrat-latin-600-normal.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "Share Tech Mono";
+        font-weight: 400;
+        src: url("../assets/fonts/share-tech-mono-latin-400-normal.woff2") format("woff2");
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; overflow: hidden; background: #0d0f12; }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: "Montserrat", sans-serif;
+        color: #fff;
+      }
+      .clip { position: absolute; inset: 0; }
+
+      /* Background footage, pushed back so the graphic reads */
+      #bg-wrap { position: absolute; inset: -60px; filter: blur(16px) brightness(0.42) saturate(1.1); }
+      #bg-video { width: 100%; height: 100%; object-fit: cover; }
+      #vignette {
+        position: absolute; inset: 0;
+        background: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.65) 100%);
+      }
+
+      /* Title */
+      #title {
+        position: absolute; left: 80px; right: 80px; top: 300px;
+        display: flex; flex-direction: column; gap: 18px;
+      }
+      #title-kicker {
+        align-self: flex-start;
+        background: #f5c22e; color: #15171a;
+        font-weight: 800; font-size: 40px; letter-spacing: 0.04em;
+        padding: 10px 20px; border-radius: 6px;
+      }
+      #title-main { font-weight: 800; font-size: 104px; line-height: 0.98; text-transform: uppercase; }
+      #title-main span { display: inline-block; }
+
+      /* Wall on the right */
+      #wall {
+        position: absolute; top: 760px; height: 560px; right: 0; width: 110px;
+        background: linear-gradient(90deg, #8a8d91, #b9bcc0 40%, #9a9da1);
+        box-shadow: inset 6px 0 0 rgba(0,0,0,0.25);
+      }
+
+      /* Device */
+      #device {
+        position: absolute; left: 70px; top: 950px; width: 400px; height: 190px;
+        border-radius: 34px;
+        background: linear-gradient(180deg, #2c5fa8 0%, #1d4380 100%);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.55), inset 0 2px 0 rgba(255,255,255,0.25);
+      }
+      #device-grip {
+        position: absolute; left: 0; top: 0; bottom: 0; width: 120px;
+        border-radius: 34px 0 0 34px; background: #17191d;
+      }
+      #device-screen {
+        position: absolute; left: 140px; top: 34px; width: 200px; height: 122px;
+        border-radius: 12px; background: #0f1a12;
+        box-shadow: inset 0 0 0 3px #0a0f0b;
+        display: flex; flex-direction: column; align-items: flex-end; justify-content: center;
+        padding: 0 16px;
+        font-family: "Share Tech Mono", monospace; color: #9dff9a;
+      }
+      #screen-glow { position: absolute; inset: 0; border-radius: 12px; background: rgba(157,255,154,0.18); opacity: 0; }
+      #readout { font-size: 52px; line-height: 1; position: relative; }
+      #readout-unit { font-size: 24px; opacity: 0.8; position: relative; }
+      #emitter {
+        position: absolute; right: -10px; top: 70px; width: 26px; height: 50px;
+        border-radius: 8px; background: #111;
+      }
+
+      /* Beam: starts at emitter, ends at wall face */
+      #beam {
+        position: absolute; left: 486px; top: 1043px; width: 484px; height: 6px;
+        background: linear-gradient(90deg, rgba(255,40,40,0.95), #ff3b3b);
+        box-shadow: 0 0 18px 4px rgba(255,40,40,0.55);
+        transform-origin: left center;
+        border-radius: 3px;
+      }
+      #dot {
+        position: absolute; left: 948px; top: 1024px; width: 44px; height: 44px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #fff 0 18%, #ff3b3b 30%, rgba(255,40,40,0) 70%);
+      }
+
+      /* Dimension line */
+      #dim {
+        position: absolute; left: 486px; width: 484px; top: 1190px; height: 40px;
+        display: flex; align-items: center;
+      }
+      #dim-line { position: absolute; left: 0; right: 0; top: 19px; height: 3px; background: #f5c22e; transform-origin: left center; }
+      #dim-cap-l, #dim-cap-r { position: absolute; top: 0; width: 3px; height: 40px; background: #f5c22e; }
+      #dim-cap-l { left: 0; }
+      #dim-cap-r { right: 0; }
+      #dim-label {
+        position: absolute; left: 0; right: 0; top: 54px; text-align: center;
+        font-family: "Share Tech Mono", monospace; font-size: 46px; color: #f5c22e;
+      }
+
+      #badge {
+        position: absolute; left: 70px; top: 1330px;
+        display: flex; align-items: center; gap: 16px;
+        background: #ffffff; color: #15171a; border-radius: 999px;
+        padding: 16px 30px 16px 18px; font-weight: 800; font-size: 40px;
+      }
+      #badge-check {
+        width: 54px; height: 54px; border-radius: 50%; background: #20b26b; color: #fff;
+        display: flex; align-items: center; justify-content: center; font-size: 34px;
+      }
+
+      /* Caption style demo (same style the final subtitles will use) */
+      #caption {
+        position: absolute; left: 70px; right: 70px; top: 1520px;
+        text-align: center; font-weight: 800; font-size: 66px; line-height: 1.15;
+        text-transform: uppercase;
+        text-shadow: 0 4px 0 rgba(0,0,0,0.55), 0 0 22px rgba(0,0,0,0.6);
+      }
+      #caption .w { display: inline-block; margin: 0 8px; color: #ffffff; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="sample-laser" data-start="0" data-width="1080" data-height="1920" data-duration="6">
+      <div id="bg-wrap">
+        <video id="bg-video" src="../assets/footage/5104_shelf.mp4" muted playsinline data-start="0" data-duration="6" data-track-index="0"></video>
+      </div>
+
+      <section id="scene" class="clip" data-start="0" data-duration="6" data-track-index="1">
+        <div id="vignette"></div>
+
+        <div id="title">
+          <div id="title-kicker">UPGRADE 🔧</div>
+          <div id="title-main"><span id="t1">Laser</span> <span id="t2">measure</span></div>
+        </div>
+
+        <div id="wall"></div>
+        <div id="beam"></div>
+        <div id="dot"></div>
+
+        <div id="device">
+          <div id="device-grip"></div>
+          <div id="device-screen">
+            <div id="screen-glow"></div>
+            <div id="readout">0.000</div>
+            <div id="readout-unit">m</div>
+          </div>
+          <div id="emitter"></div>
+        </div>
+
+        <div id="dim">
+          <div id="dim-cap-l"></div>
+          <div id="dim-line"></div>
+          <div id="dim-cap-r"></div>
+          <div id="dim-label">4.785 m</div>
+        </div>
+
+        <div id="badge"><div id="badge-check">✓</div>Ukur dalam 1 saat</div>
+
+        <div id="caption">
+          <span class="w" id="c1">Kali</span><span class="w" id="c2">ni</span><span class="w" id="c3">aku</span><span class="w" id="c4">nak</span><span class="w" id="c5">upgrade</span><span class="w" id="c6">sikit</span>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const readout = document.getElementById("readout");
+      const counter = { v: 0 };
+
+      // Title
+      tl.fromTo("#title-kicker", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "back.out(2)" }, 0.15);
+      tl.fromTo("#t1", { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 0.3);
+      tl.fromTo("#t2", { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 0.42);
+
+      // Wall and device enter
+      tl.fromTo("#wall", { x: 140 }, { x: 0, duration: 0.5, ease: "power3.out" }, 0.4);
+      tl.fromTo("#device", { x: -520, rotation: -6 }, { x: 0, rotation: 0, duration: 0.6, ease: "power3.out" }, 0.6);
+
+      // Power on
+      tl.fromTo("#screen-glow", { opacity: 0 }, { opacity: 1, duration: 0.15 }, 1.3);
+
+      // Beam fires, dot lands
+      tl.fromTo("#beam", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.in" }, 1.6);
+      tl.fromTo("#dot", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.2, ease: "back.out(3)" }, 1.92);
+      tl.to("#dot", { scale: 1.25, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 7 }, 2.12);
+
+      // Readout counts up, dimension draws
+      tl.fromTo(counter, { v: 0 }, {
+        v: 4.785, duration: 0.95, ease: "power2.out",
+        onUpdate: () => { readout.textContent = counter.v.toFixed(3); }
+      }, 1.95);
+      tl.fromTo("#dim-line", { scaleX: 0 }, { scaleX: 1, duration: 0.95, ease: "power2.out" }, 1.95);
+      tl.fromTo(["#dim-cap-l", "#dim-cap-r"], { scaleY: 0 }, { scaleY: 1, duration: 0.2, stagger: 0.75 }, 1.95);
+      tl.fromTo("#dim-label", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 2.85);
+
+      // Beep flash and badge
+      tl.fromTo("#device-screen", { scale: 1 }, { scale: 1.08, duration: 0.1, yoyo: true, repeat: 1, ease: "power1.out" }, 2.95);
+      tl.fromTo("#badge", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, ease: "back.out(2)" }, 3.05);
+
+      // Caption demo: words appear in sync, active word turns yellow
+      const words = ["#c1", "#c2", "#c3", "#c4", "#c5", "#c6"];
+      const times = [3.4, 3.62, 3.8, 3.98, 4.2, 4.75];
+      words.forEach((w, i) => {
+        tl.fromTo(w, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, times[i]);
+        tl.fromTo(w, { color: "#ffffff" }, { color: "#f5c22e", duration: 0.05 }, times[i]);
+        if (i < words.length - 1) tl.to(w, { color: "#ffffff", duration: 0.05 }, times[i + 1]);
+      });
+      tl.fromTo("#c5", { scale: 1 }, { scale: 1.15, duration: 0.15, yoyo: true, repeat: 1 }, 4.2);
+
+      window.__timelines["sample-laser"] = tl;
+    </script>
+  </body>
+</html>

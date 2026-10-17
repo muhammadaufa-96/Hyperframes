@@ -86,6 +86,12 @@ Audiens **bukan** sesama kontraktor. Tulis untuk orang yang bijak tetapi bukan o
 
 **Projek yang boleh ditunjuk** (dengan izin client): estetik di PJ (terbaru), pergigian di Kepong, GP di Ampang.
 
+## Alat automasi (disediakan 17–18 Okt 2026)
+- **Metricool (pelan percuma):** brand id `7484343`, zon masa Asia/Kuala_Lumpur. Bersambung: IG bangfasz, TikTok bangfasz (dulu `renobisnes_enoxin`, akaun yang sama), Facebook page, YouTube. Had: **20 post sebulan dikongsi semua platform**, analitik 30 hari. Post melebihi 20 dibuat manual oleh Fasz (Meta Business Suite / TikTok Studio).
+- **vidIQ (pelan percuma):** 150 kredit sebulan, reset setiap 17hb. Carian video viral IG/TikTok kira-kira 5 kredit setiap carian.
+- **Social Media Skills:** plugin aktif (hook-writer, viral-reverse-engineering, analytics-and-reporting, dll.).
+- **Posty:** tidak digunakan (pelan percuma tiada akses MCP).
+
 ## Content dalam repo
 - `content/bangfasz/batch-01-ckaps.md`: 8 skrip reel CKAPS + jadual 3 minggu
 

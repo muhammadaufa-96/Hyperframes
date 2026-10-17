@@ -113,7 +113,7 @@ res = [("7695A0AD.mp4", 1.0), ("IMG_4940.mp4", 0.5), ("b6f67f16.mp4", 3.0), ("IM
 for i, (f, ms) in enumerate(res):
     c.broll(F + f, r0 + i * 1.25, 1.25, media_start=ms, zoom=(1.08, 1.0))
     c.sfx("whoosh-short", r0 + i * 1.25, 0.3)
-c.chip("Contoh klinik yang kami siapkan ✨", r0 + 0.1, 4.8, x=70, y=330, yellow=True, sfx="sparkle")
+c.chip("Contoh projek kami ✨", r0 + 0.1, 4.8, x=70, y=330, yellow=True, sfx="sparkle")
 
 # End card
 c.broll(F + "7695A0AD.mp4", A, END, media_start=3.0, zoom=(1.0, 1.08))

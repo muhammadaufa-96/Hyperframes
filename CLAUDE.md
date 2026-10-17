@@ -1,5 +1,9 @@
 # HyperFrames Composition Project
 
+## Brand — READ BRAND.md FIRST
+
+**All content, scripts, captions and on-screen copy are for the bangfasz personal brand.** Read [`BRAND.md`](BRAND.md) before writing anything, and follow its rules: every video ends with a like/share/follow bangfasz CTA, no fake claims or testimonials, explain jargon for clinic/SME/home owners, and no CTA to enoxin.my until the site is fixed.
+
 ## Skills — USE THESE FIRST
 
 **Always invoke the relevant skill before writing or modifying compositions.** Skills encode framework-specific patterns (e.g., `window.__timelines` registration, `data-*` attribute semantics, shader-compatible CSS rules) that are NOT in generic web docs. Skipping them produces broken compositions.

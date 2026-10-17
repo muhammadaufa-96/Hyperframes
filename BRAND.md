@@ -20,7 +20,9 @@ Brand ini menyokong bisnes Enoxin.Fitout, tetapi content berdiri atas **kepakara
 
 ## Platform & matlamat
 - **Instagram:** @bangfasz
-- **TikTok:** bangfasz
+- **TikTok:** bangfasz (nama paparan: "Fasz pakar ckaps renovation")
+- **Follower semasa (17 Okt 2026):** IG ~2,000+, TikTok ~180
+- **Kapasiti rakaman:** 2–3 video seminggu. Setiap video dipost di **IG dan TikTok**.
 - **Matlamat:** **20,000 follower sebelum 1 Januari 2027** (ditetapkan pada 17 Okt 2026, jadi kira-kira 2.5 bulan)
 - **Format utama:** Reels / TikTok video pendek, menegak 9:16. Format ini lebih mudah berkembang berbanding post statik, sebab niche ini agak B2B.
 
@@ -50,6 +52,41 @@ Audiens **bukan** sesama kontraktor. Tulis untuk orang yang bijak tetapi bukan o
 4. Elak jargon tanpa penjelasan.
 5. Muka dan kepakaran Fasz di depan; Enoxin.Fitout sebagai bukti, bukan iklan.
 
+## Kisah Fasz (sumber content peribadi)
+- Masuk bidang renovasi sebab pengaruh family: abang-abang semua contractor.
+- Kenapa fokus klinik & CKAPS: seorang kawan doktor nak buka klinik tapi kena tipu dengan contractor yang buat kerja tak comply CKAPS, jadi dia rugi dan terpaksa reno semula. Fasz bantu betulkan, kemudian terus fokus pada klinik supaya doktor lain tak alami benda yang sama.
+- Pengajaran sebagai founder: urus projek dengan betul supaya masa dan kos tak lari; tak boleh buat semua benda sendiri, kena fokus dan beri kepercayaan kepada orang lain; dalam rezeki kita ada rezeki orang lain; kekal konsisten dan disiplin.
+
+## Bank fakta CKAPS (daripada Fasz, boleh guna dalam content)
+**Sebelum sign sewa premis klinik**
+- Keluasan premis: minimum sekurang-kurangnya 900 sqft.
+- Premis tingkat 1: laluan tangga atau lift mesti lebih 1.1 m.
+- PIC (person in charge): tak boleh sedang jadi PIC klinik lain, dan mesti cukup syarat jadi PIC.
+- Rancang tarikh mula operasi ikut anggaran bila dapat kelulusan, supaya tak bayar sewa bulan-bulan untuk klinik yang dah siap reno tapi belum boleh beroperasi.
+
+**Punca klinik siap reno tapi tak boleh buka**
+- Submission kepada CKAPS tergendala, contohnya tiba-tiba kena tukar PIC.
+- Layout yang dihantar tak ikut requirement CKAPS, contohnya ketinggian siling.
+- Laluan tangga tak cukup syarat.
+- Design tak mesra kebersihan pesakit, contohnya finishing dinding yang senang perangkap habuk. CKAPS tak benarkan design begitu di kawasan pesakit.
+- Kesan: tertangguh 8–12 bulan, kos reno semula, dan sewa dibayar walaupun tak boleh beroperasi.
+- Penyelesaian: back to basic. Ikut checklist CKAPS dari awal, selesaikan dokumentasi dulu, baru betulkan di site. Enoxin.Fitout jalankan kedua-duanya serentak sebab dah berpengalaman.
+
+**Borang A**
+- Doktor perlu isi sendiri. Isinya: apa yang klinik buat, bilangan bilik, servis, owner, PIC, alamat, dan lain-lain. Enoxin.Fitout bantu assist sebab doktor selalu sibuk.
+- Kontraktor terlibat dari peringkat awal sebab Borang A perlukan layout 2D dan artwork. Renovasi dibuat selepas itu.
+- Kesilapan biasa: alamat PIC tak lengkap atau belum dikemas kini; terlepas tempoh hantar borang akur janji selepas dapat surat tiada halangan untuk renovasi, jadi Borang A kena dihantar semula dan fee dibayar semula.
+
+**Beza ikut jenis klinik**
+- GP: kedudukan waiting area dan bilangan bilik yang diperlukan (ikut saiz klinik).
+- Pergigian: bilik sterilize dan casting, ada yang digabung dalam satu bilik, ada yang berasingan; bahagian casting perlukan double sink.
+- Estetik: perlu lesen LCP; satu PIC dibenarkan sehingga 4 treatment room.
+
+**Projek yang boleh ditunjuk** (dengan izin client): estetik di PJ (terbaru), pergigian di Kepong, GP di Ampang.
+
+## Content dalam repo
+- `content/bangfasz/batch-01-ckaps.md`: 8 skrip reel CKAPS + jadual 3 minggu
+
 ## Yang dah ada (di luar repo ini)
 - 10 skrip reel: tips design & build umum
 - 10 skrip reel: pakej SME Maintenance Subscription
@@ -61,5 +98,5 @@ Audiens **bukan** sesama kontraktor. Tulis untuk orang yang bijak tetapi bukan o
 - [x] Target follower & tempoh: 20K sebelum 2027
 - [x] Bahasa: santai macam borak dengan kawan
 - [ ] Tone muktamad (sekarang masih contoh)
-- [ ] Jumlah follower semasa (IG + TikTok)
-- [ ] Handle TikTok yang tepat
+- [x] Jumlah follower semasa: IG ~2,000+, TikTok ~180
+- [x] Handle TikTok: bangfasz

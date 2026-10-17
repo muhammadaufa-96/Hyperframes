@@ -1,0 +1,11 @@
+{"min_gap": 0.45, "pad": 0.1, "pieces": [
+ {"clip": "IMG_4924", "in": 2.1, "out": 16.6, "tag": "intro:me"},
+ {"clip": "IMG_4924", "in": 49.2, "out": 57.0, "drop": [[52.6, 54.15]], "tag": "waiting:me"},
+ {"clip": "IMG_4924", "in": 66.5, "out": 73.95, "tag": "waiting2:me"},
+ {"clip": "IMG_4924", "in": 74.0, "out": 90.2, "drop": [[76.3, 79.7]], "tag": "cabinet:me"},
+ {"clip": "IMG_4924", "in": 90.2, "out": 94.15, "tag": "doctor:me"},
+ {"clip": "IMG_4924", "in": 97.8, "out": 112.7, "tag": "utility:me"},
+ {"clip": "IMG_4924", "in": 116.1, "out": 121.45, "tag": "toilet:me"},
+ {"clip": "IMG_4945", "in": 0.0, "out": 23.85, "tag": "outside:me"},
+ {"clip": "IMG_4945", "in": 23.85, "out": 36.3, "tag": "cta:me"}
+]}

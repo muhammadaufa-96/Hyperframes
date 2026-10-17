@@ -23,7 +23,9 @@ Brand ini menyokong bisnes Enoxin.Fitout, tetapi content berdiri atas **kepakara
 - **TikTok:** bangfasz (nama paparan: "Fasz pakar ckaps renovation")
 - **Follower semasa (17 Okt 2026):** IG ~2,000+, TikTok ~180
 - **Kapasiti rakaman:** 2–3 video seminggu. Setiap video dipost di **IG dan TikTok**.
-- **Matlamat:** **20,000 follower sebelum 1 Januari 2027** (ditetapkan pada 17 Okt 2026, jadi kira-kira 2.5 bulan)
+- **Matlamat (IG + TikTok digabung):** **10,000 follower menjelang 31 Dis 2026** (stretch target, ditetapkan 17 Okt 2026). Paling kurang 5,000. 20K jadi matlamat jangka lebih panjang.
+- **Checkpoint:** 31 Okt: 3,000 · 15 Nov: 4,500 · 30 Nov: 6,000 · 15 Dis: 8,000 · 31 Dis: 10,000
+- **Semak semula** selepas 9 video pertama (kira-kira 3 minggu) guna data sebenar views & follow bagi setiap video.
 - **Format utama:** Reels / TikTok video pendek, menegak 9:16. Format ini lebih mudah berkembang berbanding post statik, sebab niche ini agak B2B.
 
 ## Audiens
@@ -95,7 +97,7 @@ Audiens **bukan** sesama kontraktor. Tulis untuk orang yang bijak tetapi bukan o
 - **Website enoxin.my** (dibuat oleh Cybercypher) masih ada content placeholder, termasuk **testimoni palsu** dan copy yang tak relevan. **Jangan arahkan traffic ke enoxin.my dalam CTA atau bio sehingga website itu dibetulkan.**
 
 ## Perlu disahkan oleh Fasz
-- [x] Target follower & tempoh: 20K sebelum 2027
+- [x] Target follower: 10K menjelang 31 Dis 2026 (stretch), minimum 5K
 - [x] Bahasa: santai macam borak dengan kawan
 - [ ] Tone muktamad (sekarang masih contoh)
 - [x] Jumlah follower semasa: IG ~2,000+, TikTok ~180

@@ -32,7 +32,7 @@ def src(clip):
 
 ranges = []  # (clip, a, b, tag, piece_index)
 for pi, p in enumerate(spec["pieces"]):
-    cuts = [(max(s + pad, p["in"]), min(e - pad, p["out"])) for s, e in silences(p["clip"])]
+    cuts = [] if p.get("keep_all") else [(max(s + pad, p["in"]), min(e - pad, p["out"])) for s, e in silences(p["clip"])]
     cuts = [(a, b) for a, b in cuts if b - a > 0.05]
     cuts += [tuple(d) for d in p.get("drop", [])]
     cuts.sort()

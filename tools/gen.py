@@ -302,7 +302,7 @@ class Comp:
         sid = self.uid("ss")
         hls = "".join(f'<div class="hl" id="{sid}h{i}" style="left:{x}px;top:{y}px;width:{w}px;height:{h}px"></div>' for i, (x, y, w, h, at) in enumerate(highlights))
         self.layers.append(f'<section id="{sid}" class="clip" data-start="{start:.3f}" data-duration="{dur:.3f}" data-track-index="7">'
-                           f'<div class="clip" style="background:rgba(10,11,13,0.72)" id="{sid}bg"></div>'
+                           f'<div class="clip" style="background:rgba(10,11,13,0.72);opacity:0" id="{sid}bg"></div>'
                            f'<div class="shot" id="{sid}b"><img src="{src}" alt="Feedback klien di WhatsApp">{hls}</div></section>')
         self.js.append(f'tl.fromTo("#{sid}bg", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.25 }}, {start:.3f});')
         self.js.append(f'tl.fromTo("#{sid}b", {{ y: 900 }}, {{ y: 0, duration: 0.5, ease: "power3.out" }}, {start:.3f});')

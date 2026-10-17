@@ -55,7 +55,7 @@ def v1():
     A = segs["duration"]; END = 3.6
     c = Comp("dc1-feedback", A + END)
     c.aroll(F + "aroll_dc1.mp4", [(0.0, A, 0.0)])
-    cl, me = (1.4, "84% 40%"), (1.3, "57% 40%")
+    cl, me = (1.45, "74% 40%"), (1.45, "34% 40%")
     origins = {k: cl for k in ("hook", "a1", "a1b", "a2", "a3", "a4")}
     origins.update({k: me for k in ("q1", "r1", "q2", "q3", "r4", "doa")})
     origins["cta"] = (1.0, "50% 50%")
@@ -171,7 +171,7 @@ def v3():
 
 
 TEASER = [  # (clip, media_start, beats)
-    ("greet", 2.0, 4),
+    ("greet", 0.0, 4),
     ("IMG_4948", 3.0, 2),
     ("IMG_4951", 3.5, 2),
     ("IMG_4949", 1.0, 2),

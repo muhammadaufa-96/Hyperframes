@@ -55,7 +55,7 @@ def v1():
     A = segs["duration"]; END = 3.6
     c = Comp("dc1-feedback", A + END)
     c.aroll(F + "aroll_dc1.mp4", [(0.0, A, 0.0)])
-    cl, me = (1.45, "74% 40%"), (1.45, "34% 40%")
+    cl, me = (1.35, "82% 40%"), (1.35, "48% 40%")
     origins = {k: cl for k in ("hook", "a1", "a1b", "a2", "a3", "a4")}
     origins.update({k: me for k in ("q1", "r1", "q2", "q3", "r4", "doa")})
     origins["cta"] = (1.0, "50% 50%")
@@ -63,13 +63,15 @@ def v1():
     c.shade(0, A + END)
 
     h0, h1 = tag_span(segs, "hook")
+    # camera was panned to the waiting area while he said this: show what he is praising
+    c.broll(F + "IMG_4944.mp4", h0, h1 - h0, media_start=0.2, zoom=(1.0, 1.1))
     c.hook(["Apa kata klien", "lepas klinik siap? 🏥"], 0.05, max(3.0, h1 + 0.6))
     a0, a1e = tag_span(segs, "a1")
     c.name("Dr. Rafhan", "Klinik Rasa Sihat", a0, 3.2)
     # quiet cutaways while the client praises the result
     c.broll(F + "IMG_4944.mp4", a1e - 1.8, 1.8, media_start=0.3, zoom=(1.0, 1.08))
     b0, b1 = tag_span(segs, "a2")
-    c.broll(F + "IMG_4940.mp4", b0 + 0.9, min(2.2, b1 - b0 - 0.9), media_start=0.3, zoom=(1.08, 1.0))
+    c.broll(F + "IMG_4940.mp4", b0, b1 - b0, media_start=0.3, zoom=(1.08, 1.0))
     l0, l1 = tag_span(segs, "a3")
     try:
         lj = find(words, "laju", l0)

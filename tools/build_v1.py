@@ -8,9 +8,9 @@ E = "/home/user/Hyperframes/raw/edit/"
 F = "../assets/footage/"
 segs = load_segs(E + "v1_segs.json")
 words = load_words(E + "v1_tx/transcript.json")
-for w in words:  # whisper slips checked by ear-context
-    if w[0].lower() == "kalau" and 30.8 < w[1] < 31.4: w[0] = "kali"
-    if w[0].lower() == "guna" and 52.5 < w[1] < 53.0: w[0] = "benda"
+for i, w in enumerate(words):  # whisper slips: "So kali ni" heard as "So kalau ni"
+    if w[0].lower() == "kalau" and 0 < i < len(words) - 1 and words[i - 1][0].lower() == "so" and words[i + 1][0].lower() == "ni":
+        w[0] = "kali"
 A = segs["duration"]
 END = 3.2
 c = Comp("v1-gucci", A + END)

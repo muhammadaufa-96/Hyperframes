@@ -1,0 +1,66 @@
+{
+ "min_gap": 0.35,
+ "pad": 0.1,
+ "pieces": [
+  {
+   "clip": "IMG_5105",
+   "in": 16.95,
+   "out": 26.95,
+   "tag": "hook"
+  },
+  {
+   "clip": "IMG_5105",
+   "in": 1.25,
+   "out": 16.95,
+   "tag": "setup"
+  },
+  {
+   "clip": "IMG_5105",
+   "in": 30.3,
+   "out": 45.35,
+   "drop": [
+    [
+     34.85,
+     37.2
+    ]
+   ],
+   "tag": "problem"
+  },
+  {
+   "clip": "IMG_5106",
+   "in": 0.6,
+   "out": 4.3,
+   "tag": "lostlaser"
+  },
+  {
+   "clip": "IMG_5105",
+   "in": 45.35,
+   "out": 51.65,
+   "tag": "upgrade"
+  },
+  {
+   "clip": "IMG_5106",
+   "in": 5.13,
+   "out": 11.25,
+   "tag": "bosch",
+   "drop": [
+    [
+     8.19,
+     9.3
+    ]
+   ]
+  },
+  {
+   "clip": "IMG_5107",
+   "in": 0.48,
+   "out": 12.45,
+   "tag": "types"
+  },
+  {
+   "clip": "IMG_5105",
+   "in": 51.65,
+   "out": 54.05,
+   "tag": "keep"
+  }
+ ]
+}

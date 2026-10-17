@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Video 2: Datin nak buat klinik 3 tingkat</title>
+    <script src="../assets/vendor/gsap.min.js"></script>
+    <style>
+@font-face { font-family: "Montserrat"; font-weight: 800; src: url("../assets/fonts/montserrat-latin-800-normal.woff2") format("woff2"); }
+@font-face { font-family: "Montserrat"; font-weight: 600; src: url("../assets/fonts/montserrat-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Share Tech Mono"; font-weight: 400; src: url("../assets/fonts/share-tech-mono-latin-400-normal.woff2") format("woff2"); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { margin: 0; overflow: hidden; background: #0d0f12; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Montserrat", sans-serif; color: #fff; background: #0d0f12; }
+.clip { position: absolute; inset: 0; }
+.cam { position: absolute; inset: 0; transform-origin: 50% 40%; }
+.cam video, .cam img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 28%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.45) 100%); }
+
+/* Hook title (top safe area) */
+.hook { position: absolute; left: 70px; right: 70px; top: 250px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.hook-line { display: block; background: #f5c22e; color: #15171a; font-weight: 800; font-size: 72px; line-height: 1.02; text-transform: uppercase; white-space: nowrap; padding: 10px 22px 12px; border-radius: 8px; }
+.hook-line.alt { background: #ffffff; }
+
+/* Kicker / info chips */
+.chip { position: absolute; display: flex; align-items: center; gap: 12px; background: rgba(15,17,20,0.82); color: #fff; font-weight: 800; font-size: 46px; text-transform: uppercase; padding: 14px 26px; border-radius: 999px; border: 3px solid #f5c22e; }
+.chip.yellow { background: #f5c22e; color: #15171a; border-color: #f5c22e; }
+
+/* Numbered checklist card */
+.card { position: absolute; left: 70px; right: 70px; top: 300px; display: flex; align-items: center; gap: 26px; background: rgba(15,17,20,0.86); border-radius: 22px; padding: 26px 30px; border-left: 14px solid #f5c22e; }
+.card-num { flex: none; width: 120px; height: 120px; border-radius: 50%; background: #f5c22e; color: #15171a; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 76px; }
+.card-text { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.card-title { font-weight: 800; font-size: 70px; line-height: 1; text-transform: uppercase; }
+.card-sub { font-weight: 600; font-size: 38px; line-height: 1.2; color: #d9dadc; }
+
+/* Captions */
+.cap { position: absolute; left: 60px; right: 60px; top: 1240px; text-align: center; font-weight: 800; font-size: 74px; line-height: 1.12; text-transform: uppercase; }
+.cap .w { display: inline-block; margin: 0 10px; color: #fff; text-shadow: 0 5px 0 rgba(0,0,0,0.6), 0 0 26px rgba(0,0,0,0.75); }
+
+/* Comparison */
+.vs { position: absolute; left: 60px; right: 60px; top: 300px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.vs-box { background: rgba(15,17,20,0.86); border-radius: 22px; padding: 26px 22px; display: flex; flex-direction: column; gap: 8px; align-items: center; text-align: center; border-top: 12px solid #f5c22e; }
+.vs-box b { font-size: 54px; font-weight: 800; line-height: 1.02; text-transform: uppercase; }
+.vs-box span { font-size: 34px; font-weight: 600; color: #d9dadc; }
+
+/* Strike words (Gucci / LV) */
+.strike { position: absolute; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 120px; text-transform: uppercase; color: #fff; }
+.strike i { position: absolute; left: -10%; right: -10%; top: 50%; height: 16px; margin-top: -8px; background: #ff3b3b; border-radius: 8px; transform-origin: left center; }
+
+/* End card */
+.end { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; background: rgba(10,11,13,0.72); padding: 0 80px; text-align: center; }
+.end-q { font-weight: 800; font-size: 96px; line-height: 1.05; text-transform: uppercase; }
+.end-q em { font-style: normal; color: #f5c22e; }
+.end-q .ln { display: block; }
+.end-sub { font-weight: 600; font-size: 46px; color: #e7e7e7; }
+.end-logo { width: 560px; }
+
+/* Arrow label (site callouts) */
+.tag { position: absolute; display: flex; align-items: center; gap: 14px; background: #ffffff; color: #15171a; font-weight: 800; font-size: 50px; text-transform: uppercase; padding: 14px 26px; border-radius: 14px; box-shadow: 0 12px 30px rgba(0,0,0,0.45); }
+.tag .ic { width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; color: #fff; background: #20b26b; }
+.tag .ic.warn { background: #ff8a00; }
+
+/* Laser block */
+.lz-bgwrap { position: absolute; inset: -60px; filter: blur(16px) brightness(0.42) saturate(1.1); }
+.lz-bgwrap video { width: 100%; height: 100%; object-fit: cover; }
+.lz-title { position: absolute; left: 80px; right: 80px; top: 300px; display: flex; flex-direction: column; gap: 18px; }
+.lz-kicker { align-self: flex-start; background: #f5c22e; color: #15171a; font-weight: 800; font-size: 40px; letter-spacing: 0.04em; padding: 10px 20px; border-radius: 6px; }
+.lz-main { font-weight: 800; font-size: 104px; line-height: 0.98; text-transform: uppercase; }
+.lz-wall { position: absolute; top: 760px; height: 560px; right: 0; width: 110px; background: linear-gradient(90deg, #8a8d91, #b9bcc0 40%, #9a9da1); }
+.lz-device { position: absolute; left: 70px; top: 950px; width: 400px; height: 190px; border-radius: 34px; background: linear-gradient(180deg, #2c5fa8 0%, #1d4380 100%); box-shadow: 0 30px 60px rgba(0,0,0,0.55), inset 0 2px 0 rgba(255,255,255,0.25); }
+.lz-grip { position: absolute; left: 0; top: 0; bottom: 0; width: 120px; border-radius: 34px 0 0 34px; background: #17191d; }
+.lz-screen { position: absolute; left: 140px; top: 34px; width: 200px; height: 122px; border-radius: 12px; background: #0f1a12; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; padding: 0 16px; font-family: "Share Tech Mono", monospace; color: #9dff9a; }
+.lz-glow { position: absolute; inset: 0; border-radius: 12px; background: rgba(157,255,154,0.18); }
+.lz-read { font-size: 52px; line-height: 1; position: relative; }
+.lz-unit { font-size: 24px; opacity: 0.8; position: relative; }
+.lz-emit { position: absolute; right: -10px; top: 70px; width: 26px; height: 50px; border-radius: 8px; background: #111; }
+.lz-beam { position: absolute; left: 486px; top: 1043px; width: 484px; height: 6px; background: #ff3b3b; box-shadow: 0 0 18px 4px rgba(255,40,40,0.55); transform-origin: left center; border-radius: 3px; }
+.lz-dot { position: absolute; left: 948px; top: 1024px; width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle, #fff 0 18%, #ff3b3b 30%, rgba(255,40,40,0) 70%); }
+.lz-dim { position: absolute; left: 486px; width: 484px; top: 1190px; height: 40px; }
+.lz-dline { position: absolute; left: 0; right: 0; top: 19px; height: 3px; background: #f5c22e; transform-origin: left center; }
+.lz-cap { position: absolute; top: 0; width: 3px; height: 40px; background: #f5c22e; }
+.lz-dlabel { position: absolute; left: 0; right: 0; top: 54px; text-align: center; font-family: "Share Tech Mono", monospace; font-size: 46px; color: #f5c22e; }
+.lz-badge { position: absolute; left: 70px; top: 1330px; display: flex; align-items: center; gap: 16px; background: #fff; color: #15171a; border-radius: 999px; padding: 16px 30px 16px 18px; font-weight: 800; font-size: 40px; }
+.lz-check { width: 54px; height: 54px; border-radius: 50%; background: #20b26b; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 34px; }
+</style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="v2-klinik" data-start="0" data-width="1080" data-height="1920" data-duration="87.706">
+      <div class="cam" id="acam"><video id="ar1" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="0.000" data-duration="3.150" data-media-start="0.000" data-track-index="0" data-volume="1"></video><video id="ar2" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="3.150" data-duration="9.234" data-media-start="3.150" data-track-index="0" data-volume="1"></video><video id="ar3" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="12.384" data-duration="0.783" data-media-start="12.384" data-track-index="0" data-volume="1"></video><video id="ar4" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="13.167" data-duration="3.719" data-media-start="13.167" data-track-index="0" data-volume="1"></video><video id="ar5" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="16.886" data-duration="10.486" data-media-start="16.886" data-track-index="0" data-volume="1"></video><video id="ar6" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="27.372" data-duration="1.463" data-media-start="27.372" data-track-index="0" data-volume="1"></video><video id="ar7" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="28.835" data-duration="1.820" data-media-start="28.835" data-track-index="0" data-volume="1"></video><video id="ar8" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="30.655" data-duration="1.250" data-media-start="30.655" data-track-index="0" data-volume="1"></video><video id="ar9" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="31.905" data-duration="2.013" data-media-start="31.905" data-track-index="0" data-volume="1"></video><video id="ar10" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="33.918" data-duration="3.930" data-media-start="33.918" data-track-index="0" data-volume="1"></video><video id="ar11" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="41.448" data-duration="9.200" data-media-start="37.848" data-track-index="0" data-volume="1"></video><video id="ar12" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="50.648" data-duration="10.050" data-media-start="47.048" data-track-index="0" data-volume="1"></video><video id="ar13" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="69.698" data-duration="2.600" data-media-start="57.098" data-track-index="0" data-volume="1"></video><video id="ar14" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="72.298" data-duration="0.568" data-media-start="59.698" data-track-index="0" data-volume="1"></video><video id="ar15" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="72.866" data-duration="0.668" data-media-start="60.266" data-track-index="0" data-volume="1"></video><video id="ar16" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="73.534" data-duration="1.302" data-media-start="60.934" data-track-index="0" data-volume="1"></video><video id="ar17" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="74.836" data-duration="0.893" data-media-start="62.236" data-track-index="0" data-volume="1"></video><video id="ar18" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="75.729" data-duration="3.914" data-media-start="63.129" data-track-index="0" data-volume="1"></video><video id="ar19" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="79.643" data-duration="3.214" data-media-start="67.043" data-track-index="0" data-volume="1"></video><video id="ar20" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="82.857" data-duration="0.476" data-media-start="70.257" data-track-index="0" data-volume="1"></video><video id="ar21" class="clip" src="../assets/footage/aroll_v2.mp4" playsinline data-has-audio="true" data-start="83.333" data-duration="1.373" data-media-start="70.733" data-track-index="0" data-volume="1"></video></div>
+      <div id="sh22" class="clip shade" data-start="0.000" data-duration="87.706" data-track-index="2"></div>
+      <section id="hk23" class="clip" data-start="0.050" data-duration="3.050" data-track-index="5"><div class="hook"><span class="hook-line" id="hk23l0">Datin nak buat</span><span class="hook-line alt" id="hk23l1">klinik 3 tingkat 🏥</span></div></section>
+      <audio id="sfx24" src="../assets/sfx/whoosh.mp3" data-start="0.050" data-track-index="9" data-volume="0.5"></audio>
+      <audio id="sfx25" src="../assets/sfx/impact-bass-1.mp3" data-start="0.170" data-track-index="9" data-volume="0.45"></audio>
+      <section id="ch26" class="clip" data-start="7.950" data-duration="2.400" data-track-index="6"><div class="chip" id="ch26b" style="left:70px;top:330px">Jerebu teruk 😷</div></section>
+      <audio id="sfx27" src="../assets/sfx/pop.mp3" data-start="7.950" data-track-index="9" data-volume="0.45"></audio>
+      <section id="ch28" class="clip" data-start="18.200" data-duration="2.200" data-track-index="6"><div class="chip yellow" id="ch28b" style="left:70px;top:330px">📍 Subang</div></section>
+      <audio id="sfx29" src="../assets/sfx/pop.mp3" data-start="18.200" data-track-index="9" data-volume="0.45"></audio>
+      <div class="cam" id="bw30" style="transform-origin:50% 50%"><video id="bv31" class="clip" src="../assets/footage/IMG_5111.mp4" muted playsinline data-start="24.160" data-duration="3.200" data-media-start="0.300" data-track-index="1"></video></div>
+      <section id="ch32" class="clip" data-start="24.760" data-duration="2.600" data-track-index="6"><div class="chip yellow" id="ch32b" style="left:70px;top:330px">Klinik · 3 tingkat</div></section>
+      <audio id="sfx33" src="../assets/sfx/pop.mp3" data-start="24.760" data-track-index="9" data-volume="0.45"></audio>
+      <section id="ch34" class="clip" data-start="30.655" data-duration="1.600" data-track-index="6"><div class="chip yellow" id="ch34b" style="left:70px;top:330px">Pit stop dulu 🔧</div></section>
+      <audio id="sfx35" src="../assets/sfx/pop.mp3" data-start="30.655" data-track-index="9" data-volume="0.45"></audio>
+      <div class="cam" id="bw36" style="transform-origin:50% 50%"><video id="bv37" class="clip" src="../assets/footage/IMG_5103.mp4" muted playsinline data-start="31.905" data-duration="1.189" data-media-start="0.500" data-track-index="1"></video></div>
+      <div class="cam" id="bw38" style="transform-origin:50% 50%"><video id="bv39" class="clip" src="../assets/footage/IMG_5104.mp4" muted playsinline data-start="33.094" data-duration="1.189" data-media-start="1.000" data-track-index="1"></video></div>
+      <audio id="sfx40" src="../assets/sfx/whoosh-short.mp3" data-start="33.094" data-track-index="9" data-volume="0.35"></audio>
+      <div class="cam" id="bw41" style="transform-origin:50% 50%"><video id="bv42" class="clip" src="../assets/footage/IMG_5105.mp4" muted playsinline data-start="34.282" data-duration="1.189" data-media-start="20.000" data-track-index="1"></video></div>
+      <audio id="sfx43" src="../assets/sfx/whoosh-short.mp3" data-start="34.282" data-track-index="9" data-volume="0.35"></audio>
+      <div class="cam" id="bw44" style="transform-origin:50% 50%"><video id="bv45" class="clip" src="../assets/footage/IMG_5107.mp4" muted playsinline data-start="35.471" data-duration="1.189" data-media-start="9.000" data-track-index="1"></video></div>
+      <audio id="sfx46" src="../assets/sfx/whoosh-short.mp3" data-start="35.471" data-track-index="9" data-volume="0.35"></audio>
+      <div class="cam" id="bw47" style="transform-origin:50% 50%"><video id="bv48" class="clip" src="../assets/footage/IMG_5108.mp4" muted playsinline data-start="36.659" data-duration="1.189" data-media-start="0.300" data-track-index="1"></video></div>
+      <audio id="sfx49" src="../assets/sfx/whoosh-short.mp3" data-start="36.659" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx50" src="../assets/sfx/chime.mp3" data-start="36.959" data-track-index="9" data-volume="0.35"></audio>
+      <div class="cam" id="bw51" style="transform-origin:50% 50%"><video id="bv52" class="clip" src="../assets/footage/IMG_5111.mp4" muted playsinline data-start="37.848" data-duration="2.200" data-media-start="4.500" data-track-index="1"></video></div>
+      <div class="cam" id="bw53" style="transform-origin:50% 50%"><video id="bv54" class="clip" src="../assets/footage/IMG_5118.mp4" muted playsinline data-start="40.048" data-duration="1.400" data-media-start="0.500" data-track-index="1"></video></div>
+      <section id="ch55" class="clip" data-start="37.948" data-duration="3.300" data-track-index="6"><div class="chip yellow" id="ch55b" style="left:70px;top:330px">Sampai site 📍</div></section>
+      <audio id="sfx56" src="../assets/sfx/whoosh.mp3" data-start="37.948" data-track-index="9" data-volume="0.45"></audio>
+      <section id="ch57" class="clip" data-start="41.648" data-duration="2.000" data-track-index="6"><div class="chip yellow" id="ch57b" style="left:70px;top:330px">Tingkat 1</div></section>
+      <audio id="sfx58" src="../assets/sfx/pop.mp3" data-start="41.648" data-track-index="9" data-volume="0.45"></audio>
+      <section id="tg59" class="clip" data-start="46.290" data-duration="2.000" data-track-index="6"><div class="tag" id="tg59b" style="left:70px;top:1480px"><span class="ic">✓</span>Ada lift</div></section>
+      <audio id="sfx60" src="../assets/sfx/ping.mp3" data-start="46.290" data-track-index="9" data-volume="0.4"></audio>
+      <div class="cam" id="iw61" style="transform-origin:50% 50%"><img id="im62" class="clip" src="../assets/footage/db_box.jpg" style="object-fit:cover;" alt="" data-start="48.890" data-duration="2.400" data-track-index="1"></div>
+      <section id="tg63" class="clip" data-start="49.090" data-duration="3.400" data-track-index="6"><div class="tag" id="tg63b" style="left:70px;top:1480px"><span class="ic warn">!</span>Wiring: full rewire</div></section>
+      <audio id="sfx64" src="../assets/sfx/ping.mp3" data-start="49.090" data-track-index="9" data-volume="0.4"></audio>
+      <section id="tg65" class="clip" data-start="54.270" data-duration="1.800" data-track-index="6"><div class="tag" id="tg65b" style="left:70px;top:1480px"><span class="ic">✓</span>Emergency exit</div></section>
+      <audio id="sfx66" src="../assets/sfx/ping.mp3" data-start="54.270" data-track-index="9" data-volume="0.4"></audio>
+      <section id="tg67" class="clip" data-start="57.560" data-duration="3.338" data-track-index="6"><div class="tag" id="tg67b" style="left:70px;top:1480px"><span class="ic">✓</span>2 toilet</div></section>
+      <audio id="sfx68" src="../assets/sfx/ping.mp3" data-start="57.560" data-track-index="9" data-volume="0.4"></audio>
+      <div class="cam" id="bw69" style="transform-origin:50% 50%"><video id="bv70" class="clip" src="../assets/footage/IMG_5128.mp4" muted playsinline data-start="60.698" data-duration="1.800" data-media-start="1.500" data-track-index="1"></video></div>
+      <div class="cam" id="bw71" style="transform-origin:50% 50%"><video id="bv72" class="clip" src="../assets/footage/IMG_5122.mp4" muted playsinline data-start="62.498" data-duration="2.200" data-media-start="14.000" data-track-index="1"></video></div>
+      <section id="ch73" class="clip" data-start="60.798" data-duration="3.800" data-track-index="6"><div class="chip yellow" id="ch73b" style="left:70px;top:330px">Tingkat 2 &amp; 3</div></section>
+      <audio id="sfx74" src="../assets/sfx/whoosh.mp3" data-start="60.798" data-track-index="9" data-volume="0.45"></audio>
+      <div class="cam" id="bw75" style="transform-origin:50% 50%"><video id="bv76" class="clip" src="../assets/footage/7695A0AD.mp4" muted playsinline data-start="64.698" data-duration="1.250" data-media-start="1.000" data-track-index="1"></video></div>
+      <audio id="sfx77" src="../assets/sfx/whoosh-short.mp3" data-start="64.698" data-track-index="9" data-volume="0.3"></audio>
+      <div class="cam" id="bw78" style="transform-origin:50% 50%"><video id="bv79" class="clip" src="../assets/footage/IMG_4940.mp4" muted playsinline data-start="65.948" data-duration="1.250" data-media-start="0.500" data-track-index="1"></video></div>
+      <audio id="sfx80" src="../assets/sfx/whoosh-short.mp3" data-start="65.948" data-track-index="9" data-volume="0.3"></audio>
+      <div class="cam" id="bw81" style="transform-origin:50% 50%"><video id="bv82" class="clip" src="../assets/footage/b6f67f16.mp4" muted playsinline data-start="67.198" data-duration="1.250" data-media-start="3.000" data-track-index="1"></video></div>
+      <audio id="sfx83" src="../assets/sfx/whoosh-short.mp3" data-start="67.198" data-track-index="9" data-volume="0.3"></audio>
+      <div class="cam" id="bw84" style="transform-origin:50% 50%"><video id="bv85" class="clip" src="../assets/footage/IMG_2531.mp4" muted playsinline data-start="68.448" data-duration="1.250" data-media-start="2.000" data-track-index="1"></video></div>
+      <audio id="sfx86" src="../assets/sfx/whoosh-short.mp3" data-start="68.448" data-track-index="9" data-volume="0.3"></audio>
+      <section id="ch87" class="clip" data-start="64.798" data-duration="4.800" data-track-index="6"><div class="chip yellow" id="ch87b" style="left:70px;top:330px">Contoh klinik yang kami siapkan ✨</div></section>
+      <audio id="sfx88" src="../assets/sfx/sparkle.mp3" data-start="64.798" data-track-index="9" data-volume="0.45"></audio>
+      <div class="cam" id="bw89" style="transform-origin:50% 50%"><video id="bv90" class="clip" src="../assets/footage/7695A0AD.mp4" muted playsinline data-start="84.706" data-duration="3.000" data-media-start="3.000" data-track-index="1"></video></div>
+      <section id="en91" class="clip" data-start="84.706" data-duration="3.000" data-track-index="7"><div class="end" id="en91b"><div class="end-q" id="en91q"><span class="ln">Nak renovate klinik?</span><em class="ln">DM aku</em></div><div class="end-sub" id="en91s">Follow untuk projek seterusnya</div></div></section>
+      <audio id="sfx92" src="../assets/sfx/chime.mp3" data-start="84.806" data-track-index="9" data-volume="0.4"></audio>
+      <section id="cp93" class="clip" data-start="0.000" data-duration="1.220" data-track-index="8"><div class="cap"><span class="w" id="cp93w0">Adik</span><span class="w" id="cp93w1">kena</span><span class="w" id="cp93w2">check</span></div></section>
+      <section id="cp94" class="clip" data-start="1.220" data-duration="0.800" data-track-index="8"><div class="cap"><span class="w" id="cp94w0">balik</span><span class="w" id="cp94w1">lah</span><span class="w" id="cp94w2">Kena</span></div></section>
+      <section id="cp95" class="clip" data-start="2.020" data-duration="0.740" data-track-index="8"><div class="cap"><span class="w" id="cp95w0">buat</span><span class="w" id="cp95w1">full</span><span class="w" id="cp95w2">wiring</span></div></section>
+      <section id="cp96" class="clip" data-start="2.760" data-duration="4.300" data-track-index="8"><div class="cap"><span class="w" id="cp96w0">Selamat</span><span class="w" id="cp96w1">pagi</span><span class="w" id="cp96w2">Guys</span></div></section>
+      <section id="cp97" class="clip" data-start="7.060" data-duration="2.620" data-track-index="8"><div class="cap"><span class="w" id="cp97w0">Dia</span><span class="w" id="cp97w1">jerebu</span><span class="w" id="cp97w2">makin</span></div></section>
+      <section id="cp98" class="clip" data-start="9.680" data-duration="2.020" data-track-index="8"><div class="cap"><span class="w" id="cp98w0">Luar</span><span class="w" id="cp98w1">biasa</span></div></section>
+      <section id="cp99" class="clip" data-start="11.700" data-duration="1.820" data-track-index="8"><div class="cap"><span class="w" id="cp99w0">Kau</span><span class="w" id="cp99w1">tengok</span><span class="w" id="cp99w2">Aku</span></div></section>
+      <section id="cp100" class="clip" data-start="13.520" data-duration="2.110" data-track-index="8"><div class="cap"><span class="w" id="cp100w0">tak</span><span class="w" id="cp100w1">tahulah</span><span class="w" id="cp100w2">Apa</span></div></section>
+      <section id="cp101" class="clip" data-start="15.630" data-duration="0.510" data-track-index="8"><div class="cap"><span class="w" id="cp101w0">nak</span><span class="w" id="cp101w1">jadi</span><span class="w" id="cp101w2">kat</span></div></section>
+      <section id="cp102" class="clip" data-start="16.140" data-duration="0.660" data-track-index="8"><div class="cap"><span class="w" id="cp102w0">Malaysia</span><span class="w" id="cp102w1">sekarang</span></div></section>
+      <section id="cp103" class="clip" data-start="16.800" data-duration="0.650" data-track-index="8"><div class="cap"><span class="w" id="cp103w0">ni</span><span class="w" id="cp103w1">Aku</span><span class="w" id="cp103w2">on the way</span></div></section>
+      <section id="cp104" class="clip" data-start="17.450" data-duration="0.750" data-track-index="8"><div class="cap"><span class="w" id="cp104w0">nak</span><span class="w" id="cp104w1">pergi</span><span class="w" id="cp104w2">ke</span></div></section>
+      <section id="cp105" class="clip" data-start="18.200" data-duration="1.400" data-track-index="8"><div class="cap"><span class="w" id="cp105w0">Subang</span><span class="w" id="cp105w1">Kita</span><span class="w" id="cp105w2">nak</span></div></section>
+      <section id="cp106" class="clip" data-start="19.600" data-duration="1.790" data-track-index="8"><div class="cap"><span class="w" id="cp106w0">tengok</span><span class="w" id="cp106w1">Buat</span><span class="w" id="cp106w2">klinik</span></div></section>
+      <section id="cp107" class="clip" data-start="21.390" data-duration="2.330" data-track-index="8"><div class="cap"><span class="w" id="cp107w0">Ada</span><span class="w" id="cp107w1">satu</span><span class="w" id="cp107w2">hamba</span></div></section>
+      <section id="cp108" class="clip" data-start="23.720" data-duration="1.300" data-track-index="8"><div class="cap"><span class="w" id="cp108w0">Allah</span><span class="w" id="cp108w1">ni</span><span class="w" id="cp108w2">Datin</span></div></section>
+      <section id="cp109" class="clip" data-start="25.020" data-duration="0.980" data-track-index="8"><div class="cap"><span class="w" id="cp109w0">Dan</span><span class="w" id="cp109w1">Datuk</span><span class="w" id="cp109w2">ni</span></div></section>
+      <section id="cp110" class="clip" data-start="26.000" data-duration="0.440" data-track-index="8"><div class="cap"><span class="w" id="cp110w0">Dia</span><span class="w" id="cp110w1">nak</span><span class="w" id="cp110w2">buat</span></div></section>
+      <section id="cp111" class="clip" data-start="26.440" data-duration="0.490" data-track-index="8"><div class="cap"><span class="w" id="cp111w0">klinik</span><span class="w" id="cp111w1">Tiga</span></div></section>
+      <section id="cp112" class="clip" data-start="26.930" data-duration="0.690" data-track-index="8"><div class="cap"><span class="w" id="cp112w0">tingkat</span><span class="w" id="cp112w1">Dekat</span></div></section>
+      <section id="cp113" class="clip" data-start="27.620" data-duration="0.660" data-track-index="8"><div class="cap"><span class="w" id="cp113w0">Subang</span><span class="w" id="cp113w1">So</span><span class="w" id="cp113w2">kita</span></div></section>
+      <section id="cp114" class="clip" data-start="28.280" data-duration="0.600" data-track-index="8"><div class="cap"><span class="w" id="cp114w0">nak</span><span class="w" id="cp114w1">tengok</span><span class="w" id="cp114w2">lah</span></div></section>
+      <section id="cp115" class="clip" data-start="28.880" data-duration="0.740" data-track-index="8"><div class="cap"><span class="w" id="cp115w0">Tapi</span><span class="w" id="cp115w1">sebelum</span><span class="w" id="cp115w2">tau</span></div></section>
+      <section id="cp116" class="clip" data-start="29.620" data-duration="0.340" data-track-index="8"><div class="cap"><span class="w" id="cp116w0">aku</span><span class="w" id="cp116w1">singgah</span></div></section>
+      <section id="cp117" class="clip" data-start="29.960" data-duration="0.440" data-track-index="8"><div class="cap"><span class="w" id="cp117w0">on the way</span><span class="w" id="cp117w1">je</span><span class="w" id="cp117w2">Nak</span></div></section>
+      <section id="cp118" class="clip" data-start="30.400" data-duration="1.240" data-track-index="8"><div class="cap"><span class="w" id="cp118w0">beli</span><span class="w" id="cp118w1">barang</span><span class="w" id="cp118w2">Jom</span></div></section>
+      <section id="cp119" class="clip" data-start="31.640" data-duration="0.610" data-track-index="8"><div class="cap"><span class="w" id="cp119w0">let&#x27;s</span><span class="w" id="cp119w1">go</span><span class="w" id="cp119w2">So</span></div></section>
+      <section id="cp120" class="clip" data-start="32.250" data-duration="1.220" data-track-index="8"><div class="cap"><span class="w" id="cp120w0">kali</span><span class="w" id="cp120w1">ni</span><span class="w" id="cp120w2">aku</span></div></section>
+      <section id="cp121" class="clip" data-start="33.470" data-duration="1.910" data-track-index="8"><div class="cap"><span class="w" id="cp121w0">nak</span><span class="w" id="cp121w1">Upgrade</span><span class="w" id="cp121w2">sikit</span></div></section>
+      <section id="cp122" class="clip" data-start="35.380" data-duration="0.430" data-track-index="8"><div class="cap"><span class="w" id="cp122w0">Aku</span><span class="w" id="cp122w1">nak</span><span class="w" id="cp122w2">beli</span></div></section>
+      <section id="cp123" class="clip" data-start="35.810" data-duration="0.710" data-track-index="8"><div class="cap"><span class="w" id="cp123w0">yang</span><span class="w" id="cp123w1">laser</span><span class="w" id="cp123w2">Yang</span></div></section>
+      <section id="cp124" class="clip" data-start="36.520" data-duration="1.080" data-track-index="8"><div class="cap"><span class="w" id="cp124w0">brand</span><span class="w" id="cp124w1">lebih</span><span class="w" id="cp124w2">elok</span></div></section>
+      <section id="cp125" class="clip" data-start="37.600" data-duration="0.900" data-track-index="8"><div class="cap"><span class="w" id="cp125w0">sikit</span><span class="w" id="cp125w1">lah</span></div></section>
+      <section id="cp126" class="clip" data-start="41.620" data-duration="2.160" data-track-index="8"><div class="cap"><span class="w" id="cp126w0">Okay</span><span class="w" id="cp126w1">so</span><span class="w" id="cp126w2">ini</span></div></section>
+      <section id="cp127" class="clip" data-start="43.780" data-duration="1.780" data-track-index="8"><div class="cap"><span class="w" id="cp127w0">tingkat</span><span class="w" id="cp127w1">satu</span><span class="w" id="cp127w2">Kan</span></div></section>
+      <section id="cp128" class="clip" data-start="45.560" data-duration="3.330" data-track-index="8"><div class="cap"><span class="w" id="cp128w0">ada</span><span class="w" id="cp128w1">lift</span><span class="w" id="cp128w2">Basically</span></div></section>
+      <section id="cp129" class="clip" data-start="48.890" data-duration="2.110" data-track-index="8"><div class="cap"><span class="w" id="cp129w0">wiring</span><span class="w" id="cp129w1">dia</span><span class="w" id="cp129w2">semua</span></div></section>
+      <section id="cp130" class="clip" data-start="51.000" data-duration="1.070" data-track-index="8"><div class="cap"><span class="w" id="cp130w0">Adik</span><span class="w" id="cp130w1">kena</span><span class="w" id="cp130w2">check</span></div></section>
+      <section id="cp131" class="clip" data-start="52.070" data-duration="0.750" data-track-index="8"><div class="cap"><span class="w" id="cp131w0">balik</span><span class="w" id="cp131w1">lah</span><span class="w" id="cp131w2">Kena</span></div></section>
+      <section id="cp132" class="clip" data-start="52.820" data-duration="0.760" data-track-index="8"><div class="cap"><span class="w" id="cp132w0">buat</span><span class="w" id="cp132w1">full</span><span class="w" id="cp132w2">wiring</span></div></section>
+      <section id="cp133" class="clip" data-start="53.580" data-duration="1.770" data-track-index="8"><div class="cap"><span class="w" id="cp133w0">kat</span><span class="w" id="cp133w1">sini</span><span class="w" id="cp133w2">Emergency</span></div></section>
+      <section id="cp134" class="clip" data-start="55.350" data-duration="1.780" data-track-index="8"><div class="cap"><span class="w" id="cp134w0">exit</span><span class="w" id="cp134w1">So</span><span class="w" id="cp134w2">this</span></div></section>
+      <section id="cp135" class="clip" data-start="57.130" data-duration="2.140" data-track-index="8"><div class="cap"><span class="w" id="cp135w0">is</span><span class="w" id="cp135w1">toilet</span><span class="w" id="cp135w2">There</span></div></section>
+      <section id="cp136" class="clip" data-start="59.270" data-duration="0.890" data-track-index="8"><div class="cap"><span class="w" id="cp136w0">is</span><span class="w" id="cp136w1">two</span><span class="w" id="cp136w2">toilet</span></div></section>
+      <section id="cp137" class="clip" data-start="60.160" data-duration="0.360" data-track-index="8"><div class="cap"><span class="w" id="cp137w0">here</span></div></section>
+      <section id="cp138" class="clip" data-start="60.520" data-duration="1.380" data-track-index="8"><div class="cap"><span class="w" id="cp138w0">Alhamdulillah</span></div></section>
+      <section id="cp139" class="clip" data-start="70.400" data-duration="1.320" data-track-index="8"><div class="cap"><span class="w" id="cp139w0">Selesai</span><span class="w" id="cp139w1">urusan</span></div></section>
+      <section id="cp140" class="clip" data-start="71.720" data-duration="0.660" data-track-index="8"><div class="cap"><span class="w" id="cp140w0">kita</span><span class="w" id="cp140w1">pada</span><span class="w" id="cp140w2">hari</span></div></section>
+      <section id="cp141" class="clip" data-start="72.380" data-duration="1.000" data-track-index="8"><div class="cap"><span class="w" id="cp141w0">ni</span><span class="w" id="cp141w1">Tengok</span><span class="w" id="cp141w2">ni</span></div></section>
+      <section id="cp142" class="clip" data-start="73.380" data-duration="1.220" data-track-index="8"><div class="cap"><span class="w" id="cp142w0">guys</span><span class="w" id="cp142w1">jerebu</span><span class="w" id="cp142w2">teruk</span></div></section>
+      <section id="cp143" class="clip" data-start="74.600" data-duration="1.040" data-track-index="8"><div class="cap"><span class="w" id="cp143w0">babe</span><span class="w" id="cp143w1">Dengan</span><span class="w" id="cp143w2">jam</span></div></section>
+      <section id="cp144" class="clip" data-start="75.640" data-duration="1.620" data-track-index="8"><div class="cap"><span class="w" id="cp144w0">ni</span><span class="w" id="cp144w1">Okay</span><span class="w" id="cp144w2">nantikan</span></div></section>
+      <section id="cp145" class="clip" data-start="77.260" data-duration="0.730" data-track-index="8"><div class="cap"><span class="w" id="cp145w0">video</span><span class="w" id="cp145w1">yang</span></div></section>
+      <section id="cp146" class="clip" data-start="77.990" data-duration="1.330" data-track-index="8"><div class="cap"><span class="w" id="cp146w0">seterusnya</span><span class="w" id="cp146w1">Stay</span></div></section>
+      <section id="cp147" class="clip" data-start="79.320" data-duration="1.240" data-track-index="8"><div class="cap"><span class="w" id="cp147w0">safe</span><span class="w" id="cp147w1">Okay</span><span class="w" id="cp147w2">jangan</span></div></section>
+      <section id="cp148" class="clip" data-start="80.560" data-duration="0.760" data-track-index="8"><div class="cap"><span class="w" id="cp148w0">lupa</span><span class="w" id="cp148w1">pakai</span><span class="w" id="cp148w2">mask</span></div></section>
+      <section id="cp149" class="clip" data-start="81.320" data-duration="1.270" data-track-index="8"><div class="cap"><span class="w" id="cp149w0">Jaga</span><span class="w" id="cp149w1">kesihatan</span></div></section>
+      <section id="cp150" class="clip" data-start="82.590" data-duration="0.990" data-track-index="8"><div class="cap"><span class="w" id="cp150w0">elok</span><span class="w" id="cp150w1">See</span><span class="w" id="cp150w2">you</span></div></section>
+      <section id="cp151" class="clip" data-start="83.580" data-duration="0.420" data-track-index="8"><div class="cap"><span class="w" id="cp151w0">In</span><span class="w" id="cp151w1">the</span><span class="w" id="cp151w2">next</span></div></section>
+      <section id="cp152" class="clip" data-start="84.000" data-duration="0.260" data-track-index="8"><div class="cap"><span class="w" id="cp152w0">video</span></div></section>
+      <section id="cp153" class="clip" data-start="84.260" data-duration="0.446" data-track-index="8"><div class="cap"><span class="w" id="cp153w0">Assalamualaikum</span></div></section>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.set("#acam", { scale: 1.0 }, 0.000);
+      tl.set("#acam", { scale: 1.0 }, 3.150);
+      tl.set("#acam", { scale: 1.12 }, 12.384);
+      tl.set("#acam", { scale: 1.0 }, 13.167);
+      tl.set("#acam", { scale: 1.12 }, 16.886);
+      tl.set("#acam", { scale: 1.0 }, 27.372);
+      tl.set("#acam", { scale: 1.12 }, 28.835);
+      tl.set("#acam", { scale: 1.0 }, 30.655);
+      tl.set("#acam", { scale: 1.0 }, 31.905);
+      tl.set("#acam", { scale: 1.12 }, 33.918);
+      tl.set("#acam", { scale: 1.0 }, 41.448);
+      tl.set("#acam", { scale: 1.12 }, 50.648);
+      tl.set("#acam", { scale: 1.0 }, 69.698);
+      tl.set("#acam", { scale: 1.12 }, 72.298);
+      tl.set("#acam", { scale: 1.0 }, 72.866);
+      tl.set("#acam", { scale: 1.12 }, 73.534);
+      tl.set("#acam", { scale: 1.0 }, 74.836);
+      tl.set("#acam", { scale: 1.12 }, 75.729);
+      tl.set("#acam", { scale: 1.0 }, 79.643);
+      tl.set("#acam", { scale: 1.12 }, 82.857);
+      tl.set("#acam", { scale: 1.0 }, 83.333);
+      tl.fromTo("#hk23l0", { x: -80, opacity: 0, rotation: -3 }, { x: 0, opacity: 1, rotation: 0, duration: 0.35, ease: "back.out(2)" }, 0.100);
+      tl.to("#hk23l0", { x: 60, opacity: 0, duration: 0.25, ease: "power2.in" }, 2.800);
+      tl.fromTo("#hk23l1", { x: -80, opacity: 0, rotation: -3 }, { x: 0, opacity: 1, rotation: 0, duration: 0.35, ease: "back.out(2)" }, 0.220);
+      tl.to("#hk23l1", { x: 60, opacity: 0, duration: 0.25, ease: "power2.in" }, 2.800);
+      tl.fromTo("#ch26b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 7.950);
+      tl.to("#ch26b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 10.130);
+      tl.fromTo("#ch28b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 18.200);
+      tl.to("#ch28b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 20.180);
+      tl.fromTo("#bw30", { scale: 1.12 }, { scale: 1.0, duration: 3.200, ease: "none" }, 24.160);
+      tl.fromTo("#ch32b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 24.760);
+      tl.to("#ch32b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 27.140);
+      tl.fromTo("#ch34b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 30.655);
+      tl.to("#ch34b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 32.035);
+      tl.fromTo("#bw36", { scale: 1.0 }, { scale: 1.1, duration: 1.189, ease: "none" }, 31.905);
+      tl.fromTo("#bw38", { scale: 1.0 }, { scale: 1.1, duration: 1.189, ease: "none" }, 33.094);
+      tl.fromTo("#bw41", { scale: 1.0 }, { scale: 1.1, duration: 1.189, ease: "none" }, 34.282);
+      tl.fromTo("#bw44", { scale: 1.0 }, { scale: 1.1, duration: 1.189, ease: "none" }, 35.471);
+      tl.fromTo("#bw47", { scale: 1.0 }, { scale: 1.1, duration: 1.189, ease: "none" }, 36.659);
+      tl.fromTo("#bw51", { scale: 1.0 }, { scale: 1.08, duration: 2.200, ease: "none" }, 37.848);
+      tl.fromTo("#bw53", { scale: 1.0 }, { scale: 1.08, duration: 1.400, ease: "none" }, 40.048);
+      tl.fromTo("#ch55b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 37.948);
+      tl.to("#ch55b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 41.028);
+      tl.fromTo("#ch57b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 41.648);
+      tl.to("#ch57b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 43.428);
+      tl.fromTo("#tg59b", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 46.290);
+      tl.to("#tg59b", { y: -20, opacity: 0, duration: 0.2 }, 48.070);
+      tl.fromTo("#iw61", { scale: 1.0 }, { scale: 1.12, duration: 2.400, ease: "none" }, 48.890);
+      tl.fromTo("#tg63b", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 49.090);
+      tl.to("#tg63b", { y: -20, opacity: 0, duration: 0.2 }, 52.270);
+      tl.fromTo("#tg65b", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 54.270);
+      tl.to("#tg65b", { y: -20, opacity: 0, duration: 0.2 }, 55.850);
+      tl.fromTo("#tg67b", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 57.560);
+      tl.to("#tg67b", { y: -20, opacity: 0, duration: 0.2 }, 60.678);
+      tl.fromTo("#bw69", { scale: 1.0 }, { scale: 1.08, duration: 1.800, ease: "none" }, 60.698);
+      tl.fromTo("#bw71", { scale: 1.0 }, { scale: 1.1, duration: 2.200, ease: "none" }, 62.498);
+      tl.fromTo("#ch73b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 60.798);
+      tl.to("#ch73b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 64.378);
+      tl.fromTo("#bw75", { scale: 1.08 }, { scale: 1.0, duration: 1.250, ease: "none" }, 64.698);
+      tl.fromTo("#bw78", { scale: 1.08 }, { scale: 1.0, duration: 1.250, ease: "none" }, 65.948);
+      tl.fromTo("#bw81", { scale: 1.08 }, { scale: 1.0, duration: 1.250, ease: "none" }, 67.198);
+      tl.fromTo("#bw84", { scale: 1.08 }, { scale: 1.0, duration: 1.250, ease: "none" }, 68.448);
+      tl.fromTo("#ch87b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 64.798);
+      tl.to("#ch87b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 69.378);
+      tl.fromTo("#bw89", { scale: 1.0 }, { scale: 1.08, duration: 3.000, ease: "none" }, 84.706);
+      tl.fromTo("#en91b", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 84.706);
+      tl.fromTo("#en91q", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "back.out(1.8)" }, 84.806);
+      tl.fromTo("#en91s", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35 }, 85.156);
+      tl.fromTo("#cp93 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 0.000);
+      tl.fromTo("#cp93w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 0.000);
+      tl.to("#cp93w0", { color: "#ffffff", duration: 0.04 }, 0.380);
+      tl.fromTo("#cp93w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 0.380);
+      tl.to("#cp93w1", { color: "#ffffff", duration: 0.04 }, 0.750);
+      tl.fromTo("#cp93w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 0.750);
+      tl.fromTo("#cp94 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 1.220);
+      tl.fromTo("#cp94w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 1.220);
+      tl.to("#cp94w0", { color: "#ffffff", duration: 0.04 }, 1.720);
+      tl.fromTo("#cp94w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 1.720);
+      tl.to("#cp94w1", { color: "#ffffff", duration: 0.04 }, 1.820);
+      tl.fromTo("#cp94w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 1.820);
+      tl.fromTo("#cp95 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 2.020);
+      tl.fromTo("#cp95w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 2.020);
+      tl.to("#cp95w0", { color: "#ffffff", duration: 0.04 }, 2.220);
+      tl.fromTo("#cp95w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 2.220);
+      tl.to("#cp95w1", { color: "#ffffff", duration: 0.04 }, 2.420);
+      tl.fromTo("#cp95w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 2.420);
+      tl.fromTo("#cp96 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 2.760);
+      tl.fromTo("#cp96w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 2.760);
+      tl.to("#cp96w0", { color: "#ffffff", duration: 0.04 }, 4.370);
+      tl.fromTo("#cp96w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 4.370);
+      tl.to("#cp96w1", { color: "#ffffff", duration: 0.04 }, 5.320);
+      tl.fromTo("#cp96w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 5.320);
+      tl.fromTo("#cp97 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 7.060);
+      tl.fromTo("#cp97w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 7.060);
+      tl.to("#cp97w0", { color: "#ffffff", duration: 0.04 }, 7.950);
+      tl.fromTo("#cp97w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 7.950);
+      tl.to("#cp97w1", { color: "#ffffff", duration: 0.04 }, 9.140);
+      tl.fromTo("#cp97w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 9.140);
+      tl.fromTo("#cp98 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 9.680);
+      tl.fromTo("#cp98w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 9.680);
+      tl.to("#cp98w0", { color: "#ffffff", duration: 0.04 }, 10.360);
+      tl.fromTo("#cp98w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 10.360);
+      tl.fromTo("#cp99 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 11.700);
+      tl.fromTo("#cp99w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 11.700);
+      tl.to("#cp99w0", { color: "#ffffff", duration: 0.04 }, 12.100);
+      tl.fromTo("#cp99w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 12.100);
+      tl.to("#cp99w1", { color: "#ffffff", duration: 0.04 }, 12.920);
+      tl.fromTo("#cp99w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 12.920);
+      tl.fromTo("#cp100 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 13.520);
+      tl.fromTo("#cp100w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 13.520);
+      tl.to("#cp100w0", { color: "#ffffff", duration: 0.04 }, 14.080);
+      tl.fromTo("#cp100w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 14.080);
+      tl.to("#cp100w1", { color: "#ffffff", duration: 0.04 }, 15.460);
+      tl.fromTo("#cp100w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 15.460);
+      tl.fromTo("#cp101 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 15.630);
+      tl.fromTo("#cp101w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 15.630);
+      tl.to("#cp101w0", { color: "#ffffff", duration: 0.04 }, 15.800);
+      tl.fromTo("#cp101w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 15.800);
+      tl.to("#cp101w1", { color: "#ffffff", duration: 0.04 }, 16.040);
+      tl.fromTo("#cp101w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 16.040);
+      tl.fromTo("#cp102 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 16.140);
+      tl.fromTo("#cp102w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 16.140);
+      tl.to("#cp102w0", { color: "#ffffff", duration: 0.04 }, 16.440);
+      tl.fromTo("#cp102w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 16.440);
+      tl.fromTo("#cp103 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 16.800);
+      tl.fromTo("#cp103w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 16.800);
+      tl.to("#cp103w0", { color: "#ffffff", duration: 0.04 }, 16.940);
+      tl.fromTo("#cp103w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 16.940);
+      tl.to("#cp103w1", { color: "#ffffff", duration: 0.04 }, 17.080);
+      tl.fromTo("#cp103w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 17.080);
+      tl.fromTo("#cp104 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 17.450);
+      tl.fromTo("#cp104w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 17.450);
+      tl.to("#cp104w0", { color: "#ffffff", duration: 0.04 }, 17.590);
+      tl.fromTo("#cp104w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 17.590);
+      tl.to("#cp104w1", { color: "#ffffff", duration: 0.04 }, 17.840);
+      tl.fromTo("#cp104w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 17.840);
+      tl.fromTo("#cp105 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 18.200);
+      tl.fromTo("#cp105w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 18.200);
+      tl.to("#cp105w0", { color: "#ffffff", duration: 0.04 }, 18.720);
+      tl.fromTo("#cp105w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 18.720);
+      tl.to("#cp105w1", { color: "#ffffff", duration: 0.04 }, 19.220);
+      tl.fromTo("#cp105w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 19.220);
+      tl.fromTo("#cp106 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 19.600);
+      tl.fromTo("#cp106w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 19.600);
+      tl.to("#cp106w0", { color: "#ffffff", duration: 0.04 }, 20.360);
+      tl.fromTo("#cp106w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 20.360);
+      tl.to("#cp106w1", { color: "#ffffff", duration: 0.04 }, 20.760);
+      tl.fromTo("#cp106w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 20.760);
+      tl.fromTo("#cp107 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 21.390);
+      tl.fromTo("#cp107w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 21.390);
+      tl.to("#cp107w0", { color: "#ffffff", duration: 0.04 }, 22.450);
+      tl.fromTo("#cp107w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 22.450);
+      tl.to("#cp107w1", { color: "#ffffff", duration: 0.04 }, 23.420);
+      tl.fromTo("#cp107w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 23.420);
+      tl.fromTo("#cp108 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 23.720);
+      tl.fromTo("#cp108w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 23.720);
+      tl.to("#cp108w0", { color: "#ffffff", duration: 0.04 }, 24.020);
+      tl.fromTo("#cp108w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 24.020);
+      tl.to("#cp108w1", { color: "#ffffff", duration: 0.04 }, 24.160);
+      tl.fromTo("#cp108w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 24.160);
+      tl.fromTo("#cp109 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 25.020);
+      tl.fromTo("#cp109w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 25.020);
+      tl.to("#cp109w0", { color: "#ffffff", duration: 0.04 }, 25.310);
+      tl.fromTo("#cp109w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 25.310);
+      tl.to("#cp109w1", { color: "#ffffff", duration: 0.04 }, 25.790);
+      tl.fromTo("#cp109w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 25.790);
+      tl.fromTo("#cp110 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 26.000);
+      tl.fromTo("#cp110w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 26.000);
+      tl.to("#cp110w0", { color: "#ffffff", duration: 0.04 }, 26.130);
+      tl.fromTo("#cp110w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 26.130);
+      tl.to("#cp110w1", { color: "#ffffff", duration: 0.04 }, 26.260);
+      tl.fromTo("#cp110w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 26.260);
+      tl.fromTo("#cp111 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 26.440);
+      tl.fromTo("#cp111w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 26.440);
+      tl.to("#cp111w0", { color: "#ffffff", duration: 0.04 }, 26.720);
+      tl.fromTo("#cp111w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 26.720);
+      tl.fromTo("#cp112 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 26.930);
+      tl.fromTo("#cp112w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 26.930);
+      tl.to("#cp112w0", { color: "#ffffff", duration: 0.04 }, 27.340);
+      tl.fromTo("#cp112w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 27.340);
+      tl.fromTo("#cp113 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 27.620);
+      tl.fromTo("#cp113w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 27.620);
+      tl.to("#cp113w0", { color: "#ffffff", duration: 0.04 }, 28.000);
+      tl.fromTo("#cp113w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 28.000);
+      tl.to("#cp113w1", { color: "#ffffff", duration: 0.04 }, 28.090);
+      tl.fromTo("#cp113w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 28.090);
+      tl.fromTo("#cp114 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 28.280);
+      tl.fromTo("#cp114w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 28.280);
+      tl.to("#cp114w0", { color: "#ffffff", duration: 0.04 }, 28.420);
+      tl.fromTo("#cp114w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 28.420);
+      tl.to("#cp114w1", { color: "#ffffff", duration: 0.04 }, 28.700);
+      tl.fromTo("#cp114w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 28.700);
+      tl.fromTo("#cp115 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 28.880);
+      tl.fromTo("#cp115w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 28.880);
+      tl.to("#cp115w0", { color: "#ffffff", duration: 0.04 }, 29.090);
+      tl.fromTo("#cp115w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 29.090);
+      tl.to("#cp115w1", { color: "#ffffff", duration: 0.04 }, 29.450);
+      tl.fromTo("#cp115w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 29.450);
+      tl.fromTo("#cp116 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 29.620);
+      tl.fromTo("#cp116w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 29.620);
+      tl.to("#cp116w0", { color: "#ffffff", duration: 0.04 }, 29.730);
+      tl.fromTo("#cp116w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 29.730);
+      tl.fromTo("#cp117 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 29.960);
+      tl.fromTo("#cp117w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 29.960);
+      tl.to("#cp117w0", { color: "#ffffff", duration: 0.04 }, 30.180);
+      tl.fromTo("#cp117w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 30.180);
+      tl.to("#cp117w1", { color: "#ffffff", duration: 0.04 }, 30.280);
+      tl.fromTo("#cp117w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 30.280);
+      tl.fromTo("#cp118 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 30.400);
+      tl.fromTo("#cp118w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 30.400);
+      tl.to("#cp118w0", { color: "#ffffff", duration: 0.04 }, 30.560);
+      tl.fromTo("#cp118w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 30.560);
+      tl.to("#cp118w1", { color: "#ffffff", duration: 0.04 }, 30.820);
+      tl.fromTo("#cp118w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 30.820);
+      tl.fromTo("#cp119 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 31.640);
+      tl.fromTo("#cp119w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 31.640);
+      tl.to("#cp119w0", { color: "#ffffff", duration: 0.04 }, 31.880);
+      tl.fromTo("#cp119w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 31.880);
+      tl.to("#cp119w1", { color: "#ffffff", duration: 0.04 }, 31.980);
+      tl.fromTo("#cp119w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 31.980);
+      tl.fromTo("#cp120 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 32.250);
+      tl.fromTo("#cp120w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 32.250);
+      tl.to("#cp120w0", { color: "#ffffff", duration: 0.04 }, 32.800);
+      tl.fromTo("#cp120w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 32.800);
+      tl.to("#cp120w1", { color: "#ffffff", duration: 0.04 }, 33.060);
+      tl.fromTo("#cp120w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 33.060);
+      tl.fromTo("#cp121 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 33.470);
+      tl.fromTo("#cp121w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 33.470);
+      tl.to("#cp121w0", { color: "#ffffff", duration: 0.04 }, 33.900);
+      tl.fromTo("#cp121w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 33.900);
+      tl.to("#cp121w1", { color: "#ffffff", duration: 0.04 }, 34.750);
+      tl.fromTo("#cp121w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 34.750);
+      tl.fromTo("#cp122 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 35.380);
+      tl.fromTo("#cp122w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 35.380);
+      tl.to("#cp122w0", { color: "#ffffff", duration: 0.04 }, 35.510);
+      tl.fromTo("#cp122w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 35.510);
+      tl.to("#cp122w1", { color: "#ffffff", duration: 0.04 }, 35.640);
+      tl.fromTo("#cp122w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 35.640);
+      tl.fromTo("#cp123 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 35.810);
+      tl.fromTo("#cp123w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 35.810);
+      tl.to("#cp123w0", { color: "#ffffff", duration: 0.04 }, 35.980);
+      tl.fromTo("#cp123w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 35.980);
+      tl.to("#cp123w1", { color: "#ffffff", duration: 0.04 }, 36.220);
+      tl.fromTo("#cp123w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 36.220);
+      tl.fromTo("#cp124 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 36.520);
+      tl.fromTo("#cp124w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 36.520);
+      tl.to("#cp124w0", { color: "#ffffff", duration: 0.04 }, 36.900);
+      tl.fromTo("#cp124w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 36.900);
+      tl.to("#cp124w1", { color: "#ffffff", duration: 0.04 }, 37.290);
+      tl.fromTo("#cp124w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 37.290);
+      tl.fromTo("#cp125 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 37.600);
+      tl.fromTo("#cp125w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 37.600);
+      tl.to("#cp125w0", { color: "#ffffff", duration: 0.04 }, 37.840);
+      tl.fromTo("#cp125w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 37.840);
+      tl.fromTo("#cp126 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 41.620);
+      tl.fromTo("#cp126w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 41.620);
+      tl.to("#cp126w0", { color: "#ffffff", duration: 0.04 }, 43.300);
+      tl.fromTo("#cp126w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 43.300);
+      tl.to("#cp126w1", { color: "#ffffff", duration: 0.04 }, 43.490);
+      tl.fromTo("#cp126w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 43.490);
+      tl.fromTo("#cp127 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 43.780);
+      tl.fromTo("#cp127w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 43.780);
+      tl.to("#cp127w0", { color: "#ffffff", duration: 0.04 }, 44.460);
+      tl.fromTo("#cp127w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 44.460);
+      tl.to("#cp127w1", { color: "#ffffff", duration: 0.04 }, 44.860);
+      tl.fromTo("#cp127w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 44.860);
+      tl.fromTo("#cp128 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 45.560);
+      tl.fromTo("#cp128w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 45.560);
+      tl.to("#cp128w0", { color: "#ffffff", duration: 0.04 }, 46.290);
+      tl.fromTo("#cp128w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 46.290);
+      tl.to("#cp128w1", { color: "#ffffff", duration: 0.04 }, 47.220);
+      tl.fromTo("#cp128w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 47.220);
+      tl.fromTo("#cp129 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 48.890);
+      tl.fromTo("#cp129w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 48.890);
+      tl.to("#cp129w0", { color: "#ffffff", duration: 0.04 }, 50.020);
+      tl.fromTo("#cp129w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 50.020);
+      tl.to("#cp129w1", { color: "#ffffff", duration: 0.04 }, 50.590);
+      tl.fromTo("#cp129w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 50.590);
+      tl.fromTo("#cp130 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 51.000);
+      tl.fromTo("#cp130w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 51.000);
+      tl.to("#cp130w0", { color: "#ffffff", duration: 0.04 }, 51.320);
+      tl.fromTo("#cp130w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 51.320);
+      tl.to("#cp130w1", { color: "#ffffff", duration: 0.04 }, 51.660);
+      tl.fromTo("#cp130w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 51.660);
+      tl.fromTo("#cp131 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 52.070);
+      tl.fromTo("#cp131w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 52.070);
+      tl.to("#cp131w0", { color: "#ffffff", duration: 0.04 }, 52.530);
+      tl.fromTo("#cp131w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 52.530);
+      tl.to("#cp131w1", { color: "#ffffff", duration: 0.04 }, 52.620);
+      tl.fromTo("#cp131w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 52.620);
+      tl.fromTo("#cp132 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 52.820);
+      tl.fromTo("#cp132w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 52.820);
+      tl.to("#cp132w0", { color: "#ffffff", duration: 0.04 }, 53.030);
+      tl.fromTo("#cp132w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 53.030);
+      tl.to("#cp132w1", { color: "#ffffff", duration: 0.04 }, 53.240);
+      tl.fromTo("#cp132w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 53.240);
+      tl.fromTo("#cp133 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 53.580);
+      tl.fromTo("#cp133w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 53.580);
+      tl.to("#cp133w0", { color: "#ffffff", duration: 0.04 }, 53.870);
+      tl.fromTo("#cp133w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 53.870);
+      tl.to("#cp133w1", { color: "#ffffff", duration: 0.04 }, 54.270);
+      tl.fromTo("#cp133w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 54.270);
+      tl.fromTo("#cp134 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 55.350);
+      tl.fromTo("#cp134w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 55.350);
+      tl.to("#cp134w0", { color: "#ffffff", duration: 0.04 }, 55.840);
+      tl.fromTo("#cp134w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 55.840);
+      tl.to("#cp134w1", { color: "#ffffff", duration: 0.04 }, 56.270);
+      tl.fromTo("#cp134w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 56.270);
+      tl.fromTo("#cp135 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 57.130);
+      tl.fromTo("#cp135w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 57.130);
+      tl.to("#cp135w0", { color: "#ffffff", duration: 0.04 }, 57.560);
+      tl.fromTo("#cp135w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 57.560);
+      tl.to("#cp135w1", { color: "#ffffff", duration: 0.04 }, 58.860);
+      tl.fromTo("#cp135w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 58.860);
+      tl.fromTo("#cp136 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 59.270);
+      tl.fromTo("#cp136w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 59.270);
+      tl.to("#cp136w0", { color: "#ffffff", duration: 0.04 }, 59.430);
+      tl.fromTo("#cp136w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 59.430);
+      tl.to("#cp136w1", { color: "#ffffff", duration: 0.04 }, 59.680);
+      tl.fromTo("#cp136w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 59.680);
+      tl.fromTo("#cp137 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 60.160);
+      tl.fromTo("#cp137w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 60.160);
+      tl.fromTo("#cp138 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 60.520);
+      tl.fromTo("#cp138w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 60.520);
+      tl.fromTo("#cp139 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 70.400);
+      tl.fromTo("#cp139w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 70.400);
+      tl.to("#cp139w0", { color: "#ffffff", duration: 0.04 }, 71.040);
+      tl.fromTo("#cp139w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 71.040);
+      tl.fromTo("#cp140 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 71.720);
+      tl.fromTo("#cp140w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 71.720);
+      tl.to("#cp140w0", { color: "#ffffff", duration: 0.04 }, 71.960);
+      tl.fromTo("#cp140w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 71.960);
+      tl.to("#cp140w1", { color: "#ffffff", duration: 0.04 }, 72.170);
+      tl.fromTo("#cp140w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 72.170);
+      tl.fromTo("#cp141 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 72.380);
+      tl.fromTo("#cp141w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 72.380);
+      tl.to("#cp141w0", { color: "#ffffff", duration: 0.04 }, 72.820);
+      tl.fromTo("#cp141w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 72.820);
+      tl.to("#cp141w1", { color: "#ffffff", duration: 0.04 }, 73.240);
+      tl.fromTo("#cp141w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 73.240);
+      tl.fromTo("#cp142 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 73.380);
+      tl.fromTo("#cp142w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 73.380);
+      tl.to("#cp142w0", { color: "#ffffff", duration: 0.04 }, 74.010);
+      tl.fromTo("#cp142w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 74.010);
+      tl.to("#cp142w1", { color: "#ffffff", duration: 0.04 }, 74.300);
+      tl.fromTo("#cp142w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 74.300);
+      tl.fromTo("#cp143 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 74.600);
+      tl.fromTo("#cp143w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 74.600);
+      tl.to("#cp143w0", { color: "#ffffff", duration: 0.04 }, 75.000);
+      tl.fromTo("#cp143w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 75.000);
+      tl.to("#cp143w1", { color: "#ffffff", duration: 0.04 }, 75.420);
+      tl.fromTo("#cp143w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 75.420);
+      tl.fromTo("#cp144 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 75.640);
+      tl.fromTo("#cp144w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 75.640);
+      tl.to("#cp144w0", { color: "#ffffff", duration: 0.04 }, 75.920);
+      tl.fromTo("#cp144w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 75.920);
+      tl.to("#cp144w1", { color: "#ffffff", duration: 0.04 }, 76.760);
+      tl.fromTo("#cp144w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 76.760);
+      tl.fromTo("#cp145 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 77.260);
+      tl.fromTo("#cp145w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 77.260);
+      tl.to("#cp145w0", { color: "#ffffff", duration: 0.04 }, 77.670);
+      tl.fromTo("#cp145w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 77.670);
+      tl.fromTo("#cp146 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 77.990);
+      tl.fromTo("#cp146w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 77.990);
+      tl.to("#cp146w0", { color: "#ffffff", duration: 0.04 }, 78.820);
+      tl.fromTo("#cp146w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 78.820);
+      tl.fromTo("#cp147 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 79.320);
+      tl.fromTo("#cp147w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 79.320);
+      tl.to("#cp147w0", { color: "#ffffff", duration: 0.04 }, 79.820);
+      tl.fromTo("#cp147w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 79.820);
+      tl.to("#cp147w1", { color: "#ffffff", duration: 0.04 }, 80.360);
+      tl.fromTo("#cp147w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 80.360);
+      tl.fromTo("#cp148 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 80.560);
+      tl.fromTo("#cp148w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 80.560);
+      tl.to("#cp148w0", { color: "#ffffff", duration: 0.04 }, 80.700);
+      tl.fromTo("#cp148w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 80.700);
+      tl.to("#cp148w1", { color: "#ffffff", duration: 0.04 }, 81.040);
+      tl.fromTo("#cp148w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 81.040);
+      tl.fromTo("#cp149 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 81.320);
+      tl.fromTo("#cp149w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 81.320);
+      tl.to("#cp149w0", { color: "#ffffff", duration: 0.04 }, 81.710);
+      tl.fromTo("#cp149w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 81.710);
+      tl.fromTo("#cp150 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 82.590);
+      tl.fromTo("#cp150w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 82.590);
+      tl.to("#cp150w0", { color: "#ffffff", duration: 0.04 }, 83.020);
+      tl.fromTo("#cp150w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 83.020);
+      tl.to("#cp150w1", { color: "#ffffff", duration: 0.04 }, 83.300);
+      tl.fromTo("#cp150w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 83.300);
+      tl.fromTo("#cp151 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 83.580);
+      tl.fromTo("#cp151w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 83.580);
+      tl.to("#cp151w0", { color: "#ffffff", duration: 0.04 }, 83.670);
+      tl.fromTo("#cp151w1", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 83.670);
+      tl.to("#cp151w1", { color: "#ffffff", duration: 0.04 }, 83.810);
+      tl.fromTo("#cp151w2", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 83.810);
+      tl.fromTo("#cp152 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 84.000);
+      tl.fromTo("#cp152w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 84.000);
+      tl.fromTo("#cp153 .cap", { scale: 0.85, y: 20 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 84.260);
+      tl.fromTo("#cp153w0", { color: "#ffffff" }, { color: "#f5c22e", duration: 0.04 }, 84.260);
+      window.__timelines["v2-klinik"] = tl;
+    </script>
+  </body>
+</html>

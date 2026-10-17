@@ -1,0 +1,8 @@
+  0.0s -   4.6s  [Hook]  Nak renovate shoplot jadi klinik? Sebelum sign apa-apa, check 4 benda ni dulu.
+  4.6s -   8.4s  [Konteks]  Minggu ni aku site visit untuk klinik 3 tingkat kat Subang.
+  8.4s -  12.4s  [1 Lift]  Satu, lift. Bangunan bertingkat, pesakit kena senang naik turun.
+ 12.4s -  19.0s  [2 Wiring]  Dua, wiring. Buka DB box, tengok keadaan dia. Kalau dah lama dan bersepah macam ni, kena buat full rewiring.
+ 19.0s -  23.0s  [3 Emergency exit]  Tiga, emergency exit. Pastikan laluan keluar ada dan tak terhalang.
+ 23.0s -  29.0s  [4 Toilet]  Empat, toilet. Kira berapa unit dan kat mana kedudukan dia, sebab nak alih paip memang makan kos.
+ 29.0s -  33.0s  [Bonus]  Bonus, bawa laser measure. Ukur cepat, tak payah risau tape hilang.
+ 33.0s -  41.0s  [CTA]  Save video ni untuk site visit korang nanti. Nak renovate klinik atau kedai? DM aku.

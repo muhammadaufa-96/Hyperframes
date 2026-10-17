@@ -26,6 +26,19 @@ def music_bed(name, dur):
     return f"../assets/dc/{name}.m4a"
 
 
+def ducked_bed(name, dur, voice, voice_at):
+    """Music bed that dips under the voice (sidechain) and comes back up in the gaps."""
+    out = f"/home/user/Hyperframes/assets/dc/{name}.m4a"
+    d = int(voice_at * 1000)
+    fc = (f"[0:a]volume=0.6,afade=t=in:d=0.3,afade=t=out:st={dur - 2.0:.3f}:d=2.0[m];"
+          f"[1:a]adelay={d}|{d},apad,atrim=0:{dur:.3f},aformat=channel_layouts=stereo[k];"
+          f"[m][k]sidechaincompress=threshold=0.03:ratio=5:attack=60:release=800:makeup=1[out]")
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{BEAT0}", "-t", f"{dur:.3f}", "-i",
+                    "/home/user/Hyperframes/assets/dc/music_best_morning.m4a", "-i", voice,
+                    "-filter_complex", fc, "-map", "[out]", "-c:a", "aac", "-b:a", "192k", out], check=True)
+    return f"../assets/dc/{name}.m4a"
+
+
 def tag_span(segs, tag):
     s = [x for x in segs["segments"] if x["tag"].split(":")[0] == tag]
     return s[0]["out_in"], s[-1]["out_out"]
@@ -132,6 +145,7 @@ def v2():
     c.broll(F + "IMG_4944.mp4", H + A, END, media_start=0.5, zoom=(1.0, 1.08))
     c.endcard(H + A, END, END_Q, END_SUB, logo=LOGO)
     c.captions_min(words, hide=[(H + A, H + A + END), (ss, o1 + 0.6)])
+    c.music(ducked_bed("music_dc2", H + A + END, "/home/user/Hyperframes/assets/footage/dc/aroll_dc2.mp4", H), 0.0, H + A + END, vol=1.0)
     c.write("/home/user/Hyperframes/compositions/dc2-sitevisit.html", "DC 2: Dari kereta ke klinik siap")
 
 

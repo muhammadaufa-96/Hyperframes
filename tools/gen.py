@@ -144,7 +144,7 @@ class Comp:
     # ---- graphics --------------------------------------------------------
     def hook(self, lines, start, dur, sfx=True):
         sid = self.uid("hk")
-        spans = "".join(f'<span class="hook-line{" alt" if i % 2 else ""}" id="{sid}l{i}">{esc(l)}</span>' for i, l in enumerate(lines))
+        spans = "".join(f'<span class="hook-line{" alt" if i % 2 else ""}" id="{sid}l{i}" style="font-size:{72 if len(l) <= 19 else 60}px">{esc(l)}</span>' for i, l in enumerate(lines))
         self.layers.append(f'<section id="{sid}" class="clip" data-start="{start:.3f}" data-duration="{dur:.3f}" data-track-index="5"><div class="hook">{spans}</div></section>')
         for i in range(len(lines)):
             self.js.append(f'tl.fromTo("#{sid}l{i}", {{ x: -80, opacity: 0, rotation: -3 }}, {{ x: 0, opacity: 1, rotation: 0, duration: 0.35, ease: "back.out(2)" }}, {start + 0.05 + i * 0.12:.3f});')

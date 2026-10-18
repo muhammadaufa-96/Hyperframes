@@ -20,7 +20,10 @@ Brand ini menyokong bisnes Enoxin.Fitout, tetapi content berdiri atas **kepakara
 
 ## Platform & matlamat
 - **Instagram:** @bangfasz
-- **TikTok:** bangfasz (nama paparan: "Fasz pakar ckaps renovation")
+- **TikTok:** **@bangfaszz** (dua "z"; nama paparan: "Fasz pakar ckaps renovation")
+- **YouTube:** channel "The commercial renovation guy" (Shorts, hanya bila Fasz minta)
+- **Enoxin.Fitout (syarikat):** IG **@enoxin.fitout**
+- **Caption satu untuk IG + TikTok:** guna "follow aku" (bukan handle) sebab handle IG dan TikTok berbeza.
 - **Follower semasa (17 Okt 2026):** IG ~2,000+, TikTok ~180
 - **Kapasiti rakaman:** 2–3 video seminggu. Setiap video dipost di **IG dan TikTok**.
 - **Matlamat (IG + TikTok digabung):** **10,000 follower menjelang 31 Dis 2026** (stretch target, ditetapkan 17 Okt 2026). Paling kurang 5,000. 20K jadi matlamat jangka lebih panjang.
@@ -49,10 +52,12 @@ Audiens **bukan** sesama kontraktor. Tulis untuk orang yang bijak tetapi bukan o
 
 ## Peraturan wajib
 1. **Setiap video ditutup dengan CTA:** ajak viewer **like, share dan follow bangfasz**.
+   - CTA jualan dalam caption: **"Nak renovate klinik? DM team @enoxin.fitout"** (bukan "DM aku").
 2. **Jangan buat claim, angka atau testimoni palsu.** Guna hanya fakta, projek dan cerita sebenar yang Fasz sahkan. Kalau perlu contoh, tandakan sebagai `[ISI: ...]` untuk Fasz isi sendiri.
 3. **Fakta peraturan (CKAPS, KKM, Akta 586, Borang A, dll.) mesti disemak oleh Fasz** sebelum diterbitkan. Jangan reka keperluan, saiz, nombor fasal atau tempoh kelulusan.
 4. Elak jargon tanpa penjelasan.
 5. Muka dan kepakaran Fasz di depan; Enoxin.Fitout sebagai bukti, bukan iklan.
+6. **Nama client:** jangan sebut nama doktor/client dalam caption tanpa izin. Contoh: sebut "doktor, owner Klinik Rasa Sihat", bukan nama doktor.
 
 ## Kisah Fasz (sumber content peribadi)
 - Masuk bidang renovasi sebab pengaruh family: abang-abang semua contractor.
@@ -92,6 +97,12 @@ Audiens **bukan** sesama kontraktor. Tulis untuk orang yang bijak tetapi bukan o
 - **Social Media Skills:** plugin aktif (hook-writer, viral-reverse-engineering, analytics-and-reporting, dll.).
 - **Posty:** tidak digunakan (pelan percuma tiada akses MCP).
 
+## Aliran posting
+- Video disimpan dalam Google Drive folder bangfasz (id `1bOQB1kOTa2qXRb96yz7fAnhV_y7l2fVB`), subfolder ikut tarikh (`DD/MM/YY`).
+- Setiap subfolder: 2 video. Fail **dc*** = posting ke-2 (6:00 petang); fail lain = posting pertama (12:00 tengah hari).
+- Jadualkan melalui Metricool (IG Reel + TikTok) **selepas Fasz approve** caption dan waktu.
+- Media URL: `https://drive.usercontent.google.com/download?id=<FILE_ID>&export=download&confirm=t`
+
 ## Content dalam repo
 - `content/bangfasz/batch-01-ckaps.md`: 8 skrip reel CKAPS + jadual 3 minggu
 
@@ -107,4 +118,4 @@ Audiens **bukan** sesama kontraktor. Tulis untuk orang yang bijak tetapi bukan o
 - [x] Bahasa: santai macam borak dengan kawan
 - [ ] Tone muktamad (sekarang masih contoh)
 - [x] Jumlah follower semasa: IG ~2,000+, TikTok ~180
-- [x] Handle TikTok: bangfasz
+- [x] Handle TikTok: bangfaszz

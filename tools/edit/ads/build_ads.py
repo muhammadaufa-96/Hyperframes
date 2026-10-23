@@ -104,7 +104,11 @@ def ad1():
 def ad2():
     c, segs, w, A = base(2, "ad2-transform")
     sek = find(w, "sekarang")
-    c.blueprint(0.0, sek - 0.1)
+    # real "before renovate" footage of the empty shop (client upload 23/10); skip 5-7 s, a man walks in
+    c.broll(F + "KOSONG.mp4", 0.0, 2.1, media_start=1.2, zoom=(1.0, 1.08))
+    c.broll(F + "KOSONG.mp4", 2.1, sek - 2.1, media_start=9.0, zoom=(1.0, 1.08))
+    c.chip("Sebelum renovate", 0.4, sek - 0.6, y=470)
+    c.wipe(sek)
     c.hook(["Dari ruang kosong", "→ klinik gigi"], 0.05, sek - 0.15)
     c.chip("Sekarang ✨", sek + 0.2, 1.6, y=300, yellow=True)
     d0, d1 = span(segs, "d1")
@@ -117,7 +121,7 @@ def ad2():
     c.name("Klinik gigi", "Kepong", sek + 1.9, 2.6)
     e0, e1 = span(segs, "d2")
     st = find(w, "satu", e0)
-    c.broll(F + "IMG_5231.mp4", e0, find(w, "alhamdulillah", e0) - e0, media_start=5.4, zoom=(1.0, 1.1))
+    c.broll(F + "KOSONG.mp4", e0, find(w, "alhamdulillah", e0) - e0, media_start=12.0, zoom=(1.0, 1.1))
     c.chip("Ruang kosong + impian", st, find(w, "alhamdulillah", e0) - st, y=300, yellow=True)
     wf, de, rn, ho = (find(w, t, e0) for t in ("workflow", "design", "renovation", "handover"))
     c.broll(F + "IMG_5236.mp4", rn - 0.2, ho - rn + 0.2, media_start=2.6, zoom=(1.0, 1.08))

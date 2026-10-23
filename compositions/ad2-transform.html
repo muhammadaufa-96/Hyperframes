@@ -154,81 +154,116 @@ html, body { margin: 0; overflow: hidden; background: #0d0f12; }
 .ce-l { width: 460px; margin-top: 10px; }
 
 .hook.c { align-items: center; text-align: center; }
+
+.nw svg { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+.nw line { stroke: #f5c22e; stroke-width: 5; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.nw-c { position: absolute; left: 400px; top: 640px; width: 280px; height: 280px; border-radius: 50%; background: #f5c22e; color: #15171a; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 50px; box-shadow: 0 0 0 14px rgba(245,194,46,0.25); }
+.nw-n { position: absolute; width: 250px; margin-left: -125px; margin-top: -40px; height: 80px; border-radius: 999px; background: rgba(15,17,20,0.9); border: 3px solid #fff; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 32px; text-transform: uppercase; }
+.mt { position: absolute; left: 70px; right: 70px; top: 300px; display: flex; flex-direction: column; gap: 22px; background: rgba(15,17,20,0.86); border-radius: 22px; padding: 26px 30px; }
+.mt-r { display: flex; flex-direction: column; gap: 10px; }
+.mt-r b { font-weight: 800; font-size: 40px; text-transform: uppercase; letter-spacing: 0.04em; }
+.mt-bar { height: 30px; border-radius: 15px; background: rgba(255,255,255,0.15); overflow: hidden; }
+.mt-bar i { display: block; height: 100%; width: 92%; border-radius: 15px; background: linear-gradient(90deg, #f5c22e, #ff3b3b); transform-origin: left center; transform: scaleX(0); }
+.stamp { position: absolute; left: 0; right: 0; display: flex; justify-content: center; }
+.stamp span { font-weight: 800; font-size: 130px; color: #ff3b3b; border: 12px solid #ff3b3b; border-radius: 18px; padding: 6px 34px; text-transform: uppercase; background: rgba(15,17,20,0.55); }
+.stamp.ok span { color: #20b26b; border-color: #20b26b; font-size: 76px; }
+.cb { position: absolute; left: 90px; right: 90px; top: 300px; background: #fff; color: #15171a; border-radius: 30px; padding: 26px 30px 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.45); }
+.cb::after { content: ""; position: absolute; left: 90px; bottom: -30px; border: 18px solid transparent; border-top: 20px solid #fff; }
+.cb-h { display: flex; align-items: center; gap: 16px; font-weight: 800; font-size: 32px; color: #666; }
+.cb-h i { width: 54px; height: 54px; border-radius: 50%; background: #f5c22e; font-style: normal; display: flex; align-items: center; justify-content: center; font-size: 30px; }
+.cb-t { margin-top: 12px; font-weight: 800; font-size: 50px; line-height: 1.1; }
+.cb-d { display: flex; gap: 10px; margin-top: 16px; }
+.cb-d span { width: 18px; height: 18px; border-radius: 50%; background: #bbb; }
+.ws { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.ws div { display: flex; align-items: center; gap: 18px; background: rgba(15,17,20,0.84); padding: 10px 30px 10px 14px; border-radius: 999px; font-weight: 800; font-size: 58px; text-transform: uppercase; }
+.ws i { width: 60px; height: 60px; border-radius: 50%; background: #20b26b; color: #fff; font-style: normal; display: flex; align-items: center; justify-content: center; font-size: 38px; }
+.pill { position: absolute; left: 0; right: 0; display: flex; justify-content: center; }
+.pill span { background: #f5c22e; color: #15171a; font-weight: 800; font-size: 50px; text-transform: uppercase; padding: 16px 36px; border-radius: 999px; box-shadow: 0 12px 30px rgba(0,0,0,0.4); white-space: nowrap; }
+.tap { position: absolute; width: 140px; height: 140px; margin: -70px 0 0 -70px; border-radius: 50%; border: 8px solid #fff; box-shadow: 0 0 30px rgba(255,255,255,0.6); }
+.tap-f { position: absolute; font-size: 110px; margin: -10px 0 0 -30px; }
+.fe { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 36px; background: rgba(10,11,13,0.8); padding: 0 70px 200px; text-align: center; }
+.fe-k { font-weight: 600; font-size: 40px; letter-spacing: 0.14em; color: #d9dadc; text-transform: uppercase; }
+.fe-q { font-weight: 800; font-size: 120px; line-height: 1; text-transform: uppercase; }
+.fe-q em { display: block; font-style: normal; color: #f5c22e; font-size: 92px; }
+.fe-b { background: #f5c22e; color: #15171a; border-radius: 999px; padding: 22px 50px; font-weight: 800; font-size: 48px; text-transform: uppercase; }
 </style>
   </head>
   <body>
     <div id="root" data-composition-id="ad2-transform" data-start="0" data-width="1080" data-height="1920" data-duration="47.107">
       <div class="cam" id="acam"><video id="ar1" class="clip" src="../assets/footage/ads/aroll_ad2.mp4" playsinline data-has-audio="true" data-start="0.000" data-duration="43.507" data-media-start="0.000" data-track-index="0" data-volume="1"></video></div>
-      <div class="cam" id="bw11" style="transform-origin:50% 50%"><video id="bv12" class="clip" src="../assets/footage/ads/IMG_5275.mp4" muted playsinline data-start="8.860" data-duration="1.340" data-media-start="0.300" data-track-index="1"></video></div>
-      <div class="cam" id="bw13" style="transform-origin:50% 50%"><video id="bv14" class="clip" src="../assets/footage/ads/IMG_5234.mp4" muted playsinline data-start="10.200" data-duration="1.560" data-media-start="0.000" data-track-index="1"></video></div>
-      <div class="cam" id="bw22" style="transform-origin:50% 50%"><video id="bv23" class="clip" src="../assets/footage/ads/IMG_5231.mp4" muted playsinline data-start="13.154" data-duration="6.540" data-media-start="5.400" data-track-index="1"></video></div>
-      <div class="cam" id="bw26" style="transform-origin:50% 50%"><video id="bv27" class="clip" src="../assets/footage/ads/IMG_5236.mp4" muted playsinline data-start="24.074" data-duration="1.220" data-media-start="2.600" data-track-index="1"></video></div>
-      <div class="cam" id="bw28" style="transform-origin:50% 50%"><video id="bv29" class="clip" src="../assets/footage/ads/IMG_5243.mp4" muted playsinline data-start="25.294" data-duration="0.561" data-media-start="6.600" data-track-index="1"></video></div>
-      <div class="cam" id="bw44" style="transform-origin:50% 50%"><video id="bv45" class="clip" src="../assets/footage/ads/IMG_5279.mp4" muted playsinline data-start="43.507" data-duration="3.600" data-media-start="0.000" data-track-index="1"></video></div>
+      <div class="cam" id="bw3" style="transform-origin:50% 50%"><video id="bv4" class="clip" src="../assets/footage/ads/KOSONG.mp4" muted playsinline data-start="0.000" data-duration="2.100" data-media-start="1.200" data-track-index="1"></video></div>
+      <div class="cam" id="bw5" style="transform-origin:50% 50%"><video id="bv6" class="clip" src="../assets/footage/ads/KOSONG.mp4" muted playsinline data-start="2.100" data-duration="2.160" data-media-start="9.000" data-track-index="1"></video></div>
+      <div class="cam" id="bw16" style="transform-origin:50% 50%"><video id="bv17" class="clip" src="../assets/footage/ads/IMG_5275.mp4" muted playsinline data-start="8.860" data-duration="1.340" data-media-start="0.300" data-track-index="1"></video></div>
+      <div class="cam" id="bw18" style="transform-origin:50% 50%"><video id="bv19" class="clip" src="../assets/footage/ads/IMG_5234.mp4" muted playsinline data-start="10.200" data-duration="1.560" data-media-start="0.000" data-track-index="1"></video></div>
+      <div class="cam" id="bw27" style="transform-origin:50% 50%"><video id="bv28" class="clip" src="../assets/footage/ads/KOSONG.mp4" muted playsinline data-start="13.154" data-duration="6.540" data-media-start="12.000" data-track-index="1"></video></div>
+      <div class="cam" id="bw31" style="transform-origin:50% 50%"><video id="bv32" class="clip" src="../assets/footage/ads/IMG_5236.mp4" muted playsinline data-start="24.074" data-duration="1.220" data-media-start="2.600" data-track-index="1"></video></div>
+      <div class="cam" id="bw33" style="transform-origin:50% 50%"><video id="bv34" class="clip" src="../assets/footage/ads/IMG_5243.mp4" muted playsinline data-start="25.294" data-duration="0.561" data-media-start="6.600" data-track-index="1"></video></div>
+      <div class="cam" id="bw49" style="transform-origin:50% 50%"><video id="bv50" class="clip" src="../assets/footage/ads/IMG_5279.mp4" muted playsinline data-start="43.507" data-duration="3.600" data-media-start="0.000" data-track-index="1"></video></div>
       <div id="sh2" class="clip shade" data-start="0.000" data-duration="47.107" data-track-index="2"></div>
-      <section id="bp3" class="clip" data-start="0.000" data-duration="4.760" data-track-index="4"><div class="bp" id="bp3m"><svg viewBox="0 0 800 1120"><path class="w" pathLength="1" d="M0 0 H800 V1120 H0 Z"></path><path class="p" pathLength="1" id="bp3p0" d="M0 300 H330 V0"></path><path class="p" pathLength="1" id="bp3p1" d="M470 0 V300 H800"></path><path class="p" pathLength="1" id="bp3p2" d="M0 640 H300 V420"></path><path class="p" pathLength="1" id="bp3p3" d="M500 420 V640 H800"></path><path class="p" pathLength="1" id="bp3p4" d="M0 900 H260"></path><path class="p" pathLength="1" id="bp3p5" d="M540 900 H800 V1120"></path><path class="p" pathLength="1" id="bp3p6" d="M330 300 V360"></path><path class="p" pathLength="1" id="bp3p7" d="M470 300 V360"></path><text class="t" id="bp3t0" x="40" y="160">SURGERY 1</text><text class="t" id="bp3t1" x="520" y="160">SURGERY 2</text><text class="t" id="bp3t2" x="40" y="540">X-RAY</text><text class="t" id="bp3t3" x="540" y="540">STERILISE</text><text class="t" id="bp3t4" x="300" y="800">WAITING</text><text class="t" id="bp3t5" x="40" y="1020">KAUNTER</text><text class="t" id="bp3t6" x="580" y="1020">TOILET</text></svg><div class="bp-k" id="bp3k">DULU · RUANG KOSONG</div></div><div class="wipe" id="bp3x"></div></section>
-      <audio id="sfx4" src="../assets/sfx/typing.mp3" data-start="1.000" data-duration="2.000" data-track-index="9" data-volume="0.25"></audio>
-      <audio id="sfx5" src="../assets/sfx/whoosh.mp3" data-start="4.160" data-track-index="9" data-volume="0.5"></audio>
-      <section id="hk6" class="clip" data-start="0.050" data-duration="4.110" data-track-index="5"><div class="hook c"><span class="hook-line" id="hk6l0" style="font-size:72px">Dari ruang kosong</span><span class="hook-line alt" id="hk6l1" style="font-size:72px">→ klinik gigi</span></div></section>
-      <audio id="sfx7" src="../assets/sfx/whoosh.mp3" data-start="0.050" data-track-index="9" data-volume="0.5"></audio>
-      <audio id="sfx8" src="../assets/sfx/impact-bass-1.mp3" data-start="0.170" data-track-index="9" data-volume="0.45"></audio>
-      <section id="ch9" class="clip" data-start="4.460" data-duration="1.600" data-track-index="6"><div class="chip yellow" id="ch9b" style="left:70px;top:300px">Sekarang ✨</div></section>
-      <audio id="sfx10" src="../assets/sfx/pop.mp3" data-start="4.460" data-track-index="9" data-volume="0.45"></audio>
-      <section id="tg15" class="clip" data-start="8.860" data-duration="4.294" data-track-index="6"><div class="tag" id="tg15b" style="left:70px;top:300px"><span class="ic">✓</span>Pintu kaca</div></section>
-      <audio id="sfx16" src="../assets/sfx/ping.mp3" data-start="8.860" data-track-index="9" data-volume="0.4"></audio>
-      <section id="tg17" class="clip" data-start="10.200" data-duration="2.954" data-track-index="6"><div class="tag" id="tg17b" style="left:70px;top:420px"><span class="ic">✓</span>Lantai</div></section>
-      <audio id="sfx18" src="../assets/sfx/ping.mp3" data-start="10.200" data-track-index="9" data-volume="0.4"></audio>
-      <section id="tg19" class="clip" data-start="11.760" data-duration="1.394" data-track-index="6"><div class="tag" id="tg19b" style="left:70px;top:540px"><span class="ic warn">⏳</span>Kaunter &amp; pintu</div></section>
-      <audio id="sfx20" src="../assets/sfx/ping.mp3" data-start="11.760" data-track-index="9" data-volume="0.4"></audio>
-      <section id="nm21" class="clip" data-start="6.160" data-duration="2.600" data-track-index="6"><div class="name" id="nm21b"><b>Klinik gigi</b><span>Kepong</span></div></section>
-      <section id="ch24" class="clip" data-start="15.414" data-duration="4.280" data-track-index="6"><div class="chip yellow" id="ch24b" style="left:70px;top:300px">Ruang kosong + impian</div></section>
-      <audio id="sfx25" src="../assets/sfx/pop.mp3" data-start="15.414" data-track-index="9" data-volume="0.45"></audio>
-      <section id="st30" class="clip" data-start="22.374" data-duration="3.481" data-track-index="6"><div class="st" id="st30b"><div class="st-line"></div><div class="st-fill" id="st30f"></div><div class="st-row"><div class="st-n"><div class="st-dot" id="st30d0">1</div><div class="st-lab" id="st30l0">Workflow</div></div><div class="st-n"><div class="st-dot" id="st30d1">2</div><div class="st-lab" id="st30l1">Design</div></div><div class="st-n"><div class="st-dot" id="st30d2">3</div><div class="st-lab" id="st30l2">Renovation</div></div><div class="st-n"><div class="st-dot" id="st30d3">4</div><div class="st-lab" id="st30l3">Handover</div></div></div></div></section>
-      <audio id="sfx31" src="../assets/sfx/ping.mp3" data-start="22.674" data-track-index="9" data-volume="0.3"></audio>
-      <audio id="sfx32" src="../assets/sfx/ping.mp3" data-start="23.494" data-track-index="9" data-volume="0.3"></audio>
-      <audio id="sfx33" src="../assets/sfx/ping.mp3" data-start="24.274" data-track-index="9" data-volume="0.3"></audio>
-      <audio id="sfx34" src="../assets/sfx/ping.mp3" data-start="25.294" data-track-index="9" data-volume="0.3"></audio>
-      <section id="ch35" class="clip" data-start="25.955" data-duration="5.710" data-track-index="6"><div class="chip" id="ch35b" style="left:70px;top:300px">Tips 💡</div></section>
-      <audio id="sfx36" src="../assets/sfx/pop.mp3" data-start="25.955" data-track-index="9" data-volume="0.45"></audio>
-      <section id="st37" class="clip" data-start="31.615" data-duration="2.450" data-track-index="6"><div class="strike" id="st37b" style="left:0px;top:520px;width:1080px"><span style="position:relative">Renovate<i id="st37i"></i></span></div></section>
-      <audio id="sfx38" src="../assets/sfx/pop.mp3" data-start="31.615" data-track-index="9" data-volume="0.4"></audio>
-      <audio id="sfx39" src="../assets/sfx/error.mp3" data-start="32.215" data-track-index="9" data-volume="0.35"></audio>
-      <section id="ch40" class="clip" data-start="34.215" data-duration="1.296" data-track-index="6"><div class="chip yellow" id="ch40b" style="left:70px;top:520px">Planning ✓</div></section>
-      <audio id="sfx41" src="../assets/sfx/pop.mp3" data-start="34.215" data-track-index="9" data-volume="0.45"></audio>
-      <section id="bt42" class="clip" data-start="39.211" data-duration="4.296" data-track-index="7"><div class="btn" id="bt42b" style="top:1120px">👇 Klik link di bawah</div></section>
-      <audio id="sfx43" src="../assets/sfx/click.mp3" data-start="39.211" data-track-index="9" data-volume="0.45"></audio>
-      <section id="ce46" class="clip" data-start="43.507" data-duration="3.600" data-track-index="7"><div class="ce" id="ce46m"><div class="ce-k" id="ce46k">Percuma</div><div class="ce-q" id="ce46q"><span>Dapatkan</span><em>Free CKAPS</em><span>Initial</span><span>Assessment</span></div><div class="ce-b" id="ce46b">👇 Klik link di bawah</div><img class="ce-l" id="ce46l" src="../assets/brand/enoxin-logo-white.png" alt="Enoxin"></div></section>
-      <audio id="sfx47" src="../assets/sfx/chime.mp3" data-start="43.607" data-track-index="9" data-volume="0.4"></audio>
-      <section id="cm48" class="clip" data-start="0.100" data-duration="1.820" data-track-index="8"><div class="capm me"><span class="w" id="cm48w0">Dulu</span><span class="w" id="cm48w1">ruangan</span><span class="w" id="cm48w2">ni</span><span class="w" id="cm48w3">ruangan</span></div></section>
-      <section id="cm49" class="clip" data-start="1.920" data-duration="1.170" data-track-index="8"><div class="capm me"><span class="w hot" id="cm49w0">kosong</span><span class="w" id="cm49w1">yang</span><span class="w" id="cm49w2">dah</span><span class="w" id="cm49w3">terbiar</span></div></section>
-      <section id="cm50" class="clip" data-start="3.090" data-duration="2.060" data-track-index="8"><div class="capm me"><span class="w" id="cm50w0">lama</span><span class="w" id="cm50w1">Dan</span><span class="w" id="cm50w2">sekarang</span></div></section>
-      <section id="cm51" class="clip" data-start="5.150" data-duration="1.190" data-track-index="8"><div class="capm me"><span class="w" id="cm51w0">alhamdulillah</span><span class="w" id="cm51w1">tengok</span><span class="w" id="cm51w2">kita</span></div></section>
-      <section id="cm52" class="clip" data-start="6.340" data-duration="1.740" data-track-index="8"><div class="capm me"><span class="w" id="cm52w0">orang</span><span class="w" id="cm52w1">dah</span><span class="w" id="cm52w2">hampir</span><span class="w hot" id="cm52w3">siap</span></div></section>
-      <section id="cm53" class="clip" data-start="8.080" data-duration="1.260" data-track-index="8"><div class="capm me"><span class="w" id="cm53w0">sepenuhnya</span><span class="w" id="cm53w1">lah</span><span class="w" id="cm53w2">Pintu</span><span class="w" id="cm53w3">kaca</span></div></section>
-      <section id="cm54" class="clip" data-start="9.340" data-duration="1.390" data-track-index="8"><div class="capm me"><span class="w" id="cm54w0">dah</span><span class="w hot" id="cm54w1">siap</span><span class="w" id="cm54w2">pasang</span><span class="w" id="cm54w3">lantai</span><span class="w" id="cm54w4">dah</span></div></section>
-      <section id="cm55" class="clip" data-start="10.730" data-duration="1.030" data-track-index="8"><div class="capm me"><span class="w hot" id="cm55w0">siap</span><span class="w" id="cm55w1">Hanya</span><span class="w" id="cm55w2">tinggal</span><span class="w" id="cm55w3">buat</span></div></section>
-      <section id="cm56" class="clip" data-start="11.760" data-duration="1.090" data-track-index="8"><div class="capm me"><span class="w" id="cm56w0">kaunter</span><span class="w" id="cm56w1">dengan</span><span class="w" id="cm56w2">pintu-pintu</span></div></section>
-      <section id="cm57" class="clip" data-start="12.850" data-duration="1.804" data-track-index="8"><div class="capm me"><span class="w" id="cm57w0">je</span><span class="w" id="cm57w1">lah</span><span class="w" id="cm57w2">Dulu</span><span class="w" id="cm57w3">doktor</span><span class="w" id="cm57w4">jumpa</span></div></section>
-      <section id="cm58" class="clip" data-start="14.654" data-duration="1.160" data-track-index="8"><div class="capm me"><span class="w" id="cm58w0">dengan</span><span class="w" id="cm58w1">kita</span><span class="w" id="cm58w2">dengan</span><span class="w" id="cm58w3">satu</span></div></section>
-      <section id="cm59" class="clip" data-start="15.814" data-duration="1.430" data-track-index="8"><div class="capm me"><span class="w" id="cm59w0">ruangan</span><span class="w hot" id="cm59w1">kosong</span><span class="w" id="cm59w2">dan</span><span class="w" id="cm59w3">satu</span></div></section>
-      <section id="cm60" class="clip" data-start="17.244" data-duration="1.550" data-track-index="8"><div class="capm me"><span class="w hot" id="cm60w0">impian</span><span class="w" id="cm60w1">nak</span><span class="w" id="cm60w2">buka</span><span class="w hot" id="cm60w3">klinik</span></div></section>
-      <section id="cm61" class="clip" data-start="18.794" data-duration="1.840" data-track-index="8"><div class="capm me"><span class="w" id="cm61w0">gigi</span><span class="w hot" id="cm61w1">sendiri</span><span class="w" id="cm61w2">Alhamdulillah</span></div></section>
-      <section id="cm62" class="clip" data-start="20.634" data-duration="1.020" data-track-index="8"><div class="capm me"><span class="w" id="cm62w0">kita</span><span class="w" id="cm62w1">bantu</span><span class="w" id="cm62w2">set</span><span class="w" id="cm62w3">up</span><span class="w" id="cm62w4">dari</span></div></section>
-      <section id="cm63" class="clip" data-start="21.654" data-duration="1.840" data-track-index="8"><div class="capm me"><span class="w" id="cm63w0">segi</span><span class="w" id="cm63w1">susun</span><span class="w" id="cm63w2">atur</span><span class="w" id="cm63w3">workflow</span></div></section>
-      <section id="cm64" class="clip" data-start="23.494" data-duration="1.450" data-track-index="8"><div class="capm me"><span class="w" id="cm64w0">design</span><span class="w" id="cm64w1">sampai</span><span class="w" id="cm64w2">renovation</span></div></section>
-      <section id="cm65" class="clip" data-start="24.944" data-duration="1.461" data-track-index="8"><div class="capm me"><span class="w" id="cm65w0">dan</span><span class="w" id="cm65w1">handover</span><span class="w" id="cm65w2">lah</span><span class="w" id="cm65w3">Jadi</span></div></section>
-      <section id="cm66" class="clip" data-start="26.405" data-duration="1.790" data-track-index="8"><div class="capm me"><span class="w" id="cm66w0">kalau</span><span class="w" id="cm66w1">korang</span><span class="w" id="cm66w2">di</span><span class="w" id="cm66w3">luar</span><span class="w" id="cm66w4">sana</span></div></section>
-      <section id="cm67" class="clip" data-start="28.195" data-duration="1.940" data-track-index="8"><div class="capm me"><span class="w" id="cm67w0">yang</span><span class="w" id="cm67w1">nak</span><span class="w" id="cm67w2">buka</span><span class="w hot" id="cm67w3">klinik</span><span class="w" id="cm67w4">juga</span></div></section>
-      <section id="cm68" class="clip" data-start="30.135" data-duration="1.110" data-track-index="8"><div class="capm me"><span class="w" id="cm68w0">korang</span><span class="w" id="cm68w1">jangan</span><span class="w" id="cm68w2">mulakan</span></div></section>
-      <section id="cm69" class="clip" data-start="31.245" data-duration="1.550" data-track-index="8"><div class="capm me"><span class="w" id="cm69w0">dengan</span><span class="w" id="cm69w1">buat</span><span class="w hot" id="cm69w2">renovate</span><span class="w" id="cm69w3">dulu</span></div></section>
-      <section id="cm70" class="clip" data-start="32.795" data-duration="1.090" data-track-index="8"><div class="capm me"><span class="w" id="cm70w0">Korang</span><span class="w" id="cm70w1">start</span><span class="w" id="cm70w2">dengan</span><span class="w" id="cm70w3">buat</span></div></section>
-      <section id="cm71" class="clip" data-start="33.885" data-duration="1.646" data-track-index="8"><div class="capm me"><span class="w" id="cm71w0">proper</span><span class="w hot" id="cm71w1">planning</span><span class="w" id="cm71w2">yang</span><span class="w" id="cm71w3">betul</span></div></section>
-      <section id="cm72" class="clip" data-start="35.531" data-duration="1.980" data-track-index="8"><div class="capm me"><span class="w" id="cm72w0">Jadi</span><span class="w" id="cm72w1">korang</span><span class="w" id="cm72w2">boleh</span><span class="w" id="cm72w3">hubungi</span></div></section>
-      <section id="cm73" class="clip" data-start="37.511" data-duration="2.320" data-track-index="8"><div class="capm me"><span class="w" id="cm73w0">kita</span><span class="w" id="cm73w1">untuk</span><span class="w" id="cm73w2">dapatkan</span><span class="w hot" id="cm73w3">free</span></div></section>
-      <section id="cm74" class="clip" data-start="39.831" data-duration="0.680" data-track-index="8"><div class="capm me"><span class="w hot" id="cm74w0">CKAPS</span><span class="w hot" id="cm74w1">initial</span><span class="w hot" id="cm74w2">assessment</span></div></section>
-      <section id="cm75" class="clip" data-start="40.511" data-duration="1.900" data-track-index="8"><div class="capm me"><span class="w" id="cm75w0">untuk</span><span class="w" id="cm75w1">kita</span><span class="w" id="cm75w2">bantu</span><span class="w" id="cm75w3">secara</span></div></section>
-      <section id="cm76" class="clip" data-start="42.411" data-duration="1.096" data-track-index="8"><div class="capm me"><span class="w hot" id="cm76w0">percuma</span><span class="w" id="cm76w1">sahaja</span></div></section>
-      <audio id="mu77" src="../assets/dc/bed_ad2-transform.m4a" data-start="0.000" data-duration="47.107" data-media-start="0.000" data-track-index="10" data-volume="1.0"></audio>
+      <section id="ch7" class="clip" data-start="0.400" data-duration="3.660" data-track-index="6"><div class="chip" id="ch7b" style="left:70px;top:470px">Sebelum renovate</div></section>
+      <audio id="sfx8" src="../assets/sfx/pop.mp3" data-start="0.400" data-track-index="9" data-volume="0.45"></audio>
+      <section id="wp9" class="clip" data-start="4.010" data-duration="0.500" data-track-index="7"><div class="wipe" id="wp9x" style="width:60px"></div></section>
+      <audio id="sfx10" src="../assets/sfx/whoosh.mp3" data-start="4.010" data-track-index="9" data-volume="0.5"></audio>
+      <section id="hk11" class="clip" data-start="0.050" data-duration="4.110" data-track-index="5"><div class="hook c"><span class="hook-line" id="hk11l0" style="font-size:72px">Dari ruang kosong</span><span class="hook-line alt" id="hk11l1" style="font-size:72px">→ klinik gigi</span></div></section>
+      <audio id="sfx12" src="../assets/sfx/whoosh.mp3" data-start="0.050" data-track-index="9" data-volume="0.5"></audio>
+      <audio id="sfx13" src="../assets/sfx/impact-bass-1.mp3" data-start="0.170" data-track-index="9" data-volume="0.45"></audio>
+      <section id="ch14" class="clip" data-start="4.460" data-duration="1.600" data-track-index="6"><div class="chip yellow" id="ch14b" style="left:70px;top:300px">Sekarang ✨</div></section>
+      <audio id="sfx15" src="../assets/sfx/pop.mp3" data-start="4.460" data-track-index="9" data-volume="0.45"></audio>
+      <section id="tg20" class="clip" data-start="8.860" data-duration="4.294" data-track-index="6"><div class="tag" id="tg20b" style="left:70px;top:300px"><span class="ic">✓</span>Pintu kaca</div></section>
+      <audio id="sfx21" src="../assets/sfx/ping.mp3" data-start="8.860" data-track-index="9" data-volume="0.4"></audio>
+      <section id="tg22" class="clip" data-start="10.200" data-duration="2.954" data-track-index="6"><div class="tag" id="tg22b" style="left:70px;top:420px"><span class="ic">✓</span>Lantai</div></section>
+      <audio id="sfx23" src="../assets/sfx/ping.mp3" data-start="10.200" data-track-index="9" data-volume="0.4"></audio>
+      <section id="tg24" class="clip" data-start="11.760" data-duration="1.394" data-track-index="6"><div class="tag" id="tg24b" style="left:70px;top:540px"><span class="ic warn">⏳</span>Kaunter &amp; pintu</div></section>
+      <audio id="sfx25" src="../assets/sfx/ping.mp3" data-start="11.760" data-track-index="9" data-volume="0.4"></audio>
+      <section id="nm26" class="clip" data-start="6.160" data-duration="2.600" data-track-index="6"><div class="name" id="nm26b"><b>Klinik gigi</b><span>Kepong</span></div></section>
+      <section id="ch29" class="clip" data-start="15.414" data-duration="4.280" data-track-index="6"><div class="chip yellow" id="ch29b" style="left:70px;top:300px">Ruang kosong + impian</div></section>
+      <audio id="sfx30" src="../assets/sfx/pop.mp3" data-start="15.414" data-track-index="9" data-volume="0.45"></audio>
+      <section id="st35" class="clip" data-start="22.374" data-duration="3.481" data-track-index="6"><div class="st" id="st35b"><div class="st-line"></div><div class="st-fill" id="st35f"></div><div class="st-row"><div class="st-n"><div class="st-dot" id="st35d0">1</div><div class="st-lab" id="st35l0">Workflow</div></div><div class="st-n"><div class="st-dot" id="st35d1">2</div><div class="st-lab" id="st35l1">Design</div></div><div class="st-n"><div class="st-dot" id="st35d2">3</div><div class="st-lab" id="st35l2">Renovation</div></div><div class="st-n"><div class="st-dot" id="st35d3">4</div><div class="st-lab" id="st35l3">Handover</div></div></div></div></section>
+      <audio id="sfx36" src="../assets/sfx/ping.mp3" data-start="22.674" data-track-index="9" data-volume="0.3"></audio>
+      <audio id="sfx37" src="../assets/sfx/ping.mp3" data-start="23.494" data-track-index="9" data-volume="0.3"></audio>
+      <audio id="sfx38" src="../assets/sfx/ping.mp3" data-start="24.274" data-track-index="9" data-volume="0.3"></audio>
+      <audio id="sfx39" src="../assets/sfx/ping.mp3" data-start="25.294" data-track-index="9" data-volume="0.3"></audio>
+      <section id="ch40" class="clip" data-start="25.955" data-duration="5.710" data-track-index="6"><div class="chip" id="ch40b" style="left:70px;top:300px">Tips 💡</div></section>
+      <audio id="sfx41" src="../assets/sfx/pop.mp3" data-start="25.955" data-track-index="9" data-volume="0.45"></audio>
+      <section id="st42" class="clip" data-start="31.615" data-duration="2.450" data-track-index="6"><div class="strike" id="st42b" style="left:0px;top:520px;width:1080px"><span style="position:relative">Renovate<i id="st42i"></i></span></div></section>
+      <audio id="sfx43" src="../assets/sfx/pop.mp3" data-start="31.615" data-track-index="9" data-volume="0.4"></audio>
+      <audio id="sfx44" src="../assets/sfx/error.mp3" data-start="32.215" data-track-index="9" data-volume="0.35"></audio>
+      <section id="ch45" class="clip" data-start="34.215" data-duration="1.296" data-track-index="6"><div class="chip yellow" id="ch45b" style="left:70px;top:520px">Planning ✓</div></section>
+      <audio id="sfx46" src="../assets/sfx/pop.mp3" data-start="34.215" data-track-index="9" data-volume="0.45"></audio>
+      <section id="bt47" class="clip" data-start="39.211" data-duration="4.296" data-track-index="7"><div class="btn" id="bt47b" style="top:1120px">👇 Klik link di bawah</div></section>
+      <audio id="sfx48" src="../assets/sfx/click.mp3" data-start="39.211" data-track-index="9" data-volume="0.45"></audio>
+      <section id="ce51" class="clip" data-start="43.507" data-duration="3.600" data-track-index="7"><div class="ce" id="ce51m"><div class="ce-k" id="ce51k">Percuma</div><div class="ce-q" id="ce51q"><span>Dapatkan</span><em>Free CKAPS</em><span>Initial</span><span>Assessment</span></div><div class="ce-b" id="ce51b">👇 Klik link di bawah</div><img class="ce-l" id="ce51l" src="../assets/brand/enoxin-logo-white.png" alt="Enoxin"></div></section>
+      <audio id="sfx52" src="../assets/sfx/chime.mp3" data-start="43.607" data-track-index="9" data-volume="0.4"></audio>
+      <section id="cm53" class="clip" data-start="0.100" data-duration="1.820" data-track-index="8"><div class="capm me"><span class="w" id="cm53w0">Dulu</span><span class="w" id="cm53w1">ruangan</span><span class="w" id="cm53w2">ni</span><span class="w" id="cm53w3">ruangan</span></div></section>
+      <section id="cm54" class="clip" data-start="1.920" data-duration="1.170" data-track-index="8"><div class="capm me"><span class="w hot" id="cm54w0">kosong</span><span class="w" id="cm54w1">yang</span><span class="w" id="cm54w2">dah</span><span class="w" id="cm54w3">terbiar</span></div></section>
+      <section id="cm55" class="clip" data-start="3.090" data-duration="2.060" data-track-index="8"><div class="capm me"><span class="w" id="cm55w0">lama</span><span class="w" id="cm55w1">Dan</span><span class="w" id="cm55w2">sekarang</span></div></section>
+      <section id="cm56" class="clip" data-start="5.150" data-duration="1.190" data-track-index="8"><div class="capm me"><span class="w" id="cm56w0">alhamdulillah</span><span class="w" id="cm56w1">tengok</span><span class="w" id="cm56w2">kita</span></div></section>
+      <section id="cm57" class="clip" data-start="6.340" data-duration="1.740" data-track-index="8"><div class="capm me"><span class="w" id="cm57w0">orang</span><span class="w" id="cm57w1">dah</span><span class="w" id="cm57w2">hampir</span><span class="w hot" id="cm57w3">siap</span></div></section>
+      <section id="cm58" class="clip" data-start="8.080" data-duration="1.260" data-track-index="8"><div class="capm me"><span class="w" id="cm58w0">sepenuhnya</span><span class="w" id="cm58w1">lah</span><span class="w" id="cm58w2">Pintu</span><span class="w" id="cm58w3">kaca</span></div></section>
+      <section id="cm59" class="clip" data-start="9.340" data-duration="1.390" data-track-index="8"><div class="capm me"><span class="w" id="cm59w0">dah</span><span class="w hot" id="cm59w1">siap</span><span class="w" id="cm59w2">pasang</span><span class="w" id="cm59w3">lantai</span><span class="w" id="cm59w4">dah</span></div></section>
+      <section id="cm60" class="clip" data-start="10.730" data-duration="1.030" data-track-index="8"><div class="capm me"><span class="w hot" id="cm60w0">siap</span><span class="w" id="cm60w1">Hanya</span><span class="w" id="cm60w2">tinggal</span><span class="w" id="cm60w3">buat</span></div></section>
+      <section id="cm61" class="clip" data-start="11.760" data-duration="1.090" data-track-index="8"><div class="capm me"><span class="w" id="cm61w0">kaunter</span><span class="w" id="cm61w1">dengan</span><span class="w" id="cm61w2">pintu-pintu</span></div></section>
+      <section id="cm62" class="clip" data-start="12.850" data-duration="1.804" data-track-index="8"><div class="capm me"><span class="w" id="cm62w0">je</span><span class="w" id="cm62w1">lah</span><span class="w" id="cm62w2">Dulu</span><span class="w" id="cm62w3">doktor</span><span class="w" id="cm62w4">jumpa</span></div></section>
+      <section id="cm63" class="clip" data-start="14.654" data-duration="1.160" data-track-index="8"><div class="capm me"><span class="w" id="cm63w0">dengan</span><span class="w" id="cm63w1">kita</span><span class="w" id="cm63w2">dengan</span><span class="w" id="cm63w3">satu</span></div></section>
+      <section id="cm64" class="clip" data-start="15.814" data-duration="1.430" data-track-index="8"><div class="capm me"><span class="w" id="cm64w0">ruangan</span><span class="w hot" id="cm64w1">kosong</span><span class="w" id="cm64w2">dan</span><span class="w" id="cm64w3">satu</span></div></section>
+      <section id="cm65" class="clip" data-start="17.244" data-duration="1.550" data-track-index="8"><div class="capm me"><span class="w hot" id="cm65w0">impian</span><span class="w" id="cm65w1">nak</span><span class="w" id="cm65w2">buka</span><span class="w hot" id="cm65w3">klinik</span></div></section>
+      <section id="cm66" class="clip" data-start="18.794" data-duration="1.840" data-track-index="8"><div class="capm me"><span class="w" id="cm66w0">gigi</span><span class="w hot" id="cm66w1">sendiri</span><span class="w" id="cm66w2">Alhamdulillah</span></div></section>
+      <section id="cm67" class="clip" data-start="20.634" data-duration="1.020" data-track-index="8"><div class="capm me"><span class="w" id="cm67w0">kita</span><span class="w" id="cm67w1">bantu</span><span class="w" id="cm67w2">set</span><span class="w" id="cm67w3">up</span><span class="w" id="cm67w4">dari</span></div></section>
+      <section id="cm68" class="clip" data-start="21.654" data-duration="1.840" data-track-index="8"><div class="capm me"><span class="w" id="cm68w0">segi</span><span class="w" id="cm68w1">susun</span><span class="w" id="cm68w2">atur</span><span class="w" id="cm68w3">workflow</span></div></section>
+      <section id="cm69" class="clip" data-start="23.494" data-duration="1.450" data-track-index="8"><div class="capm me"><span class="w" id="cm69w0">design</span><span class="w" id="cm69w1">sampai</span><span class="w" id="cm69w2">renovation</span></div></section>
+      <section id="cm70" class="clip" data-start="24.944" data-duration="1.461" data-track-index="8"><div class="capm me"><span class="w" id="cm70w0">dan</span><span class="w" id="cm70w1">handover</span><span class="w" id="cm70w2">lah</span><span class="w" id="cm70w3">Jadi</span></div></section>
+      <section id="cm71" class="clip" data-start="26.405" data-duration="1.790" data-track-index="8"><div class="capm me"><span class="w" id="cm71w0">kalau</span><span class="w" id="cm71w1">korang</span><span class="w" id="cm71w2">di</span><span class="w" id="cm71w3">luar</span><span class="w" id="cm71w4">sana</span></div></section>
+      <section id="cm72" class="clip" data-start="28.195" data-duration="1.940" data-track-index="8"><div class="capm me"><span class="w" id="cm72w0">yang</span><span class="w" id="cm72w1">nak</span><span class="w" id="cm72w2">buka</span><span class="w hot" id="cm72w3">klinik</span><span class="w" id="cm72w4">juga</span></div></section>
+      <section id="cm73" class="clip" data-start="30.135" data-duration="1.110" data-track-index="8"><div class="capm me"><span class="w" id="cm73w0">korang</span><span class="w" id="cm73w1">jangan</span><span class="w" id="cm73w2">mulakan</span></div></section>
+      <section id="cm74" class="clip" data-start="31.245" data-duration="1.550" data-track-index="8"><div class="capm me"><span class="w" id="cm74w0">dengan</span><span class="w" id="cm74w1">buat</span><span class="w hot" id="cm74w2">renovate</span><span class="w" id="cm74w3">dulu</span></div></section>
+      <section id="cm75" class="clip" data-start="32.795" data-duration="1.090" data-track-index="8"><div class="capm me"><span class="w" id="cm75w0">Korang</span><span class="w" id="cm75w1">start</span><span class="w" id="cm75w2">dengan</span><span class="w" id="cm75w3">buat</span></div></section>
+      <section id="cm76" class="clip" data-start="33.885" data-duration="1.646" data-track-index="8"><div class="capm me"><span class="w" id="cm76w0">proper</span><span class="w hot" id="cm76w1">planning</span><span class="w" id="cm76w2">yang</span><span class="w" id="cm76w3">betul</span></div></section>
+      <section id="cm77" class="clip" data-start="35.531" data-duration="1.980" data-track-index="8"><div class="capm me"><span class="w" id="cm77w0">Jadi</span><span class="w" id="cm77w1">korang</span><span class="w" id="cm77w2">boleh</span><span class="w" id="cm77w3">hubungi</span></div></section>
+      <section id="cm78" class="clip" data-start="37.511" data-duration="2.320" data-track-index="8"><div class="capm me"><span class="w" id="cm78w0">kita</span><span class="w" id="cm78w1">untuk</span><span class="w" id="cm78w2">dapatkan</span><span class="w hot" id="cm78w3">free</span></div></section>
+      <section id="cm79" class="clip" data-start="39.831" data-duration="0.680" data-track-index="8"><div class="capm me"><span class="w hot" id="cm79w0">CKAPS</span><span class="w hot" id="cm79w1">initial</span><span class="w hot" id="cm79w2">assessment</span></div></section>
+      <section id="cm80" class="clip" data-start="40.511" data-duration="1.900" data-track-index="8"><div class="capm me"><span class="w" id="cm80w0">untuk</span><span class="w" id="cm80w1">kita</span><span class="w" id="cm80w2">bantu</span><span class="w" id="cm80w3">secara</span></div></section>
+      <section id="cm81" class="clip" data-start="42.411" data-duration="1.096" data-track-index="8"><div class="capm me"><span class="w hot" id="cm81w0">percuma</span><span class="w" id="cm81w1">sahaja</span></div></section>
+      <audio id="mu82" src="../assets/dc/bed_ad2-transform.m4a" data-start="0.000" data-duration="47.107" data-media-start="0.000" data-track-index="10" data-volume="1.0"></audio>
     </div>
     <script>
       const tl = gsap.timeline({ paused: true });
@@ -248,221 +283,207 @@ html, body { margin: 0; overflow: hidden; background: #0d0f12; }
       tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 32.519);
       tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 35.511);
       tl.set("#acam", { scale: 1.12, transformOrigin: "50% 40%" }, 41.143);
-      tl.to("#bp3 .w", { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }, 0.100);
-      tl.to("#bp3k", { opacity: 1, duration: 0.3 }, 0.400);
-      tl.to("#bp3p0", { strokeDashoffset: 0, duration: 0.35, ease: "power1.out" }, 1.000);
-      tl.to("#bp3p1", { strokeDashoffset: 0, duration: 0.35, ease: "power1.out" }, 1.345);
-      tl.to("#bp3p2", { strokeDashoffset: 0, duration: 0.35, ease: "power1.out" }, 1.690);
-      tl.to("#bp3p3", { strokeDashoffset: 0, duration: 0.35, ease: "power1.out" }, 2.035);
-      tl.to("#bp3p4", { strokeDashoffset: 0, duration: 0.35, ease: "power1.out" }, 2.380);
-      tl.to("#bp3p5", { strokeDashoffset: 0, duration: 0.35, ease: "power1.out" }, 2.725);
-      tl.to("#bp3p6", { strokeDashoffset: 0, duration: 0.35, ease: "power1.out" }, 3.070);
-      tl.to("#bp3p7", { strokeDashoffset: 0, duration: 0.35, ease: "power1.out" }, 3.415);
-      tl.to("#bp3t0", { opacity: 1, duration: 0.2 }, 1.200);
-      tl.to("#bp3t1", { opacity: 1, duration: 0.2 }, 1.594);
-      tl.to("#bp3t2", { opacity: 1, duration: 0.2 }, 1.989);
-      tl.to("#bp3t3", { opacity: 1, duration: 0.2 }, 2.383);
-      tl.to("#bp3t4", { opacity: 1, duration: 0.2 }, 2.777);
-      tl.to("#bp3t5", { opacity: 1, duration: 0.2 }, 3.171);
-      tl.to("#bp3t6", { opacity: 1, duration: 0.2 }, 3.566);
-      tl.fromTo("#bp3m", { clipPath: "inset(0% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 100%)", duration: 0.55, ease: "power2.inOut" }, 4.160);
-      tl.fromTo("#bp3x", { x: 0 }, { x: 1120, duration: 0.55, ease: "power2.inOut" }, 4.160);
-      tl.fromTo("#hk6l0", { y: -50, scale: 0.85, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 0.100);
-      tl.to("#hk6l0", { y: -30, opacity: 0, duration: 0.25, ease: "power2.in" }, 3.860);
-      tl.fromTo("#hk6l1", { y: -50, scale: 0.85, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 0.220);
-      tl.to("#hk6l1", { y: -30, opacity: 0, duration: 0.25, ease: "power2.in" }, 3.860);
-      tl.fromTo("#ch9b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 4.460);
-      tl.to("#ch9b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 5.840);
-      tl.fromTo("#bw11", { scale: 1.0 }, { scale: 1.08, duration: 1.340, ease: "none" }, 8.860);
-      tl.fromTo("#bw13", { scale: 1.0 }, { scale: 1.1, duration: 1.560, ease: "none" }, 10.200);
-      tl.fromTo("#tg15b", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 8.860);
-      tl.to("#tg15b", { y: -20, opacity: 0, duration: 0.2 }, 12.934);
-      tl.fromTo("#tg17b", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 10.200);
-      tl.to("#tg17b", { y: -20, opacity: 0, duration: 0.2 }, 12.934);
-      tl.fromTo("#tg19b", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 11.760);
-      tl.to("#tg19b", { y: -20, opacity: 0, duration: 0.2 }, 12.934);
-      tl.fromTo("#nm21b", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: "power3.out" }, 6.160);
-      tl.to("#nm21b", { x: -40, opacity: 0, duration: 0.25 }, 8.510);
-      tl.fromTo("#bw22", { scale: 1.0 }, { scale: 1.1, duration: 6.540, ease: "none" }, 13.154);
-      tl.fromTo("#ch24b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 15.414);
-      tl.to("#ch24b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 19.474);
-      tl.fromTo("#bw26", { scale: 1.0 }, { scale: 1.08, duration: 1.220, ease: "none" }, 24.074);
-      tl.fromTo("#bw28", { scale: 1.0 }, { scale: 1.08, duration: 0.561, ease: "none" }, 25.294);
-      tl.fromTo("#st30b", { y: -40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 22.374);
-      tl.to("#st30d0", { backgroundColor: "#f5c22e", borderColor: "#f5c22e", color: "#15171a", duration: 0.15 }, 22.674);
-      tl.fromTo("#st30d0", { scale: 1.35 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 22.674);
-      tl.to("#st30l0", { color: "#ffffff", duration: 0.15 }, 22.674);
-      tl.to("#st30d1", { backgroundColor: "#f5c22e", borderColor: "#f5c22e", color: "#15171a", duration: 0.15 }, 23.494);
-      tl.fromTo("#st30d1", { scale: 1.35 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 23.494);
-      tl.to("#st30l1", { color: "#ffffff", duration: 0.15 }, 23.494);
-      tl.to("#st30f", { scaleX: 0.333, duration: 0.3, ease: "power2.out" }, 23.294);
-      tl.to("#st30d2", { backgroundColor: "#f5c22e", borderColor: "#f5c22e", color: "#15171a", duration: 0.15 }, 24.274);
-      tl.fromTo("#st30d2", { scale: 1.35 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 24.274);
-      tl.to("#st30l2", { color: "#ffffff", duration: 0.15 }, 24.274);
-      tl.to("#st30f", { scaleX: 0.667, duration: 0.3, ease: "power2.out" }, 24.074);
-      tl.to("#st30d3", { backgroundColor: "#f5c22e", borderColor: "#f5c22e", color: "#15171a", duration: 0.15 }, 25.294);
-      tl.fromTo("#st30d3", { scale: 1.35 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 25.294);
-      tl.to("#st30l3", { color: "#ffffff", duration: 0.15 }, 25.294);
-      tl.to("#st30f", { scaleX: 1.000, duration: 0.3, ease: "power2.out" }, 25.094);
-      tl.to("#st30b", { opacity: 0, duration: 0.25 }, 25.605);
-      tl.fromTo("#ch35b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 25.955);
-      tl.to("#ch35b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 31.445);
-      tl.fromTo("#st37b", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "power3.out" }, 31.615);
-      tl.fromTo("#st37i", { scaleX: 0 }, { scaleX: 1, duration: 0.18, ease: "power2.out" }, 32.215);
-      tl.to("#st37b", { opacity: 0, duration: 0.2 }, 33.865);
-      tl.fromTo("#ch40b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 34.215);
-      tl.to("#ch40b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 35.291);
-      tl.fromTo("#bt42b", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2.2)" }, 39.211);
-      tl.to("#bt42b", { scale: 1.06, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 5 }, 39.711);
-      tl.to("#bt42b", { opacity: 0, duration: 0.2 }, 43.307);
-      tl.fromTo("#bw44", { scale: 1.0 }, { scale: 1.08, duration: 3.600, ease: "none" }, 43.507);
-      tl.fromTo("#ce46m", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 43.507);
-      tl.fromTo("#ce46k", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 43.607);
-      tl.fromTo("#ce46q span, #ce46q em", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, stagger: 0.08, ease: "back.out(1.8)" }, 43.707);
-      tl.fromTo("#ce46b", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 44.207);
-      tl.to("#ce46b", { scale: 1.06, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 5 }, 44.607);
-      tl.fromTo("#ce46l", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 44.407);
-      tl.fromTo("#cm48 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 0.100);
-      tl.fromTo("#cm48w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 0.100);
-      tl.fromTo("#cm48w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 0.420);
-      tl.fromTo("#cm48w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 1.160);
-      tl.fromTo("#cm48w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 1.510);
-      tl.fromTo("#cm49 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 1.920);
-      tl.fromTo("#cm49w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 1.920);
-      tl.fromTo("#cm49w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 2.300);
-      tl.fromTo("#cm49w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 2.530);
-      tl.fromTo("#cm49w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 2.700);
-      tl.fromTo("#cm50 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 3.090);
-      tl.fromTo("#cm50w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 3.090);
-      tl.fromTo("#cm50w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 3.490);
-      tl.fromTo("#cm50w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 4.260);
-      tl.fromTo("#cm51 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 5.150);
-      tl.fromTo("#cm51w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 5.150);
-      tl.fromTo("#cm51w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 5.920);
-      tl.fromTo("#cm51w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 6.110);
-      tl.fromTo("#cm52 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 6.340);
-      tl.fromTo("#cm52w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 6.340);
-      tl.fromTo("#cm52w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 6.780);
-      tl.fromTo("#cm52w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 7.050);
-      tl.fromTo("#cm52w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 7.710);
-      tl.fromTo("#cm53 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 8.080);
-      tl.fromTo("#cm53w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 8.080);
-      tl.fromTo("#cm53w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 8.800);
-      tl.fromTo("#cm53w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 8.860);
-      tl.fromTo("#cm53w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 9.100);
-      tl.fromTo("#cm54 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 9.340);
-      tl.fromTo("#cm54w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 9.340);
-      tl.fromTo("#cm54w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 9.520);
-      tl.fromTo("#cm54w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 9.760);
-      tl.fromTo("#cm54w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 10.200);
-      tl.fromTo("#cm54w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 10.530);
-      tl.fromTo("#cm55 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 10.730);
-      tl.fromTo("#cm55w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 10.730);
-      tl.fromTo("#cm55w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 11.060);
-      tl.fromTo("#cm55w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 11.240);
-      tl.fromTo("#cm55w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 11.570);
-      tl.fromTo("#cm56 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 11.760);
-      tl.fromTo("#cm56w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 11.760);
-      tl.fromTo("#cm56w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 12.080);
-      tl.fromTo("#cm56w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 12.210);
-      tl.fromTo("#cm57 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 12.850);
-      tl.fromTo("#cm57w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 12.850);
-      tl.fromTo("#cm57w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 12.940);
-      tl.fromTo("#cm57w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 13.154);
-      tl.fromTo("#cm57w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 13.564);
-      tl.fromTo("#cm57w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 14.194);
-      tl.fromTo("#cm58 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 14.654);
-      tl.fromTo("#cm58w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 14.654);
-      tl.fromTo("#cm58w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 14.944);
-      tl.fromTo("#cm58w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 15.154);
-      tl.fromTo("#cm58w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 15.414);
-      tl.fromTo("#cm59 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 15.814);
-      tl.fromTo("#cm59w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 15.814);
-      tl.fromTo("#cm59w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 16.254);
-      tl.fromTo("#cm59w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 16.554);
-      tl.fromTo("#cm59w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 16.824);
-      tl.fromTo("#cm60 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 17.244);
-      tl.fromTo("#cm60w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 17.244);
-      tl.fromTo("#cm60w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 17.914);
-      tl.fromTo("#cm60w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 17.994);
-      tl.fromTo("#cm60w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 18.314);
-      tl.fromTo("#cm61 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 18.794);
-      tl.fromTo("#cm61w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 18.794);
-      tl.fromTo("#cm61w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 19.174);
-      tl.fromTo("#cm61w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 19.694);
-      tl.fromTo("#cm62 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 20.634);
-      tl.fromTo("#cm62w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 20.634);
-      tl.fromTo("#cm62w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 20.764);
-      tl.fromTo("#cm62w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 21.114);
-      tl.fromTo("#cm62w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 21.264);
-      tl.fromTo("#cm62w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 21.384);
-      tl.fromTo("#cm63 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 21.654);
-      tl.fromTo("#cm63w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 21.654);
-      tl.fromTo("#cm63w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 21.954);
-      tl.fromTo("#cm63w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 22.354);
-      tl.fromTo("#cm63w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 22.674);
-      tl.fromTo("#cm64 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 23.494);
-      tl.fromTo("#cm64w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 23.494);
-      tl.fromTo("#cm64w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 23.774);
-      tl.fromTo("#cm64w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 24.274);
-      tl.fromTo("#cm65 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 24.944);
-      tl.fromTo("#cm65w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 24.944);
-      tl.fromTo("#cm65w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 25.294);
-      tl.fromTo("#cm65w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 25.774);
-      tl.fromTo("#cm65w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 25.855);
-      tl.fromTo("#cm66 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 26.405);
-      tl.fromTo("#cm66w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 26.405);
-      tl.fromTo("#cm66w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 26.755);
-      tl.fromTo("#cm66w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 27.355);
-      tl.fromTo("#cm66w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 27.515);
-      tl.fromTo("#cm66w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 27.855);
-      tl.fromTo("#cm67 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 28.195);
-      tl.fromTo("#cm67w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 28.195);
-      tl.fromTo("#cm67w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 28.775);
-      tl.fromTo("#cm67w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 29.135);
-      tl.fromTo("#cm67w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 29.275);
-      tl.fromTo("#cm67w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 29.705);
-      tl.fromTo("#cm68 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 30.135);
-      tl.fromTo("#cm68w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 30.135);
-      tl.fromTo("#cm68w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 30.515);
-      tl.fromTo("#cm68w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 30.855);
-      tl.fromTo("#cm69 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 31.245);
-      tl.fromTo("#cm69w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 31.245);
-      tl.fromTo("#cm69w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 31.595);
-      tl.fromTo("#cm69w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 31.865);
-      tl.fromTo("#cm69w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 32.305);
-      tl.fromTo("#cm70 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 32.795);
-      tl.fromTo("#cm70w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 32.795);
-      tl.fromTo("#cm70w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 32.895);
-      tl.fromTo("#cm70w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 33.345);
-      tl.fromTo("#cm70w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 33.605);
-      tl.fromTo("#cm71 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 33.885);
-      tl.fromTo("#cm71w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 33.885);
-      tl.fromTo("#cm71w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 34.215);
-      tl.fromTo("#cm71w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 34.735);
-      tl.fromTo("#cm71w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 34.965);
-      tl.fromTo("#cm72 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 35.531);
-      tl.fromTo("#cm72w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 35.531);
-      tl.fromTo("#cm72w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 36.021);
-      tl.fromTo("#cm72w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 36.541);
-      tl.fromTo("#cm72w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 36.881);
-      tl.fromTo("#cm73 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 37.511);
-      tl.fromTo("#cm73w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 37.511);
-      tl.fromTo("#cm73w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 37.951);
-      tl.fromTo("#cm73w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 38.591);
-      tl.fromTo("#cm73w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 39.511);
-      tl.fromTo("#cm74 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 39.831);
-      tl.fromTo("#cm74w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 39.831);
-      tl.fromTo("#cm74w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 40.251);
-      tl.fromTo("#cm74w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 40.351);
-      tl.fromTo("#cm75 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 40.511);
-      tl.fromTo("#cm75w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 40.511);
-      tl.fromTo("#cm75w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 41.021);
-      tl.fromTo("#cm75w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 41.441);
-      tl.fromTo("#cm75w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 41.871);
-      tl.fromTo("#cm76 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 42.411);
-      tl.fromTo("#cm76w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 42.411);
-      tl.fromTo("#cm76w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 43.411);
+      tl.fromTo("#bw3", { scale: 1.0 }, { scale: 1.08, duration: 2.100, ease: "none" }, 0.000);
+      tl.fromTo("#bw5", { scale: 1.0 }, { scale: 1.08, duration: 2.160, ease: "none" }, 2.100);
+      tl.fromTo("#ch7b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 0.400);
+      tl.to("#ch7b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 3.840);
+      tl.fromTo("#wp9x", { x: 0 }, { x: 1180, duration: 0.500, ease: "power2.inOut" }, 4.010);
+      tl.fromTo("#hk11l0", { y: -50, scale: 0.85, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 0.100);
+      tl.to("#hk11l0", { y: -30, opacity: 0, duration: 0.25, ease: "power2.in" }, 3.860);
+      tl.fromTo("#hk11l1", { y: -50, scale: 0.85, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 0.220);
+      tl.to("#hk11l1", { y: -30, opacity: 0, duration: 0.25, ease: "power2.in" }, 3.860);
+      tl.fromTo("#ch14b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 4.460);
+      tl.to("#ch14b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 5.840);
+      tl.fromTo("#bw16", { scale: 1.0 }, { scale: 1.08, duration: 1.340, ease: "none" }, 8.860);
+      tl.fromTo("#bw18", { scale: 1.0 }, { scale: 1.1, duration: 1.560, ease: "none" }, 10.200);
+      tl.fromTo("#tg20b", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 8.860);
+      tl.to("#tg20b", { y: -20, opacity: 0, duration: 0.2 }, 12.934);
+      tl.fromTo("#tg22b", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 10.200);
+      tl.to("#tg22b", { y: -20, opacity: 0, duration: 0.2 }, 12.934);
+      tl.fromTo("#tg24b", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 11.760);
+      tl.to("#tg24b", { y: -20, opacity: 0, duration: 0.2 }, 12.934);
+      tl.fromTo("#nm26b", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: "power3.out" }, 6.160);
+      tl.to("#nm26b", { x: -40, opacity: 0, duration: 0.25 }, 8.510);
+      tl.fromTo("#bw27", { scale: 1.0 }, { scale: 1.1, duration: 6.540, ease: "none" }, 13.154);
+      tl.fromTo("#ch29b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 15.414);
+      tl.to("#ch29b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 19.474);
+      tl.fromTo("#bw31", { scale: 1.0 }, { scale: 1.08, duration: 1.220, ease: "none" }, 24.074);
+      tl.fromTo("#bw33", { scale: 1.0 }, { scale: 1.08, duration: 0.561, ease: "none" }, 25.294);
+      tl.fromTo("#st35b", { y: -40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 22.374);
+      tl.to("#st35d0", { backgroundColor: "#f5c22e", borderColor: "#f5c22e", color: "#15171a", duration: 0.15 }, 22.674);
+      tl.fromTo("#st35d0", { scale: 1.35 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 22.674);
+      tl.to("#st35l0", { color: "#ffffff", duration: 0.15 }, 22.674);
+      tl.to("#st35d1", { backgroundColor: "#f5c22e", borderColor: "#f5c22e", color: "#15171a", duration: 0.15 }, 23.494);
+      tl.fromTo("#st35d1", { scale: 1.35 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 23.494);
+      tl.to("#st35l1", { color: "#ffffff", duration: 0.15 }, 23.494);
+      tl.to("#st35f", { scaleX: 0.333, duration: 0.3, ease: "power2.out" }, 23.294);
+      tl.to("#st35d2", { backgroundColor: "#f5c22e", borderColor: "#f5c22e", color: "#15171a", duration: 0.15 }, 24.274);
+      tl.fromTo("#st35d2", { scale: 1.35 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 24.274);
+      tl.to("#st35l2", { color: "#ffffff", duration: 0.15 }, 24.274);
+      tl.to("#st35f", { scaleX: 0.667, duration: 0.3, ease: "power2.out" }, 24.074);
+      tl.to("#st35d3", { backgroundColor: "#f5c22e", borderColor: "#f5c22e", color: "#15171a", duration: 0.15 }, 25.294);
+      tl.fromTo("#st35d3", { scale: 1.35 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 25.294);
+      tl.to("#st35l3", { color: "#ffffff", duration: 0.15 }, 25.294);
+      tl.to("#st35f", { scaleX: 1.000, duration: 0.3, ease: "power2.out" }, 25.094);
+      tl.to("#st35b", { opacity: 0, duration: 0.25 }, 25.605);
+      tl.fromTo("#ch40b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 25.955);
+      tl.to("#ch40b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 31.445);
+      tl.fromTo("#st42b", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "power3.out" }, 31.615);
+      tl.fromTo("#st42i", { scaleX: 0 }, { scaleX: 1, duration: 0.18, ease: "power2.out" }, 32.215);
+      tl.to("#st42b", { opacity: 0, duration: 0.2 }, 33.865);
+      tl.fromTo("#ch45b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 34.215);
+      tl.to("#ch45b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 35.291);
+      tl.fromTo("#bt47b", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2.2)" }, 39.211);
+      tl.to("#bt47b", { scale: 1.06, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 5 }, 39.711);
+      tl.to("#bt47b", { opacity: 0, duration: 0.2 }, 43.307);
+      tl.fromTo("#bw49", { scale: 1.0 }, { scale: 1.08, duration: 3.600, ease: "none" }, 43.507);
+      tl.fromTo("#ce51m", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 43.507);
+      tl.fromTo("#ce51k", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 43.607);
+      tl.fromTo("#ce51q span, #ce51q em", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, stagger: 0.08, ease: "back.out(1.8)" }, 43.707);
+      tl.fromTo("#ce51b", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 44.207);
+      tl.to("#ce51b", { scale: 1.06, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 5 }, 44.607);
+      tl.fromTo("#ce51l", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 44.407);
+      tl.fromTo("#cm53 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 0.100);
+      tl.fromTo("#cm53w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 0.100);
+      tl.fromTo("#cm53w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 0.420);
+      tl.fromTo("#cm53w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 1.160);
+      tl.fromTo("#cm53w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 1.510);
+      tl.fromTo("#cm54 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 1.920);
+      tl.fromTo("#cm54w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 1.920);
+      tl.fromTo("#cm54w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 2.300);
+      tl.fromTo("#cm54w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 2.530);
+      tl.fromTo("#cm54w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 2.700);
+      tl.fromTo("#cm55 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 3.090);
+      tl.fromTo("#cm55w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 3.090);
+      tl.fromTo("#cm55w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 3.490);
+      tl.fromTo("#cm55w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 4.260);
+      tl.fromTo("#cm56 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 5.150);
+      tl.fromTo("#cm56w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 5.150);
+      tl.fromTo("#cm56w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 5.920);
+      tl.fromTo("#cm56w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 6.110);
+      tl.fromTo("#cm57 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 6.340);
+      tl.fromTo("#cm57w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 6.340);
+      tl.fromTo("#cm57w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 6.780);
+      tl.fromTo("#cm57w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 7.050);
+      tl.fromTo("#cm57w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 7.710);
+      tl.fromTo("#cm58 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 8.080);
+      tl.fromTo("#cm58w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 8.080);
+      tl.fromTo("#cm58w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 8.800);
+      tl.fromTo("#cm58w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 8.860);
+      tl.fromTo("#cm58w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 9.100);
+      tl.fromTo("#cm59 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 9.340);
+      tl.fromTo("#cm59w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 9.340);
+      tl.fromTo("#cm59w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 9.520);
+      tl.fromTo("#cm59w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 9.760);
+      tl.fromTo("#cm59w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 10.200);
+      tl.fromTo("#cm59w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 10.530);
+      tl.fromTo("#cm60 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 10.730);
+      tl.fromTo("#cm60w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 10.730);
+      tl.fromTo("#cm60w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 11.060);
+      tl.fromTo("#cm60w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 11.240);
+      tl.fromTo("#cm60w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 11.570);
+      tl.fromTo("#cm61 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 11.760);
+      tl.fromTo("#cm61w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 11.760);
+      tl.fromTo("#cm61w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 12.080);
+      tl.fromTo("#cm61w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 12.210);
+      tl.fromTo("#cm62 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 12.850);
+      tl.fromTo("#cm62w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 12.850);
+      tl.fromTo("#cm62w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 12.940);
+      tl.fromTo("#cm62w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 13.154);
+      tl.fromTo("#cm62w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 13.564);
+      tl.fromTo("#cm62w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 14.194);
+      tl.fromTo("#cm63 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 14.654);
+      tl.fromTo("#cm63w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 14.654);
+      tl.fromTo("#cm63w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 14.944);
+      tl.fromTo("#cm63w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 15.154);
+      tl.fromTo("#cm63w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 15.414);
+      tl.fromTo("#cm64 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 15.814);
+      tl.fromTo("#cm64w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 15.814);
+      tl.fromTo("#cm64w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 16.254);
+      tl.fromTo("#cm64w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 16.554);
+      tl.fromTo("#cm64w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 16.824);
+      tl.fromTo("#cm65 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 17.244);
+      tl.fromTo("#cm65w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 17.244);
+      tl.fromTo("#cm65w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 17.914);
+      tl.fromTo("#cm65w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 17.994);
+      tl.fromTo("#cm65w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 18.314);
+      tl.fromTo("#cm66 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 18.794);
+      tl.fromTo("#cm66w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 18.794);
+      tl.fromTo("#cm66w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 19.174);
+      tl.fromTo("#cm66w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 19.694);
+      tl.fromTo("#cm67 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 20.634);
+      tl.fromTo("#cm67w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 20.634);
+      tl.fromTo("#cm67w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 20.764);
+      tl.fromTo("#cm67w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 21.114);
+      tl.fromTo("#cm67w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 21.264);
+      tl.fromTo("#cm67w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 21.384);
+      tl.fromTo("#cm68 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 21.654);
+      tl.fromTo("#cm68w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 21.654);
+      tl.fromTo("#cm68w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 21.954);
+      tl.fromTo("#cm68w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 22.354);
+      tl.fromTo("#cm68w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 22.674);
+      tl.fromTo("#cm69 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 23.494);
+      tl.fromTo("#cm69w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 23.494);
+      tl.fromTo("#cm69w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 23.774);
+      tl.fromTo("#cm69w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 24.274);
+      tl.fromTo("#cm70 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 24.944);
+      tl.fromTo("#cm70w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 24.944);
+      tl.fromTo("#cm70w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 25.294);
+      tl.fromTo("#cm70w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 25.774);
+      tl.fromTo("#cm70w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 25.855);
+      tl.fromTo("#cm71 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 26.405);
+      tl.fromTo("#cm71w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 26.405);
+      tl.fromTo("#cm71w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 26.755);
+      tl.fromTo("#cm71w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 27.355);
+      tl.fromTo("#cm71w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 27.515);
+      tl.fromTo("#cm71w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 27.855);
+      tl.fromTo("#cm72 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 28.195);
+      tl.fromTo("#cm72w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 28.195);
+      tl.fromTo("#cm72w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 28.775);
+      tl.fromTo("#cm72w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 29.135);
+      tl.fromTo("#cm72w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 29.275);
+      tl.fromTo("#cm72w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 29.705);
+      tl.fromTo("#cm73 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 30.135);
+      tl.fromTo("#cm73w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 30.135);
+      tl.fromTo("#cm73w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 30.515);
+      tl.fromTo("#cm73w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 30.855);
+      tl.fromTo("#cm74 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 31.245);
+      tl.fromTo("#cm74w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 31.245);
+      tl.fromTo("#cm74w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 31.595);
+      tl.fromTo("#cm74w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 31.865);
+      tl.fromTo("#cm74w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 32.305);
+      tl.fromTo("#cm75 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 32.795);
+      tl.fromTo("#cm75w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 32.795);
+      tl.fromTo("#cm75w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 32.895);
+      tl.fromTo("#cm75w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 33.345);
+      tl.fromTo("#cm75w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 33.605);
+      tl.fromTo("#cm76 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 33.885);
+      tl.fromTo("#cm76w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 33.885);
+      tl.fromTo("#cm76w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 34.215);
+      tl.fromTo("#cm76w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 34.735);
+      tl.fromTo("#cm76w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 34.965);
+      tl.fromTo("#cm77 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 35.531);
+      tl.fromTo("#cm77w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 35.531);
+      tl.fromTo("#cm77w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 36.021);
+      tl.fromTo("#cm77w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 36.541);
+      tl.fromTo("#cm77w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 36.881);
+      tl.fromTo("#cm78 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 37.511);
+      tl.fromTo("#cm78w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 37.511);
+      tl.fromTo("#cm78w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 37.951);
+      tl.fromTo("#cm78w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 38.591);
+      tl.fromTo("#cm78w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 39.511);
+      tl.fromTo("#cm79 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 39.831);
+      tl.fromTo("#cm79w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 39.831);
+      tl.fromTo("#cm79w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 40.251);
+      tl.fromTo("#cm79w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 40.351);
+      tl.fromTo("#cm80 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 40.511);
+      tl.fromTo("#cm80w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 40.511);
+      tl.fromTo("#cm80w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 41.021);
+      tl.fromTo("#cm80w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 41.441);
+      tl.fromTo("#cm80w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 41.871);
+      tl.fromTo("#cm81 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 42.411);
+      tl.fromTo("#cm81w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 42.411);
+      tl.fromTo("#cm81w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 43.411);
       window.__timelines["ad2-transform"] = tl;
     </script>
   </body>

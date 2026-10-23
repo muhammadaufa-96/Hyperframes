@@ -481,3 +481,14 @@ def _follow_end(self, start, dur, logo=LOGO):
 
 Ad.network, Ad.meters, Ad.stamp, Ad.comment = _network, _meters, _stamp, _comment
 Ad.wordstack, Ad.pill, Ad.tap, Ad.follow_end = _wordstack, _pill, _tap, _follow_end
+
+
+def _wipe(self, t, dur=0.5):
+    """Yellow bar sweeps across the frame on a before -> after cut."""
+    k = self.uid("wp")
+    self.layers.append(f'<section id="{k}" class="clip" data-start="{t - dur / 2:.3f}" data-duration="{dur:.3f}" data-track-index="7"><div class="wipe" id="{k}x" style="width:60px"></div></section>')
+    self.js.append(f'tl.fromTo("#{k}x", {{ x: 0 }}, {{ x: 1180, duration: {dur:.3f}, ease: "power2.inOut" }}, {t - dur / 2:.3f});')
+    self.sfx("whoosh", t - dur / 2, 0.5)
+
+
+Ad.wipe = _wipe

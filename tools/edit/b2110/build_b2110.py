@@ -69,7 +69,7 @@ def v1():
         t = find(w, tok, i0)
         c.tag(lab, t, find(w, "dan", t) - t + 0.3, 70, 300 + k * 120, icon="!", warn=True)
     lk = find(w, "lingkup", i0)
-    c.stamp("Lingkup", lk - 0.05, i1 - lk + 0.2, y=820)
+    c.stamp("Lingkup", lk - 0.05, i1 - lk + 0.2, y=1060)
     g0, g1 = spans["agree"]
     sj = find(w, "setujulah", g0)
     c.chip("Setuju? 👍", sj, g1 - sj, y=300, yellow=True)
@@ -118,11 +118,12 @@ def v3():
     c.shade(0, A + END)
     c.broll(F + "IMG_7835.mp4", S, BR, media_start=10.3, zoom=(1.0, 1.08))
     c.hook(["4 benda ni WAJIB", "ikut standard"], 0.05, 2.3)
-    c.wordstack(["Flow", "Layout", "Sistem", "Material"], [2.4, 3.05, 3.85, 4.35], S, top=290)
+    c.wordstack(["Flow", "Layout", "Sistem", "Material"], [2.4, 3.05, 3.85, 4.35], 5.4, top=290)
     c.stamp("Standard CKAPS ✓", 7.25, 1.6, y=1000, ok=True)
     words = [["Semuanya", 5.25, 5.75], ["mesti", 5.75, 6.0], ["kena", 6.0, 6.2], ["mengikut", 6.2, 6.62],
              ["CKAPS", 6.65, 7.0], ["punya", 7.0, 7.25], ["standard", 7.25, 8.0]]
     c.captions_hot(words, HOT)
+    c.broll(F + "IMG_7835.mp4", A, END, media_start=11.0, zoom=(1.08, 1.0))
     c.follow_end(A, END)
     bed(c, B + "edit/v3_voice.m4a")
     c.write(OUT + "b3-ikut-standard.html", "21/10 Video 3: Ikut standard")

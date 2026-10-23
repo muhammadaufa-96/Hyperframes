@@ -61,13 +61,16 @@ def base(n, cid, lead=0.0):
     return c, segs, words, lead + A
 
 
-def finish(c, words, A, bg, path, title, bg_ms=0.0):
+def finish(c, words, A, bg, path, title, bg_ms=0.0, music=True):
     c.broll(F + bg, A, END, media_start=bg_ms, zoom=(1.0, 1.08))
     c.cta_end(A, END)
     c.captions_hot(words, HOT, hide=[(A, A + END)])
-    bed = f"bed_{c.cid}.m4a"
-    music_bed(f"/home/user/Hyperframes/assets/dc/{bed}", c.duration, *c.voice)
-    c.music(f"../assets/dc/{bed}", 0.0, c.duration, vol=1.0)
+    if music:
+        bed = f"bed_{c.cid}.m4a"
+        music_bed(f"/home/user/Hyperframes/assets/dc/{bed}", c.duration, *c.voice)
+        c.music(f"../assets/dc/{bed}", 0.0, c.duration, vol=1.0)
+    else:
+        c.sfx("whoosh-cinematic", A - 0.1, 0.45)
     c.write(OUT + path, title)
 
 
@@ -135,7 +138,16 @@ def ad2():
     k0, k1 = span(segs, "cta")
     fr = find(w, "free", k0)
     c.button("👇 Klik link di bawah", fr - 0.3, k1 - fr + 0.3)
-    finish(c, w, A, "IMG_5279.mp4", "ad2-transform.html", "Iklan 2: Dari ruang kosong ke klinik gigi")
+    # no music on this one (client, 23/10): carry it with sound effects instead
+    for t in (2.1, pk, lt, ka, e0, rn - 0.2, ho, f0):
+        c.sfx("whoosh-short", t, 0.4)
+    c.sfx("riser", sek - 1.2, 0.3, dur=1.1)
+    c.sfx("sparkle", sek + 0.2, 0.45)
+    c.sfx("pop", sek + 1.9, 0.35)
+    c.sfx("impact-bass-2", rv + 0.35, 0.4)
+    c.sfx("sparkle", pl, 0.4)
+    c.sfx("notification", fr - 0.3, 0.35)
+    finish(c, w, A, "IMG_5279.mp4", "ad2-transform.html", "Iklan 2: Dari ruang kosong ke klinik gigi", music=False)
 
 
 def ad3():

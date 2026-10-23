@@ -79,7 +79,14 @@ def v1():
     c.captions_hot(w, HOT, hide=[(A, A + END)])
     c.broll(FA + "IMG_5277.mp4", A, END, media_start=1.0, zoom=(1.0, 1.08))
     c.follow_end(A, END)
-    bed(c, B + "edit/aroll_v1.mp4")
+    # no music (client, 23/10): sound effects only
+    c.sfx("impact-bass-2", 0.3, 0.45); c.sfx("glitch-1", 0.32, 0.3)
+    for t in (ml - 0.3, hi1, p1):
+        c.sfx("whoosh-short", t, 0.4)
+    c.sfx("glitch-2", lk + 0.1, 0.35)
+    c.sfx("sparkle", sj, 0.4)
+    c.sfx("typing", find(w, "komen", k0), 0.3, dur=1.2)
+    c.sfx("whoosh-cinematic", A - 0.1, 0.45)
     c.write(OUT + "b1-cabaran-design-build.html", "21/10 Video 1: Cabaran design & build")
 
 
@@ -105,7 +112,16 @@ def v2():
     c.captions_hot(words, HOT, hide=[(A, A + END)])
     c.broll(F + "v2_screen.mp4", A, END, media_start=0.5, zoom=(1.08, 1.0))
     c.follow_end(A, END)
-    bed(c, B + "edit/v2_voice.m4a", vol=0.75)
+    # no music (client, 23/10): sound effects only
+    c.sfx("ping", 2.8, 0.4)
+    c.sfx("riser", 8.4, 0.3, dur=1.1)
+    t = 0.0
+    for i, (lab, d) in enumerate(segs):
+        c.sfx("pop", t + (5.0 if i == 0 else 0.0) + 0.15, 0.35)
+        if lab.startswith("Cermin"):
+            c.sfx("sparkle", t + 0.5, 0.45)
+        t += d
+    c.sfx("whoosh-cinematic", A - 0.1, 0.45)
     c.write(OUT + "b2-3d-interaktif.html", "21/10 Video 2: 3D interaktif butik")
 
 
@@ -125,7 +141,13 @@ def v3():
     c.captions_hot(words, HOT)
     c.broll(F + "IMG_7835.mp4", A, END, media_start=11.0, zoom=(1.08, 1.0))
     c.follow_end(A, END)
-    bed(c, B + "edit/v3_voice.m4a")
+    # no music (client, 23/10): sound effects only
+    c.sfx("click-soft", 0.6, 0.4)
+    c.sfx("riser", 1.3, 0.25, dur=1.1)
+    c.sfx("whoosh-short", S, 0.4)
+    c.sfx("sparkle", S + 0.3, 0.35)
+    c.sfx("whoosh", S + 2.2, 0.35)
+    c.sfx("whoosh-cinematic", A - 0.1, 0.45)
     c.write(OUT + "b3-ikut-standard.html", "21/10 Video 3: Ikut standard")
 
 

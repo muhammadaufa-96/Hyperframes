@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Iklan 3: Layout klinik gigi yang betul</title>
+    <script src="../assets/vendor/gsap.min.js"></script>
+    <style>
+@font-face { font-family: "Montserrat"; font-weight: 800; src: url("../assets/fonts/montserrat-latin-800-normal.woff2") format("woff2"); }
+@font-face { font-family: "Montserrat"; font-weight: 600; src: url("../assets/fonts/montserrat-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Share Tech Mono"; font-weight: 400; src: url("../assets/fonts/share-tech-mono-latin-400-normal.woff2") format("woff2"); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { margin: 0; overflow: hidden; background: #0d0f12; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Montserrat", sans-serif; color: #fff; background: #0d0f12; }
+.clip { position: absolute; inset: 0; }
+.cam { position: absolute; inset: 0; transform-origin: 50% 40%; }
+.cam video, .cam img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 28%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.45) 100%); }
+
+/* Hook title (top safe area) */
+.hook { position: absolute; left: 70px; right: 70px; top: 250px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.hook-line { display: block; background: #f5c22e; color: #15171a; font-weight: 800; font-size: 72px; line-height: 1.02; text-transform: uppercase; white-space: nowrap; padding: 10px 22px 12px; border-radius: 8px; }
+.hook-line.alt { background: #ffffff; }
+
+/* Kicker / info chips */
+.chip { position: absolute; display: flex; align-items: center; gap: 12px; background: rgba(15,17,20,0.82); color: #fff; font-weight: 800; font-size: 46px; text-transform: uppercase; padding: 14px 26px; border-radius: 999px; border: 3px solid #f5c22e; }
+.chip.yellow { background: #f5c22e; color: #15171a; border-color: #f5c22e; }
+
+/* Numbered checklist card */
+.card { position: absolute; left: 70px; right: 70px; top: 300px; display: flex; align-items: center; gap: 26px; background: rgba(15,17,20,0.86); border-radius: 22px; padding: 26px 30px; border-left: 14px solid #f5c22e; }
+.card-num { flex: none; width: 120px; height: 120px; border-radius: 50%; background: #f5c22e; color: #15171a; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 76px; }
+.card-text { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.card-title { font-weight: 800; font-size: 70px; line-height: 1; text-transform: uppercase; }
+.card-sub { font-weight: 600; font-size: 38px; line-height: 1.2; color: #d9dadc; }
+
+/* Captions */
+.cap { position: absolute; left: 60px; right: 60px; top: 1240px; text-align: center; font-weight: 800; font-size: 74px; line-height: 1.12; text-transform: uppercase; }
+.cap .w { display: inline-block; margin: 0 10px; color: #fff; text-shadow: 0 5px 0 rgba(0,0,0,0.6), 0 0 26px rgba(0,0,0,0.75); }
+
+/* Minimal captions (two speakers) */
+.capm { position: absolute; left: 90px; right: 90px; top: 1330px; text-align: center; font-weight: 600; font-size: 44px; line-height: 1.25; }
+.capm .w { display: inline-block; margin: 0 6px; opacity: 0.72; text-shadow: 0 2px 10px rgba(0,0,0,0.85), 0 1px 2px rgba(0,0,0,0.9); }
+.capm.me .w { color: #ffffff; }
+.capm.cl .w { color: #ffd34d; }
+.name { position: absolute; left: 70px; top: 1190px; display: flex; flex-direction: column; gap: 2px; background: rgba(15,17,20,0.78); border-left: 6px solid #ffd34d; padding: 12px 20px; border-radius: 8px; }
+.name b { font-weight: 800; font-size: 38px; }
+.name span { font-weight: 600; font-size: 28px; color: #d9dadc; }
+.label { position: absolute; left: 70px; top: 300px; font-weight: 600; font-size: 36px; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; padding: 10px 18px; background: rgba(15,17,20,0.55); border-radius: 6px; }
+.shot { position: absolute; left: 140px; right: 140px; top: 260px; border-radius: 26px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.6); }
+.shot img { display: block; width: 100%; }
+.hl { position: absolute; border: 6px solid #ffd34d; border-radius: 14px; box-shadow: 0 0 0 9999px rgba(0,0,0,0); }
+
+/* Comparison */
+.vs { position: absolute; left: 60px; right: 60px; top: 300px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.vs-box { background: rgba(15,17,20,0.86); border-radius: 22px; padding: 26px 22px; display: flex; flex-direction: column; gap: 8px; align-items: center; text-align: center; border-top: 12px solid #f5c22e; }
+.vs-box b { font-size: 54px; font-weight: 800; line-height: 1.02; text-transform: uppercase; }
+.vs-box span { font-size: 34px; font-weight: 600; color: #d9dadc; }
+
+/* Strike words (Gucci / LV) */
+.strike { position: absolute; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 120px; text-transform: uppercase; color: #fff; }
+.strike i { position: absolute; left: -10%; right: -10%; top: 50%; height: 16px; margin-top: -8px; background: #ff3b3b; border-radius: 8px; transform-origin: left center; }
+
+/* End card */
+.end { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; background: rgba(10,11,13,0.72); padding: 0 80px; text-align: center; }
+.end-q { font-weight: 800; font-size: 96px; line-height: 1.05; text-transform: uppercase; }
+.end-q em { font-style: normal; color: #f5c22e; }
+.end-q .ln { display: block; }
+.end-sub { font-weight: 600; font-size: 46px; color: #e7e7e7; }
+.end-logo { width: 560px; }
+
+/* Arrow label (site callouts) */
+.tag { position: absolute; display: flex; align-items: center; gap: 14px; background: #ffffff; color: #15171a; font-weight: 800; font-size: 50px; text-transform: uppercase; padding: 14px 26px; border-radius: 14px; box-shadow: 0 12px 30px rgba(0,0,0,0.45); }
+.tag .ic { width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; color: #fff; background: #20b26b; }
+.tag .ic.warn { background: #ff8a00; }
+
+/* Laser block */
+.lz-bgwrap { position: absolute; inset: -60px; filter: blur(16px) brightness(0.42) saturate(1.1); }
+.lz-bgwrap video { width: 100%; height: 100%; object-fit: cover; }
+.lz-title { position: absolute; left: 80px; right: 80px; top: 300px; display: flex; flex-direction: column; gap: 18px; }
+.lz-kicker { align-self: flex-start; background: #f5c22e; color: #15171a; font-weight: 800; font-size: 40px; letter-spacing: 0.04em; padding: 10px 20px; border-radius: 6px; }
+.lz-main { font-weight: 800; font-size: 104px; line-height: 0.98; text-transform: uppercase; }
+.lz-wall { position: absolute; top: 760px; height: 560px; right: 0; width: 110px; background: linear-gradient(90deg, #8a8d91, #b9bcc0 40%, #9a9da1); }
+.lz-device { position: absolute; left: 70px; top: 950px; width: 400px; height: 190px; border-radius: 34px; background: linear-gradient(180deg, #2c5fa8 0%, #1d4380 100%); box-shadow: 0 30px 60px rgba(0,0,0,0.55), inset 0 2px 0 rgba(255,255,255,0.25); }
+.lz-grip { position: absolute; left: 0; top: 0; bottom: 0; width: 120px; border-radius: 34px 0 0 34px; background: #17191d; }
+.lz-screen { position: absolute; left: 140px; top: 34px; width: 200px; height: 122px; border-radius: 12px; background: #0f1a12; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; padding: 0 16px; font-family: "Share Tech Mono", monospace; color: #9dff9a; }
+.lz-glow { position: absolute; inset: 0; border-radius: 12px; background: rgba(157,255,154,0.18); }
+.lz-read { font-size: 52px; line-height: 1; position: relative; }
+.lz-unit { font-size: 24px; opacity: 0.8; position: relative; }
+.lz-emit { position: absolute; right: -10px; top: 70px; width: 26px; height: 50px; border-radius: 8px; background: #111; }
+.lz-beam { position: absolute; left: 486px; top: 1043px; width: 484px; height: 6px; background: #ff3b3b; box-shadow: 0 0 18px 4px rgba(255,40,40,0.55); transform-origin: left center; border-radius: 3px; }
+.lz-dot { position: absolute; left: 948px; top: 1024px; width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle, #fff 0 18%, #ff3b3b 30%, rgba(255,40,40,0) 70%); }
+.lz-dim { position: absolute; left: 486px; width: 484px; top: 1190px; height: 40px; }
+.lz-dline { position: absolute; left: 0; right: 0; top: 19px; height: 3px; background: #f5c22e; transform-origin: left center; }
+.lz-cap { position: absolute; top: 0; width: 3px; height: 40px; background: #f5c22e; }
+.lz-dlabel { position: absolute; left: 0; right: 0; top: 54px; text-align: center; font-family: "Share Tech Mono", monospace; font-size: 46px; color: #f5c22e; }
+.lz-badge { position: absolute; left: 70px; top: 1330px; display: flex; align-items: center; gap: 16px; background: #fff; color: #15171a; border-radius: 999px; padding: 16px 30px 16px 18px; font-weight: 800; font-size: 40px; }
+.lz-check { width: 54px; height: 54px; border-radius: 50%; background: #20b26b; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 34px; }
+
+/* Question cards that flip from ? to a tick */
+.qg { position: absolute; left: 70px; right: 70px; top: 300px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.qc { background: rgba(15,17,20,0.88); border-radius: 20px; padding: 22px 22px; display: flex; align-items: center; gap: 18px; border: 3px solid rgba(255,255,255,0.14); }
+.qc .ic { position: relative; width: 66px; height: 66px; flex: none; }
+.qc .ic i { position: absolute; inset: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-style: normal; font-weight: 800; font-size: 40px; color: #fff; }
+.qc .ic .q { background: #ff4d4d; }
+.qc .ic .k { background: #20b26b; opacity: 0; }
+.qc b { font-weight: 800; font-size: 38px; text-transform: uppercase; white-space: nowrap; }
+
+/* Four-step timeline */
+.st { position: absolute; left: 60px; right: 60px; top: 300px; height: 190px; background: rgba(15,17,20,0.86); border-radius: 22px; }
+.st-line { position: absolute; left: 120px; right: 120px; top: 60px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.2); }
+.st-fill { position: absolute; left: 120px; right: 120px; top: 60px; height: 6px; border-radius: 3px; background: #f5c22e; transform-origin: left center; transform: scaleX(0); }
+.st-row { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(4, 1fr); }
+.st-n { display: flex; flex-direction: column; align-items: center; padding-top: 30px; gap: 14px; }
+.st-dot { width: 66px; height: 66px; border-radius: 50%; background: #2a2d33; border: 5px solid rgba(255,255,255,0.35); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 30px; }
+.st-lab { font-weight: 800; font-size: 27px; text-transform: uppercase; color: rgba(255,255,255,0.55); white-space: nowrap; }
+
+/* Blueprint intro */
+.bp { position: absolute; inset: 0; background-color: #0c3560; background-image: linear-gradient(rgba(255,255,255,0.07) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,0.07) 2px, transparent 2px); background-size: 60px 60px; }
+.bp svg { position: absolute; left: 220px; top: 440px; width: 640px; height: 896px; overflow: visible; }
+.bp .w { fill: none; stroke: #e8f1ff; stroke-width: 10; stroke-linecap: square; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.bp .p { fill: none; stroke: #8fc3ff; stroke-width: 5; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.bp .t { font-family: "Share Tech Mono", monospace; font-size: 30px; fill: #bcd9ff; opacity: 0; }
+.bp-k { position: absolute; left: 70px; top: 1720px; font-family: "Share Tech Mono", monospace; font-size: 34px; color: #bcd9ff; letter-spacing: 0.08em; opacity: 0; }
+.wipe { position: absolute; top: 0; bottom: 0; width: 40px; left: -40px; background: #f5c22e; box-shadow: 0 0 40px rgba(245,194,46,0.8); }
+
+/* Room route (layout tour) */
+.rt { position: absolute; left: 50px; top: 290px; width: 430px; background: rgba(15,17,20,0.78); border-radius: 20px; padding: 18px 22px 20px; display: flex; flex-direction: column; gap: 6px; }
+.rt-h { font-weight: 800; font-size: 26px; letter-spacing: 0.1em; color: #f5c22e; margin-bottom: 6px; }
+.rt-i { display: flex; align-items: center; gap: 14px; font-weight: 600; font-size: 30px; color: rgba(255,255,255,0.5); transform-origin: left center; white-space: nowrap; }
+.rt-i i { width: 18px; height: 18px; border-radius: 50%; background: rgba(255,255,255,0.35); flex: none; font-style: normal; }
+
+/* Flow lines */
+.fl svg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.fl path { fill: none; stroke-width: 14; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.fl .pa { stroke: #4fb3ff; }
+.fl .sf { stroke: #f5c22e; }
+.fl-leg { position: absolute; left: 70px; top: 300px; display: flex; flex-direction: column; gap: 14px; }
+.fl-leg div { display: flex; align-items: center; gap: 14px; background: rgba(15,17,20,0.84); padding: 12px 22px; border-radius: 999px; font-weight: 800; font-size: 36px; text-transform: uppercase; }
+.fl-leg span { width: 40px; height: 12px; border-radius: 6px; }
+
+/* Keyword captions */
+.capm .w.hot { color: #ffd34d; }
+
+/* CTA button */
+.btn { position: absolute; left: 90px; right: 90px; top: 1120px; display: flex; align-items: center; justify-content: center; gap: 16px; background: #f5c22e; color: #15171a; border-radius: 999px; padding: 26px 30px; font-weight: 800; font-size: 44px; text-transform: uppercase; box-shadow: 0 16px 40px rgba(0,0,0,0.45); white-space: nowrap; }
+
+/* CTA end card */
+.ce { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 34px; background: rgba(10,11,13,0.8); padding: 0 70px 200px; text-align: center; }
+.ce-k { background: #20b26b; color: #fff; font-weight: 800; font-size: 40px; letter-spacing: 0.08em; padding: 10px 26px; border-radius: 8px; text-transform: uppercase; }
+.ce-q { font-weight: 800; font-size: 100px; line-height: 1.02; text-transform: uppercase; }
+.ce-q span { display: block; }
+.ce-q em { display: block; font-style: normal; color: #f5c22e; }
+.ce-b { background: #fff; color: #15171a; border-radius: 999px; padding: 22px 44px; font-weight: 800; font-size: 44px; text-transform: uppercase; }
+.ce-l { width: 460px; margin-top: 10px; }
+</style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="ad3-layout" data-start="0" data-width="1080" data-height="1920" data-duration="58.339">
+      <div class="cam" id="acam"><video id="ar1" class="clip" src="../assets/footage/ads/aroll_ad3.mp4" playsinline data-has-audio="true" data-start="0.000" data-duration="54.739" data-media-start="0.000" data-track-index="0" data-volume="1"></video></div>
+      <div class="cam" id="bw30" style="transform-origin:50% 50%"><video id="bv31" class="clip" src="../assets/footage/ads/IMG_5277.mp4" muted playsinline data-start="54.739" data-duration="3.600" data-media-start="0.000" data-track-index="1"></video></div>
+      <div id="sh2" class="clip shade" data-start="0.000" data-duration="58.339" data-track-index="2"></div>
+      <section id="hk3" class="clip" data-start="0.050" data-duration="4.720" data-track-index="5"><div class="hook"><span class="hook-line" id="hk3l0" style="font-size:72px">Klinik selesa</span><span class="hook-line alt" id="hk3l1" style="font-size:60px">tak semestinya mahal</span></div></section>
+      <audio id="sfx4" src="../assets/sfx/whoosh.mp3" data-start="0.050" data-track-index="9" data-volume="0.5"></audio>
+      <audio id="sfx5" src="../assets/sfx/impact-bass-1.mp3" data-start="0.170" data-track-index="9" data-volume="0.45"></audio>
+      <section id="tg6" class="clip" data-start="8.400" data-duration="3.879" data-track-index="6"><div class="tag" id="tg6b" style="left:70px;top:300px"><span class="ic">✓</span>Susun atur</div></section>
+      <audio id="sfx7" src="../assets/sfx/ping.mp3" data-start="8.400" data-track-index="9" data-volume="0.4"></audio>
+      <section id="tg8" class="clip" data-start="9.260" data-duration="3.019" data-track-index="6"><div class="tag" id="tg8b" style="left:70px;top:420px"><span class="ic">✓</span>Design</div></section>
+      <audio id="sfx9" src="../assets/sfx/ping.mp3" data-start="9.260" data-track-index="9" data-volume="0.4"></audio>
+      <section id="tg10" class="clip" data-start="10.700" data-duration="1.579" data-track-index="6"><div class="tag" id="tg10b" style="left:70px;top:540px"><span class="ic">✓</span>Gerak kerja</div></section>
+      <audio id="sfx11" src="../assets/sfx/ping.mp3" data-start="10.700" data-track-index="9" data-volume="0.4"></audio>
+      <section id="rt12" class="clip" data-start="12.129" data-duration="24.141" data-track-index="6"><div class="rt" id="rt12b"><div class="rt-h">LAYOUT KLINIK</div><div class="rt-i" id="rt12i0"><i id="rt12o0"></i>Ruang kerusi</div><div class="rt-i" id="rt12i1"><i id="rt12o1"></i>Pintu masuk</div><div class="rt-i" id="rt12i2"><i id="rt12o2"></i>Kabinet</div><div class="rt-i" id="rt12i3"><i id="rt12o3"></i>Waiting area</div><div class="rt-i" id="rt12i4"><i id="rt12o4"></i>Sterilise</div><div class="rt-i" id="rt12i5"><i id="rt12o5"></i>Surgery 3</div><div class="rt-i" id="rt12i6"><i id="rt12o6"></i>X-ray</div><div class="rt-i" id="rt12i7"><i id="rt12o7"></i>Toilet pesakit</div><div class="rt-i" id="rt12i8"><i id="rt12o8"></i>Compressor</div><div class="rt-i" id="rt12i9"><i id="rt12o9"></i>Bilik doktor</div><div class="rt-i" id="rt12i10"><i id="rt12o10"></i>Pintu exit</div></div></section>
+      <audio id="sfx13" src="../assets/sfx/click-soft.mp3" data-start="13.739" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx14" src="../assets/sfx/click-soft.mp3" data-start="14.429" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx15" src="../assets/sfx/click-soft.mp3" data-start="16.989" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx16" src="../assets/sfx/click-soft.mp3" data-start="18.459" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx17" src="../assets/sfx/click-soft.mp3" data-start="21.859" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx18" src="../assets/sfx/click-soft.mp3" data-start="25.749" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx19" src="../assets/sfx/click-soft.mp3" data-start="28.159" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx20" src="../assets/sfx/click-soft.mp3" data-start="28.979" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx21" src="../assets/sfx/click-soft.mp3" data-start="30.959" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx22" src="../assets/sfx/click-soft.mp3" data-start="32.699" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx23" src="../assets/sfx/click-soft.mp3" data-start="35.920" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx24" src="../assets/sfx/whoosh.mp3" data-start="12.079" data-track-index="9" data-volume="0.45"></audio>
+      <section id="fl25" class="clip fl" data-start="35.970" data-duration="10.069" data-track-index="6"><svg viewBox="0 0 1080 1920"><path class="pa" pathLength="1" id="fl25a" d="M120 1250 C 300 1000, 420 900, 560 820 S 820 700, 900 560"></path><path class="sf" pathLength="1" id="fl25s" d="M200 1500 C 480 1420, 700 1300, 960 1000"></path></svg><div class="fl-leg"><div id="fl25la"><span style="background:#4fb3ff"></span>Pesakit selesa</div><div id="fl25ls"><span style="background:#f5c22e"></span>Staf tak berlaga</div></div></section>
+      <audio id="sfx26" src="../assets/sfx/whoosh-short.mp3" data-start="42.300" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx27" src="../assets/sfx/whoosh-short.mp3" data-start="43.000" data-track-index="9" data-volume="0.35"></audio>
+      <section id="bt28" class="clip" data-start="47.619" data-duration="7.120" data-track-index="7"><div class="btn" id="bt28b" style="top:1120px">👇 Klik link di bawah</div></section>
+      <audio id="sfx29" src="../assets/sfx/click.mp3" data-start="47.619" data-track-index="9" data-volume="0.45"></audio>
+      <section id="ce32" class="clip" data-start="54.739" data-duration="3.600" data-track-index="7"><div class="ce" id="ce32m"><div class="ce-k" id="ce32k">Percuma</div><div class="ce-q" id="ce32q"><span>Dapatkan</span><em>Free CKAPS</em><span>Initial</span><span>Assessment</span></div><div class="ce-b" id="ce32b">👇 Klik link di bawah</div><img class="ce-l" id="ce32l" src="../assets/brand/enoxin-logo-white.png" alt="Enoxin"></div></section>
+      <audio id="sfx33" src="../assets/sfx/chime.mp3" data-start="54.839" data-track-index="9" data-volume="0.4"></audio>
+      <section id="cm34" class="clip" data-start="0.050" data-duration="1.400" data-track-index="8"><div class="capm me"><span class="w" id="cm34w0">Untuk</span><span class="w" id="cm34w1">nak</span><span class="w" id="cm34w2">dapatkan</span><span class="w hot" id="cm34w3">klinik</span></div></section>
+      <section id="cm35" class="clip" data-start="1.450" data-duration="1.750" data-track-index="8"><div class="capm me"><span class="w" id="cm35w0">yang</span><span class="w" id="cm35w1">betul-betul</span><span class="w hot" id="cm35w2">selesa</span></div></section>
+      <section id="cm36" class="clip" data-start="3.200" data-duration="1.310" data-track-index="8"><div class="capm me"><span class="w" id="cm36w0">tak</span><span class="w" id="cm36w1">semestinya</span><span class="w" id="cm36w2">kena</span><span class="w hot" id="cm36w3">mahal</span></div></section>
+      <section id="cm37" class="clip" data-start="4.510" data-duration="1.030" data-track-index="8"><div class="capm me"><span class="w" id="cm37w0">tapi</span><span class="w" id="cm37w1">dia</span><span class="w" id="cm37w2">datang</span><span class="w" id="cm37w3">dengan</span></div></section>
+      <section id="cm38" class="clip" data-start="5.540" data-duration="1.200" data-track-index="8"><div class="capm me"><span class="w" id="cm38w0">sebuah</span><span class="w" id="cm38w1">perancangan</span><span class="w" id="cm38w2">yang</span></div></section>
+      <section id="cm39" class="clip" data-start="6.740" data-duration="1.360" data-track-index="8"><div class="capm me"><span class="w" id="cm39w0">betul</span><span class="w" id="cm39w1">daripada</span><span class="w" id="cm39w2">awal</span><span class="w" id="cm39w3">dari</span></div></section>
+      <section id="cm40" class="clip" data-start="8.100" data-duration="2.060" data-track-index="8"><div class="capm me"><span class="w" id="cm40w0">segi</span><span class="w" id="cm40w1">susun</span><span class="w" id="cm40w2">atur</span><span class="w" id="cm40w3">design</span><span class="w" id="cm40w4">dan</span></div></section>
+      <section id="cm41" class="clip" data-start="10.160" data-duration="2.549" data-track-index="8"><div class="capm me"><span class="w" id="cm41w0">juga</span><span class="w" id="cm41w1">gerak</span><span class="w" id="cm41w2">kerja</span><span class="w" id="cm41w3">Sini</span><span class="w" id="cm41w4">akan</span></div></section>
+      <section id="cm42" class="clip" data-start="12.709" data-duration="2.170" data-track-index="8"><div class="capm me"><span class="w" id="cm42w0">jadi</span><span class="w" id="cm42w1">ruangan</span><span class="w" id="cm42w2">kerusi</span><span class="w" id="cm42w3">Pintu</span></div></section>
+      <section id="cm43" class="clip" data-start="14.879" data-duration="1.740" data-track-index="8"><div class="capm me"><span class="w" id="cm43w0">masuk</span><span class="w" id="cm43w1">di</span><span class="w" id="cm43w2">tengah</span><span class="w" id="cm43w3">Sini</span><span class="w" id="cm43w4">akan</span></div></section>
+      <section id="cm44" class="clip" data-start="16.619" data-duration="1.460" data-track-index="8"><div class="capm me"><span class="w" id="cm44w0">ada</span><span class="w" id="cm44w1">kabinet</span><span class="w" id="cm44w2">panjang</span><span class="w" id="cm44w3">Sini</span></div></section>
+      <section id="cm45" class="clip" data-start="18.079" data-duration="1.695" data-track-index="8"><div class="capm me"><span class="w" id="cm45w0">akan</span><span class="w" id="cm45w1">jadi</span><span class="w" id="cm45w2">waiting</span><span class="w" id="cm45w3">area</span><span class="w" id="cm45w4">Ini</span></div></section>
+      <section id="cm46" class="clip" data-start="19.774" data-duration="1.195" data-track-index="8"><div class="capm me"><span class="w" id="cm46w0">bilik</span></div></section>
+      <section id="cm47" class="clip" data-start="21.859" data-duration="2.340" data-track-index="8"><div class="capm me"><span class="w" id="cm47w0">sterilise</span><span class="w" id="cm47w1">Sebelah</span><span class="w" id="cm47w2">kiri</span></div></section>
+      <section id="cm48" class="clip" data-start="24.199" data-duration="1.290" data-track-index="8"><div class="capm me"><span class="w" id="cm48w0">saya</span><span class="w" id="cm48w1">ni</span><span class="w" id="cm48w2">sini</span><span class="w" id="cm48w3">akan</span><span class="w" id="cm48w4">jadi</span></div></section>
+      <section id="cm49" class="clip" data-start="25.489" data-duration="1.090" data-track-index="8"><div class="capm me"><span class="w" id="cm49w0">bilik</span><span class="w" id="cm49w1">surgery</span><span class="w" id="cm49w2">yang</span><span class="w" id="cm49w3">nombor</span></div></section>
+      <section id="cm50" class="clip" data-start="26.579" data-duration="1.100" data-track-index="8"><div class="capm me"><span class="w" id="cm50w0">tiga</span><span class="w" id="cm50w1">Sebelah</span><span class="w" id="cm50w2">kiri</span><span class="w" id="cm50w3">ni</span><span class="w" id="cm50w4">akan</span></div></section>
+      <section id="cm51" class="clip" data-start="27.679" data-duration="1.300" data-track-index="8"><div class="capm me"><span class="w" id="cm51w0">jadi</span><span class="w" id="cm51w1">bilik</span><span class="w" id="cm51w2">X-ray</span><span class="w" id="cm51w3">room</span><span class="w" id="cm51w4">Ini</span></div></section>
+      <section id="cm52" class="clip" data-start="28.979" data-duration="1.480" data-track-index="8"><div class="capm me"><span class="w" id="cm52w0">patient</span><span class="w" id="cm52w1">toilet</span><span class="w" id="cm52w2">Sini</span><span class="w" id="cm52w3">akan</span></div></section>
+      <section id="cm53" class="clip" data-start="30.459" data-duration="1.460" data-track-index="8"><div class="capm me"><span class="w" id="cm53w0">jadi</span><span class="w" id="cm53w1">bilik</span><span class="w" id="cm53w2">compressor</span><span class="w" id="cm53w3">Sini</span></div></section>
+      <section id="cm54" class="clip" data-start="31.919" data-duration="1.420" data-track-index="8"><div class="capm me"><span class="w" id="cm54w0">akan</span><span class="w" id="cm54w1">jadi</span><span class="w" id="cm54w2">bilik</span><span class="w" id="cm54w3">doktor</span><span class="w" id="cm54w4">lah</span></div></section>
+      <section id="cm55" class="clip" data-start="33.339" data-duration="3.271" data-track-index="8"><div class="capm me"><span class="w" id="cm55w0">Sana</span><span class="w" id="cm55w1">pintu</span><span class="w" id="cm55w2">exit</span><span class="w" id="cm55w3">Dan</span><span class="w" id="cm55w4">ini</span></div></section>
+      <section id="cm56" class="clip" data-start="36.610" data-duration="1.820" data-track-index="8"><div class="capm me"><span class="w" id="cm56w0">adalah</span><span class="w" id="cm56w1">ruangan</span><span class="w" id="cm56w2">waiting</span></div></section>
+      <section id="cm57" class="clip" data-start="38.430" data-duration="2.300" data-track-index="8"><div class="capm me"><span class="w" id="cm57w0">area</span><span class="w" id="cm57w1">yang</span><span class="w" id="cm57w2">kita</span><span class="w" id="cm57w3">susun</span><span class="w" id="cm57w4">macam</span></div></section>
+      <section id="cm58" class="clip" data-start="40.730" data-duration="2.240" data-track-index="8"><div class="capm me"><span class="w" id="cm58w0">ni</span><span class="w" id="cm58w1">supaya</span><span class="w" id="cm58w2">pesakit</span><span class="w hot" id="cm58w3">selesa</span></div></section>
+      <section id="cm59" class="clip" data-start="42.970" data-duration="1.620" data-track-index="8"><div class="capm me"><span class="w" id="cm59w0">dan</span><span class="w" id="cm59w1">staff</span><span class="w" id="cm59w2">nak</span><span class="w" id="cm59w3">jalan</span><span class="w" id="cm59w4">buat</span></div></section>
+      <section id="cm60" class="clip" data-start="44.590" data-duration="1.449" data-track-index="8"><div class="capm me"><span class="w" id="cm60w0">kerja</span><span class="w" id="cm60w1">pun</span><span class="w" id="cm60w2">tak</span><span class="w" id="cm60w3">berlaga-laga</span></div></section>
+      <section id="cm61" class="clip" data-start="46.039" data-duration="2.210" data-track-index="8"><div class="capm me"><span class="w" id="cm61w0">Jadi</span><span class="w" id="cm61w1">korang</span><span class="w" id="cm61w2">boleh</span><span class="w" id="cm61w3">hubungi</span></div></section>
+      <section id="cm62" class="clip" data-start="48.249" data-duration="1.170" data-track-index="8"><div class="capm me"><span class="w" id="cm62w0">kita</span><span class="w" id="cm62w1">untuk</span><span class="w" id="cm62w2">nak</span><span class="w" id="cm62w3">dapatkan</span></div></section>
+      <section id="cm63" class="clip" data-start="49.419" data-duration="0.950" data-track-index="8"><div class="capm me"><span class="w hot" id="cm63w0">free</span><span class="w hot" id="cm63w1">CKAPS</span><span class="w hot" id="cm63w2">initial</span></div></section>
+      <section id="cm64" class="clip" data-start="50.369" data-duration="1.230" data-track-index="8"><div class="capm me"><span class="w hot" id="cm64w0">assessment</span><span class="w" id="cm64w1">untuk</span><span class="w" id="cm64w2">sesiapa</span></div></section>
+      <section id="cm65" class="clip" data-start="51.599" data-duration="1.260" data-track-index="8"><div class="capm me"><span class="w" id="cm65w0">yang</span><span class="w" id="cm65w1">nak</span><span class="w" id="cm65w2">buka</span><span class="w hot" id="cm65w3">klinik</span><span class="w" id="cm65w4">Jadi</span></div></section>
+      <section id="cm66" class="clip" data-start="52.859" data-duration="1.010" data-track-index="8"><div class="capm me"><span class="w" id="cm66w0">boleh</span><span class="w" id="cm66w1">click</span><span class="w" id="cm66w2">link</span><span class="w" id="cm66w3">di</span><span class="w" id="cm66w4">bawah</span></div></section>
+      <section id="cm67" class="clip" data-start="53.869" data-duration="0.870" data-track-index="8"><div class="capm me"><span class="w" id="cm67w0">sekarang</span></div></section>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 0.000);
+      tl.set("#acam", { scale: 1.12, transformOrigin: "50% 40%" }, 3.306);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 9.930);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 12.079);
+      tl.set("#acam", { scale: 1.12, transformOrigin: "50% 40%" }, 14.322);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 16.171);
+      tl.set("#acam", { scale: 1.12, transformOrigin: "50% 40%" }, 17.702);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 19.129);
+      tl.set("#acam", { scale: 1.12, transformOrigin: "50% 40%" }, 21.756);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 23.352);
+      tl.set("#acam", { scale: 1.12, transformOrigin: "50% 40%" }, 26.802);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 28.736);
+      tl.set("#acam", { scale: 1.12, transformOrigin: "50% 40%" }, 29.783);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 30.746);
+      tl.set("#acam", { scale: 1.12, transformOrigin: "50% 40%" }, 32.020);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 34.709);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 35.970);
+      tl.set("#acam", { scale: 1.12, transformOrigin: "50% 40%" }, 37.210);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 38.900);
+      tl.set("#acam", { scale: 1.12, transformOrigin: "50% 40%" }, 40.128);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 41.520);
+      tl.set("#acam", { scale: 1.12, transformOrigin: "50% 40%" }, 42.907);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 45.027);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 46.039);
+      tl.set("#acam", { scale: 1.12, transformOrigin: "50% 40%" }, 50.791);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 52.292);
+      tl.set("#acam", { scale: 1.12, transformOrigin: "50% 40%" }, 53.264);
+      tl.fromTo("#hk3l0", { x: -80, opacity: 0, rotation: -3 }, { x: 0, opacity: 1, rotation: 0, duration: 0.35, ease: "back.out(2)" }, 0.100);
+      tl.to("#hk3l0", { x: 60, opacity: 0, duration: 0.25, ease: "power2.in" }, 4.470);
+      tl.fromTo("#hk3l1", { x: -80, opacity: 0, rotation: -3 }, { x: 0, opacity: 1, rotation: 0, duration: 0.35, ease: "back.out(2)" }, 0.220);
+      tl.to("#hk3l1", { x: 60, opacity: 0, duration: 0.25, ease: "power2.in" }, 4.470);
+      tl.fromTo("#tg6b", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 8.400);
+      tl.to("#tg6b", { y: -20, opacity: 0, duration: 0.2 }, 12.059);
+      tl.fromTo("#tg8b", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 9.260);
+      tl.to("#tg8b", { y: -20, opacity: 0, duration: 0.2 }, 12.059);
+      tl.fromTo("#tg10b", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 10.700);
+      tl.to("#tg10b", { y: -20, opacity: 0, duration: 0.2 }, 12.059);
+      tl.fromTo("#rt12b", { x: -500 }, { x: 0, duration: 0.4, ease: "power3.out" }, 12.129);
+      tl.to("#rt12i0", { color: "#ffd34d", scale: 1.08, duration: 0.18 }, 13.739);
+      tl.to("#rt12o0", { backgroundColor: "#ffd34d", scale: 1.3, duration: 0.18 }, 13.739);
+      tl.to("#rt12i0", { color: "rgba(255,255,255,0.85)", scale: 1, duration: 0.18 }, 14.429);
+      tl.to("#rt12o0", { backgroundColor: "#20b26b", scale: 1, duration: 0.18 }, 14.429);
+      tl.to("#rt12i1", { color: "#ffd34d", scale: 1.08, duration: 0.18 }, 14.429);
+      tl.to("#rt12o1", { backgroundColor: "#ffd34d", scale: 1.3, duration: 0.18 }, 14.429);
+      tl.to("#rt12i1", { color: "rgba(255,255,255,0.85)", scale: 1, duration: 0.18 }, 16.989);
+      tl.to("#rt12o1", { backgroundColor: "#20b26b", scale: 1, duration: 0.18 }, 16.989);
+      tl.to("#rt12i2", { color: "#ffd34d", scale: 1.08, duration: 0.18 }, 16.989);
+      tl.to("#rt12o2", { backgroundColor: "#ffd34d", scale: 1.3, duration: 0.18 }, 16.989);
+      tl.to("#rt12i2", { color: "rgba(255,255,255,0.85)", scale: 1, duration: 0.18 }, 18.459);
+      tl.to("#rt12o2", { backgroundColor: "#20b26b", scale: 1, duration: 0.18 }, 18.459);
+      tl.to("#rt12i3", { color: "#ffd34d", scale: 1.08, duration: 0.18 }, 18.459);
+      tl.to("#rt12o3", { backgroundColor: "#ffd34d", scale: 1.3, duration: 0.18 }, 18.459);
+      tl.to("#rt12i3", { color: "rgba(255,255,255,0.85)", scale: 1, duration: 0.18 }, 21.859);
+      tl.to("#rt12o3", { backgroundColor: "#20b26b", scale: 1, duration: 0.18 }, 21.859);
+      tl.to("#rt12i4", { color: "#ffd34d", scale: 1.08, duration: 0.18 }, 21.859);
+      tl.to("#rt12o4", { backgroundColor: "#ffd34d", scale: 1.3, duration: 0.18 }, 21.859);
+      tl.to("#rt12i4", { color: "rgba(255,255,255,0.85)", scale: 1, duration: 0.18 }, 25.749);
+      tl.to("#rt12o4", { backgroundColor: "#20b26b", scale: 1, duration: 0.18 }, 25.749);
+      tl.to("#rt12i5", { color: "#ffd34d", scale: 1.08, duration: 0.18 }, 25.749);
+      tl.to("#rt12o5", { backgroundColor: "#ffd34d", scale: 1.3, duration: 0.18 }, 25.749);
+      tl.to("#rt12i5", { color: "rgba(255,255,255,0.85)", scale: 1, duration: 0.18 }, 28.159);
+      tl.to("#rt12o5", { backgroundColor: "#20b26b", scale: 1, duration: 0.18 }, 28.159);
+      tl.to("#rt12i6", { color: "#ffd34d", scale: 1.08, duration: 0.18 }, 28.159);
+      tl.to("#rt12o6", { backgroundColor: "#ffd34d", scale: 1.3, duration: 0.18 }, 28.159);
+      tl.to("#rt12i6", { color: "rgba(255,255,255,0.85)", scale: 1, duration: 0.18 }, 28.979);
+      tl.to("#rt12o6", { backgroundColor: "#20b26b", scale: 1, duration: 0.18 }, 28.979);
+      tl.to("#rt12i7", { color: "#ffd34d", scale: 1.08, duration: 0.18 }, 28.979);
+      tl.to("#rt12o7", { backgroundColor: "#ffd34d", scale: 1.3, duration: 0.18 }, 28.979);
+      tl.to("#rt12i7", { color: "rgba(255,255,255,0.85)", scale: 1, duration: 0.18 }, 30.959);
+      tl.to("#rt12o7", { backgroundColor: "#20b26b", scale: 1, duration: 0.18 }, 30.959);
+      tl.to("#rt12i8", { color: "#ffd34d", scale: 1.08, duration: 0.18 }, 30.959);
+      tl.to("#rt12o8", { backgroundColor: "#ffd34d", scale: 1.3, duration: 0.18 }, 30.959);
+      tl.to("#rt12i8", { color: "rgba(255,255,255,0.85)", scale: 1, duration: 0.18 }, 32.699);
+      tl.to("#rt12o8", { backgroundColor: "#20b26b", scale: 1, duration: 0.18 }, 32.699);
+      tl.to("#rt12i9", { color: "#ffd34d", scale: 1.08, duration: 0.18 }, 32.699);
+      tl.to("#rt12o9", { backgroundColor: "#ffd34d", scale: 1.3, duration: 0.18 }, 32.699);
+      tl.to("#rt12i9", { color: "rgba(255,255,255,0.85)", scale: 1, duration: 0.18 }, 35.920);
+      tl.to("#rt12o9", { backgroundColor: "#20b26b", scale: 1, duration: 0.18 }, 35.920);
+      tl.to("#rt12i10", { color: "#ffd34d", scale: 1.08, duration: 0.18 }, 35.920);
+      tl.to("#rt12o10", { backgroundColor: "#ffd34d", scale: 1.3, duration: 0.18 }, 35.920);
+      tl.to("#rt12b", { x: -500, duration: 0.3, ease: "power2.in" }, 35.970);
+      tl.fromTo("#fl25la", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3 }, 42.300);
+      tl.to("#fl25a", { strokeDashoffset: 0, duration: 1.0, ease: "power2.inOut" }, 42.300);
+      tl.fromTo("#fl25ls", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3 }, 43.000);
+      tl.to("#fl25s", { strokeDashoffset: 0, duration: 1.0, ease: "power2.inOut" }, 43.000);
+      tl.to("#fl25 > *", { opacity: 0, duration: 0.25 }, 45.789);
+      tl.fromTo("#bt28b", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2.2)" }, 47.619);
+      tl.to("#bt28b", { scale: 1.06, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 5 }, 48.119);
+      tl.to("#bt28b", { opacity: 0, duration: 0.2 }, 54.539);
+      tl.fromTo("#bw30", { scale: 1.0 }, { scale: 1.08, duration: 3.600, ease: "none" }, 54.739);
+      tl.fromTo("#ce32m", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 54.739);
+      tl.fromTo("#ce32k", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 54.839);
+      tl.fromTo("#ce32q span, #ce32q em", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, stagger: 0.08, ease: "back.out(1.8)" }, 54.939);
+      tl.fromTo("#ce32b", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 55.439);
+      tl.to("#ce32b", { scale: 1.06, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 5 }, 55.839);
+      tl.fromTo("#ce32l", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 55.639);
+      tl.fromTo("#cm34 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 0.050);
+      tl.fromTo("#cm34w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 0.050);
+      tl.fromTo("#cm34w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 0.320);
+      tl.fromTo("#cm34w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 0.510);
+      tl.fromTo("#cm34w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 1.080);
+      tl.fromTo("#cm35 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 1.450);
+      tl.fromTo("#cm35w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 1.450);
+      tl.fromTo("#cm35w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 1.790);
+      tl.fromTo("#cm35w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 2.570);
+      tl.fromTo("#cm36 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 3.200);
+      tl.fromTo("#cm36w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 3.200);
+      tl.fromTo("#cm36w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 3.340);
+      tl.fromTo("#cm36w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 3.920);
+      tl.fromTo("#cm36w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 4.120);
+      tl.fromTo("#cm37 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 4.510);
+      tl.fromTo("#cm37w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 4.510);
+      tl.fromTo("#cm37w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 4.680);
+      tl.fromTo("#cm37w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 4.840);
+      tl.fromTo("#cm37w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 5.170);
+      tl.fromTo("#cm38 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 5.540);
+      tl.fromTo("#cm38w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 5.540);
+      tl.fromTo("#cm38w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 5.920);
+      tl.fromTo("#cm38w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 6.550);
+      tl.fromTo("#cm39 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 6.740);
+      tl.fromTo("#cm39w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 6.740);
+      tl.fromTo("#cm39w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 7.040);
+      tl.fromTo("#cm39w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 7.580);
+      tl.fromTo("#cm39w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 7.850);
+      tl.fromTo("#cm40 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 8.100);
+      tl.fromTo("#cm40w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 8.100);
+      tl.fromTo("#cm40w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 8.400);
+      tl.fromTo("#cm40w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 8.880);
+      tl.fromTo("#cm40w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 9.260);
+      tl.fromTo("#cm40w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 9.810);
+      tl.fromTo("#cm41 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 10.160);
+      tl.fromTo("#cm41w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 10.160);
+      tl.fromTo("#cm41w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 10.700);
+      tl.fromTo("#cm41w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 11.370);
+      tl.fromTo("#cm41w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 12.079);
+      tl.fromTo("#cm41w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 12.389);
+      tl.fromTo("#cm42 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 12.709);
+      tl.fromTo("#cm42w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 12.709);
+      tl.fromTo("#cm42w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 13.059);
+      tl.fromTo("#cm42w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 13.739);
+      tl.fromTo("#cm42w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 14.429);
+      tl.fromTo("#cm43 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 14.879);
+      tl.fromTo("#cm43w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 14.879);
+      tl.fromTo("#cm43w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 15.379);
+      tl.fromTo("#cm43w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 15.579);
+      tl.fromTo("#cm43w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 16.339);
+      tl.fromTo("#cm43w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 16.449);
+      tl.fromTo("#cm44 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 16.619);
+      tl.fromTo("#cm44w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 16.619);
+      tl.fromTo("#cm44w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 16.989);
+      tl.fromTo("#cm44w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 17.349);
+      tl.fromTo("#cm44w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 17.899);
+      tl.fromTo("#cm45 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 18.079);
+      tl.fromTo("#cm45w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 18.079);
+      tl.fromTo("#cm45w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 18.199);
+      tl.fromTo("#cm45w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 18.459);
+      tl.fromTo("#cm45w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 18.849);
+      tl.fromTo("#cm45w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 19.079);
+      tl.fromTo("#cm46 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 19.774);
+      tl.fromTo("#cm46w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 19.774);
+      tl.fromTo("#cm47 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 21.859);
+      tl.fromTo("#cm47w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 21.859);
+      tl.fromTo("#cm47w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 23.519);
+      tl.fromTo("#cm47w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 23.929);
+      tl.fromTo("#cm48 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 24.199);
+      tl.fromTo("#cm48w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 24.199);
+      tl.fromTo("#cm48w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 24.479);
+      tl.fromTo("#cm48w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 24.879);
+      tl.fromTo("#cm48w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 25.079);
+      tl.fromTo("#cm48w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 25.279);
+      tl.fromTo("#cm49 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 25.489);
+      tl.fromTo("#cm49w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 25.489);
+      tl.fromTo("#cm49w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 25.749);
+      tl.fromTo("#cm49w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 26.059);
+      tl.fromTo("#cm49w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 26.269);
+      tl.fromTo("#cm50 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 26.579);
+      tl.fromTo("#cm50w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 26.579);
+      tl.fromTo("#cm50w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 26.959);
+      tl.fromTo("#cm50w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 27.199);
+      tl.fromTo("#cm50w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 27.409);
+      tl.fromTo("#cm50w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 27.649);
+      tl.fromTo("#cm51 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 27.679);
+      tl.fromTo("#cm51w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 27.679);
+      tl.fromTo("#cm51w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 27.879);
+      tl.fromTo("#cm51w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 28.159);
+      tl.fromTo("#cm51w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 28.579);
+      tl.fromTo("#cm51w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 28.799);
+      tl.fromTo("#cm52 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 28.979);
+      tl.fromTo("#cm52w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 28.979);
+      tl.fromTo("#cm52w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 29.399);
+      tl.fromTo("#cm52w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 29.939);
+      tl.fromTo("#cm52w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 30.179);
+      tl.fromTo("#cm53 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 30.459);
+      tl.fromTo("#cm53w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 30.459);
+      tl.fromTo("#cm53w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 30.659);
+      tl.fromTo("#cm53w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 30.959);
+      tl.fromTo("#cm53w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 31.699);
+      tl.fromTo("#cm54 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 31.919);
+      tl.fromTo("#cm54w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 31.919);
+      tl.fromTo("#cm54w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 32.159);
+      tl.fromTo("#cm54w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 32.399);
+      tl.fromTo("#cm54w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 32.699);
+      tl.fromTo("#cm54w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 33.339);
+      tl.fromTo("#cm55 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 33.339);
+      tl.fromTo("#cm55w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 33.339);
+      tl.fromTo("#cm55w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 35.920);
+      tl.fromTo("#cm55w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 35.920);
+      tl.fromTo("#cm55w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 35.970);
+      tl.fromTo("#cm55w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 36.290);
+      tl.fromTo("#cm56 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 36.610);
+      tl.fromTo("#cm56w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 36.610);
+      tl.fromTo("#cm56w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 37.220);
+      tl.fromTo("#cm56w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 38.070);
+      tl.fromTo("#cm57 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 38.430);
+      tl.fromTo("#cm57w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 38.430);
+      tl.fromTo("#cm57w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 38.890);
+      tl.fromTo("#cm57w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 39.400);
+      tl.fromTo("#cm57w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 39.730);
+      tl.fromTo("#cm57w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 40.230);
+      tl.fromTo("#cm58 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 40.730);
+      tl.fromTo("#cm58w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 40.730);
+      tl.fromTo("#cm58w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 40.930);
+      tl.fromTo("#cm58w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 41.570);
+      tl.fromTo("#cm58w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 42.500);
+      tl.fromTo("#cm59 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 42.970);
+      tl.fromTo("#cm59w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 42.970);
+      tl.fromTo("#cm59w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 43.200);
+      tl.fromTo("#cm59w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 43.580);
+      tl.fromTo("#cm59w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 43.810);
+      tl.fromTo("#cm59w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 44.200);
+      tl.fromTo("#cm60 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 44.590);
+      tl.fromTo("#cm60w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 44.590);
+      tl.fromTo("#cm60w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 45.000);
+      tl.fromTo("#cm60w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 45.150);
+      tl.fromTo("#cm60w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 45.440);
+      tl.fromTo("#cm61 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 46.039);
+      tl.fromTo("#cm61w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 46.039);
+      tl.fromTo("#cm61w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 46.749);
+      tl.fromTo("#cm61w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 47.219);
+      tl.fromTo("#cm61w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 47.619);
+      tl.fromTo("#cm62 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 48.249);
+      tl.fromTo("#cm62w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 48.249);
+      tl.fromTo("#cm62w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 48.499);
+      tl.fromTo("#cm62w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 48.759);
+      tl.fromTo("#cm62w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 48.909);
+      tl.fromTo("#cm63 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 49.419);
+      tl.fromTo("#cm63w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 49.419);
+      tl.fromTo("#cm63w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 49.599);
+      tl.fromTo("#cm63w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 49.959);
+      tl.fromTo("#cm64 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 50.369);
+      tl.fromTo("#cm64w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 50.369);
+      tl.fromTo("#cm64w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 50.919);
+      tl.fromTo("#cm64w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 51.209);
+      tl.fromTo("#cm65 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 51.599);
+      tl.fromTo("#cm65w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 51.599);
+      tl.fromTo("#cm65w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 51.819);
+      tl.fromTo("#cm65w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 51.959);
+      tl.fromTo("#cm65w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 52.179);
+      tl.fromTo("#cm65w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 52.759);
+      tl.fromTo("#cm66 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 52.859);
+      tl.fromTo("#cm66w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 52.859);
+      tl.fromTo("#cm66w1", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 53.109);
+      tl.fromTo("#cm66w2", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 53.309);
+      tl.fromTo("#cm66w3", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 53.499);
+      tl.fromTo("#cm66w4", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 53.599);
+      tl.fromTo("#cm67 .capm", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.12 }, 53.869);
+      tl.fromTo("#cm67w0", { opacity: 0.72 }, { opacity: 1, duration: 0.05 }, 53.869);
+      window.__timelines["ad3-layout"] = tl;
+    </script>
+  </body>
+</html>

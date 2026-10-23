@@ -197,7 +197,6 @@ def ad5():
         else:
             c.sfx("whoosh-short", t, 0.35)
     c.hook(["Klinik gigi ni", "kami setup A to Z"], 0.05, 2.0)
-    c.name("Klinik gigi", "Kepong", M + 0.2, 2.6)
     k0, k1 = span(segs, "cta")
     c.button("👇 Klik link di bawah", M + k0 + 1.0, A - (M + k0 + 1.0))
     finish(c, w, A, "IMG_5235.mp4", "ad5-retarget.html", "Iklan 5: Retargeting 15 saat")

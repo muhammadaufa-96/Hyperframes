@@ -116,7 +116,7 @@ html, body { margin: 0; overflow: hidden; background: #0d0f12; }
 
 /* Blueprint intro */
 .bp { position: absolute; inset: 0; background-color: #0c3560; background-image: linear-gradient(rgba(255,255,255,0.07) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,0.07) 2px, transparent 2px); background-size: 60px 60px; }
-.bp svg { position: absolute; left: 140px; top: 560px; width: 800px; height: 1120px; overflow: visible; }
+.bp svg { position: absolute; left: 260px; top: 480px; width: 560px; height: 784px; overflow: visible; }
 .bp .w { fill: none; stroke: #e8f1ff; stroke-width: 10; stroke-linecap: square; stroke-dasharray: 1; stroke-dashoffset: 1; }
 .bp .p { fill: none; stroke: #8fc3ff; stroke-width: 5; stroke-dasharray: 1; stroke-dashoffset: 1; }
 .bp .t { font-family: "Share Tech Mono", monospace; font-size: 30px; fill: #bcd9ff; opacity: 0; }
@@ -124,9 +124,9 @@ html, body { margin: 0; overflow: hidden; background: #0d0f12; }
 .wipe { position: absolute; top: 0; bottom: 0; width: 40px; left: -40px; background: #f5c22e; box-shadow: 0 0 40px rgba(245,194,46,0.8); }
 
 /* Room route (layout tour) */
-.rt { position: absolute; left: 50px; top: 290px; width: 430px; background: rgba(15,17,20,0.78); border-radius: 20px; padding: 18px 22px 20px; display: flex; flex-direction: column; gap: 6px; }
+.rt { position: absolute; left: 50px; top: 290px; width: 480px; background: rgba(15,17,20,0.78); border-radius: 20px; padding: 18px 22px 20px; display: flex; flex-direction: column; gap: 6px; }
 .rt-h { font-weight: 800; font-size: 26px; letter-spacing: 0.1em; color: #f5c22e; margin-bottom: 6px; }
-.rt-i { display: flex; align-items: center; gap: 14px; font-weight: 600; font-size: 30px; color: rgba(255,255,255,0.5); transform-origin: left center; white-space: nowrap; }
+.rt-i { display: flex; align-items: center; gap: 14px; font-weight: 600; font-size: 35px; color: rgba(255,255,255,0.5); transform-origin: left center; white-space: nowrap; }
 .rt-i i { width: 18px; height: 18px; border-radius: 50%; background: rgba(255,255,255,0.35); flex: none; font-style: normal; }
 
 /* Flow lines */
@@ -152,6 +152,8 @@ html, body { margin: 0; overflow: hidden; background: #0d0f12; }
 .ce-q em { display: block; font-style: normal; color: #f5c22e; }
 .ce-b { background: #fff; color: #15171a; border-radius: 999px; padding: 22px 44px; font-weight: 800; font-size: 44px; text-transform: uppercase; }
 .ce-l { width: 460px; margin-top: 10px; }
+
+.hook.c { align-items: center; text-align: center; }
 </style>
   </head>
   <body>
@@ -166,7 +168,7 @@ html, body { margin: 0; overflow: hidden; background: #0d0f12; }
       <div class="cam" id="bw36" style="transform-origin:50% 50%"><video id="bv37" class="clip" src="../assets/footage/ads/IMG_5278.mp4" muted playsinline data-start="35.867" data-duration="1.650" data-media-start="0.500" data-track-index="1"></video></div>
       <div class="cam" id="bw43" style="transform-origin:50% 50%"><video id="bv44" class="clip" src="../assets/footage/ads/IMG_5276.mp4" muted playsinline data-start="37.517" data-duration="3.600" data-media-start="0.000" data-track-index="1"></video></div>
       <div id="sh2" class="clip shade" data-start="0.000" data-duration="41.117" data-track-index="2"></div>
-      <section id="hk3" class="clip" data-start="0.050" data-duration="4.700" data-track-index="5"><div class="hook"><span class="hook-line" id="hk3l0" style="font-size:72px">Doktor, nak buka</span><span class="hook-line alt" id="hk3l1" style="font-size:72px">klinik sendiri?</span></div></section>
+      <section id="hk3" class="clip" data-start="0.050" data-duration="4.700" data-track-index="5"><div class="hook c"><span class="hook-line" id="hk3l0" style="font-size:72px">Doktor, nak buka</span><span class="hook-line alt" id="hk3l1" style="font-size:72px">klinik sendiri?</span></div></section>
       <audio id="sfx4" src="../assets/sfx/whoosh.mp3" data-start="0.050" data-track-index="9" data-volume="0.5"></audio>
       <audio id="sfx5" src="../assets/sfx/impact-bass-1.mp3" data-start="0.170" data-track-index="9" data-volume="0.45"></audio>
       <section id="qg10" class="clip" data-start="7.190" data-duration="11.554" data-track-index="6"><div class="qg"><div class="qc" id="qg10c0"><div class="ic"><i class="q" id="qg10q0">?</i><i class="k" id="qg10k0">✓</i></div><b>Lokasi?</b></div><div class="qc" id="qg10c1"><div class="ic"><i class="q" id="qg10q1">?</i><i class="k" id="qg10k1">✓</i></div><b>Layout?</b></div><div class="qc" id="qg10c2"><div class="ic"><i class="q" id="qg10q2">?</i><i class="k" id="qg10k2">✓</i></div><b>Site?</b></div><div class="qc" id="qg10c3"><div class="ic"><i class="q" id="qg10q3">?</i><i class="k" id="qg10k3">✓</i></div><b>Contractor?</b></div></div></section>
@@ -226,6 +228,7 @@ html, body { margin: 0; overflow: hidden; background: #0d0f12; }
       <section id="cm76" class="clip" data-start="34.217" data-duration="1.580" data-track-index="8"><div class="capm me"><span class="w" id="cm76w0">Macam</span><span class="w" id="cm76w1">mana</span><span class="w" id="cm76w2">untuk</span><span class="w" id="cm76w3">setup</span></div></section>
       <section id="cm77" class="clip" data-start="35.797" data-duration="1.340" data-track-index="8"><div class="capm me"><span class="w hot" id="cm77w0">klinik</span><span class="w" id="cm77w1">dengan</span><span class="w" id="cm77w2">cara</span><span class="w" id="cm77w3">yang</span></div></section>
       <section id="cm78" class="clip" data-start="37.137" data-duration="0.380" data-track-index="8"><div class="capm me"><span class="w" id="cm78w0">cepat</span><span class="w" id="cm78w1">dan</span><span class="w" id="cm78w2">mudah</span></div></section>
+      <audio id="mu79" src="../assets/dc/bed_ad1-painpoint.m4a" data-start="0.000" data-duration="41.117" data-media-start="0.000" data-track-index="10" data-volume="1.0"></audio>
     </div>
     <script>
       const tl = gsap.timeline({ paused: true });
@@ -245,10 +248,10 @@ html, body { margin: 0; overflow: hidden; background: #0d0f12; }
       tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 29.175);
       tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 32.307);
       tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 34.217);
-      tl.fromTo("#hk3l0", { x: -80, opacity: 0, rotation: -3 }, { x: 0, opacity: 1, rotation: 0, duration: 0.35, ease: "back.out(2)" }, 0.100);
-      tl.to("#hk3l0", { x: 60, opacity: 0, duration: 0.25, ease: "power2.in" }, 4.450);
-      tl.fromTo("#hk3l1", { x: -80, opacity: 0, rotation: -3 }, { x: 0, opacity: 1, rotation: 0, duration: 0.35, ease: "back.out(2)" }, 0.220);
-      tl.to("#hk3l1", { x: 60, opacity: 0, duration: 0.25, ease: "power2.in" }, 4.450);
+      tl.fromTo("#hk3l0", { y: -50, scale: 0.85, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 0.100);
+      tl.to("#hk3l0", { y: -30, opacity: 0, duration: 0.25, ease: "power2.in" }, 4.450);
+      tl.fromTo("#hk3l1", { y: -50, scale: 0.85, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 0.220);
+      tl.to("#hk3l1", { y: -30, opacity: 0, duration: 0.25, ease: "power2.in" }, 4.450);
       tl.fromTo("#bw6", { scale: 1.0 }, { scale: 1.1, duration: 3.580, ease: "none" }, 4.500);
       tl.fromTo("#bw8", { scale: 1.08 }, { scale: 1.0, duration: 3.580, ease: "none" }, 8.081);
       tl.fromTo("#qg10c0", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.4)" }, 7.190);

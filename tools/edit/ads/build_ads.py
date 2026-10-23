@@ -2,11 +2,11 @@
 
 usage: python3 build_ads.py [1 2 3 4 5 6]
 A-rolls come from ads/edit/aroll_adN.mp4 (assemble.py); all footage is linked into assets/footage/ads/.
-No music: the client adds a licensed track when boosting.
+Music: "Best Morning" bed, ducked under the voice (client asked for it on 23/10).
 """
 import json, sys
 sys.path.insert(0, "/home/user/Hyperframes/tools/edit/ads")
-from adkit import Ad, align
+from adkit import Ad, align, music_bed
 from script import SCRIPT
 
 ADS = "/home/user/Hyperframes/ads/"
@@ -53,6 +53,7 @@ def base(n, cid, lead=0.0):
     A = segs["duration"]
     c = Ad(cid, lead + A + END)
     c.aroll(F + f"aroll_ad{n}.mp4", [(lead, A, 0.0)])
+    c.voice = (f"{ADS}edit/aroll_ad{n}.mp4", lead)
     punch(c, segs, lead)
     c.shade(0, lead + A + END)
     if lead:
@@ -64,6 +65,9 @@ def finish(c, words, A, bg, path, title, bg_ms=0.0):
     c.broll(F + bg, A, END, media_start=bg_ms, zoom=(1.0, 1.08))
     c.cta_end(A, END)
     c.captions_hot(words, HOT, hide=[(A, A + END)])
+    bed = f"bed_{c.cid}.m4a"
+    music_bed(f"/home/user/Hyperframes/assets/dc/{bed}", c.duration, *c.voice)
+    c.music(f"../assets/dc/{bed}", 0.0, c.duration, vol=1.0)
     c.write(OUT + path, title)
 
 

@@ -305,3 +305,179 @@ def align(asr, script, spans):
             prev = x0
     out.sort(key=lambda w: w[1])
     return out
+
+
+# ---- centred hook + music bed ------------------------------------------------
+gen.CSS += r"""
+.hook.c { align-items: center; text-align: center; }
+"""
+import subprocess
+
+MUSIC_SRC = "/home/user/Hyperframes/assets/dc/music_best_morning.m4a"
+MUSIC_BEAT0 = 6.27  # first strong beat in "Best Morning"
+
+
+def _hook_center(self, lines, start, dur, sfx=True):
+    """Hook title centred at the top: each line pops down into place."""
+    sid = self.uid("hk")
+    spans = "".join(f'<span class="hook-line{" alt" if i % 2 else ""}" id="{sid}l{i}" style="font-size:{72 if len(l) <= 19 else 60}px">{esc(l)}</span>' for i, l in enumerate(lines))
+    self.layers.append(f'<section id="{sid}" class="clip" data-start="{start:.3f}" data-duration="{dur:.3f}" data-track-index="5"><div class="hook c">{spans}</div></section>')
+    for i in range(len(lines)):
+        self.js.append(f'tl.fromTo("#{sid}l{i}", {{ y: -50, scale: 0.85, opacity: 0 }}, {{ y: 0, scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" }}, {start + 0.05 + i * 0.12:.3f});')
+        self.js.append(f'tl.to("#{sid}l{i}", {{ y: -30, opacity: 0, duration: 0.25, ease: "power2.in" }}, {start + dur - 0.3:.3f});')
+    if sfx:
+        self.sfx("whoosh", start, 0.5)
+        self.sfx("impact-bass-1", start + 0.12, 0.45)
+
+
+Ad.hook = _hook_center
+
+
+def music_bed(out, dur, voice=None, voice_at=0.0, vol=0.6, duck=True):
+    """Trim "Best Morning" from its first strong beat, fade in/out; dip it under `voice`
+    (an audio/video file placed at `voice_at` s) with a sidechain so speech stays clear."""
+    fade = f"afade=t=in:d=0.3,afade=t=out:st={dur - 2.0:.3f}:d=2.0"
+    cmd = ["ffmpeg", "-v", "error", "-y", "-ss", f"{MUSIC_BEAT0}", "-t", f"{dur:.3f}", "-i", MUSIC_SRC]
+    if voice and duck:
+        d = int(voice_at * 1000)
+        fc = (f"[0:a]volume={vol},{fade}[m];[1:a]adelay={d}|{d},apad,atrim=0:{dur:.3f},aformat=channel_layouts=stereo[k];"
+              f"[m][k]sidechaincompress=threshold=0.03:ratio=5:attack=60:release=800:makeup=1[out]")
+        cmd += ["-i", voice, "-filter_complex", fc, "-map", "[out]"]
+    else:
+        cmd += ["-af", f"volume={vol},{fade}"]
+    subprocess.run(cmd + ["-c:a", "aac", "-b:a", "192k", out], check=True)
+
+
+# ---- 21/10/26 videos: network, meters, stamp, comment bubble, word stack, tap, follow card ----
+gen.CSS += r"""
+.nw svg { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+.nw line { stroke: #f5c22e; stroke-width: 5; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.nw-c { position: absolute; left: 400px; top: 640px; width: 280px; height: 280px; border-radius: 50%; background: #f5c22e; color: #15171a; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 50px; box-shadow: 0 0 0 14px rgba(245,194,46,0.25); }
+.nw-n { position: absolute; width: 250px; margin-left: -125px; margin-top: -40px; height: 80px; border-radius: 999px; background: rgba(15,17,20,0.9); border: 3px solid #fff; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 32px; text-transform: uppercase; }
+.mt { position: absolute; left: 70px; right: 70px; top: 300px; display: flex; flex-direction: column; gap: 22px; background: rgba(15,17,20,0.86); border-radius: 22px; padding: 26px 30px; }
+.mt-r { display: flex; flex-direction: column; gap: 10px; }
+.mt-r b { font-weight: 800; font-size: 40px; text-transform: uppercase; letter-spacing: 0.04em; }
+.mt-bar { height: 30px; border-radius: 15px; background: rgba(255,255,255,0.15); overflow: hidden; }
+.mt-bar i { display: block; height: 100%; width: 92%; border-radius: 15px; background: linear-gradient(90deg, #f5c22e, #ff3b3b); transform-origin: left center; transform: scaleX(0); }
+.stamp { position: absolute; left: 0; right: 0; display: flex; justify-content: center; }
+.stamp span { font-weight: 800; font-size: 130px; color: #ff3b3b; border: 12px solid #ff3b3b; border-radius: 18px; padding: 6px 34px; text-transform: uppercase; background: rgba(15,17,20,0.55); }
+.stamp.ok span { color: #20b26b; border-color: #20b26b; font-size: 76px; }
+.cb { position: absolute; left: 90px; right: 90px; top: 300px; background: #fff; color: #15171a; border-radius: 30px; padding: 26px 30px 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.45); }
+.cb::after { content: ""; position: absolute; left: 90px; bottom: -30px; border: 18px solid transparent; border-top: 20px solid #fff; }
+.cb-h { display: flex; align-items: center; gap: 16px; font-weight: 800; font-size: 32px; color: #666; }
+.cb-h i { width: 54px; height: 54px; border-radius: 50%; background: #f5c22e; font-style: normal; display: flex; align-items: center; justify-content: center; font-size: 30px; }
+.cb-t { margin-top: 12px; font-weight: 800; font-size: 50px; line-height: 1.1; }
+.cb-d { display: flex; gap: 10px; margin-top: 16px; }
+.cb-d span { width: 18px; height: 18px; border-radius: 50%; background: #bbb; }
+.ws { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.ws div { display: flex; align-items: center; gap: 18px; background: rgba(15,17,20,0.84); padding: 10px 30px 10px 14px; border-radius: 999px; font-weight: 800; font-size: 58px; text-transform: uppercase; }
+.ws i { width: 60px; height: 60px; border-radius: 50%; background: #20b26b; color: #fff; font-style: normal; display: flex; align-items: center; justify-content: center; font-size: 38px; }
+.pill { position: absolute; left: 0; right: 0; display: flex; justify-content: center; }
+.pill span { background: #f5c22e; color: #15171a; font-weight: 800; font-size: 50px; text-transform: uppercase; padding: 16px 36px; border-radius: 999px; box-shadow: 0 12px 30px rgba(0,0,0,0.4); white-space: nowrap; }
+.tap { position: absolute; width: 140px; height: 140px; margin: -70px 0 0 -70px; border-radius: 50%; border: 8px solid #fff; box-shadow: 0 0 30px rgba(255,255,255,0.6); }
+.tap-f { position: absolute; font-size: 110px; margin: -10px 0 0 -30px; }
+.fe { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 36px; background: rgba(10,11,13,0.8); padding: 0 70px 200px; text-align: center; }
+.fe-k { font-weight: 600; font-size: 40px; letter-spacing: 0.14em; color: #d9dadc; text-transform: uppercase; }
+.fe-q { font-weight: 800; font-size: 120px; line-height: 1; text-transform: uppercase; }
+.fe-q em { display: block; font-style: normal; color: #f5c22e; font-size: 92px; }
+.fe-b { background: #f5c22e; color: #15171a; border-radius: 999px; padding: 22px 50px; font-weight: 800; font-size: 48px; text-transform: uppercase; }
+"""
+
+
+def _network(self, nodes, start, end, at):
+    """Parties around a central PROJEK bubble; lines draw out, nodes pop at `at` (one time per node)."""
+    n = self.uid("nw")
+    import math
+    cx, cy, R = 540, 780, 330
+    pos = [(cx + R * math.cos(-math.pi / 2 + i * 2 * math.pi / len(nodes)), cy + R * 1.15 * math.sin(-math.pi / 2 + i * 2 * math.pi / len(nodes))) for i in range(len(nodes))]
+    lines = "".join(f'<line pathLength="1" id="{n}l{i}" x1="{cx}" y1="{cy}" x2="{x:.0f}" y2="{y:.0f}"></line>' for i, (x, y) in enumerate(pos))
+    boxes = "".join(f'<div class="nw-n" id="{n}n{i}" style="left:{x:.0f}px;top:{y:.0f}px">{esc(t)}</div>' for i, ((x, y), t) in enumerate(zip(pos, nodes)))
+    self.layers.append(f'<section id="{n}" class="clip nw" data-start="{start:.3f}" data-duration="{end - start:.3f}" data-track-index="6">'
+                       f'<div class="clip" id="{n}bg" style="background:rgba(10,11,13,0.55)"></div><svg viewBox="0 0 1080 1920">{lines}</svg><div class="nw-c" id="{n}c">PROJEK</div>{boxes}</section>')
+    self.js.append(f'tl.fromTo("#{n}bg", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.25 }}, {start:.3f});')
+    self.js.append(f'tl.fromTo("#{n}c", {{ scale: 0 }}, {{ scale: 1, duration: 0.35, ease: "back.out(2.5)" }}, {start:.3f});')
+    for i, t in enumerate(at):
+        self.js.append(f'tl.to("#{n}l{i}", {{ strokeDashoffset: 0, duration: 0.25 }}, {t:.3f});')
+        self.js.append(f'tl.fromTo("#{n}n{i}", {{ scale: 0, opacity: 0 }}, {{ scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }}, {t + 0.15:.3f});')
+        self.sfx("pop", t + 0.15, 0.35)
+    self.js.append(f'tl.to("#{n} > *", {{ opacity: 0, duration: 0.25 }}, {end - 0.25:.3f});')
+
+
+def _meters(self, labels, at, end):
+    m = self.uid("mt")
+    rows = "".join(f'<div class="mt-r"><b>{esc(t)}</b><div class="mt-bar"><i id="{m}b{i}"></i></div></div>' for i, t in enumerate(labels))
+    st = at[0] - 0.2
+    self.layers.append(f'<section id="{m}" class="clip" data-start="{st:.3f}" data-duration="{end - st:.3f}" data-track-index="6"><div class="mt" id="{m}p">{rows}</div></section>')
+    self.js.append(f'tl.fromTo("#{m}p", {{ y: -40, opacity: 0 }}, {{ y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }}, {st:.3f});')
+    for i, t in enumerate(at):
+        self.js.append(f'tl.to("#{m}b{i}", {{ scaleX: 1, duration: 0.7, ease: "power2.out" }}, {t:.3f});')
+        self.sfx("riser", t, 0.2, dur=0.7)
+    self.js.append(f'tl.to("#{m}p", {{ opacity: 0, duration: 0.25 }}, {end - 0.25:.3f});')
+
+
+def _stamp(self, text, t, dur, y=820, ok=False):
+    s = self.uid("sp")
+    self.layers.append(f'<section id="{s}" class="clip" data-start="{t:.3f}" data-duration="{dur:.3f}" data-track-index="7"><div class="stamp{" ok" if ok else ""}" style="top:{y}px"><span id="{s}b">{esc(text)}</span></div></section>')
+    self.js.append(f'tl.fromTo("#{s}b", {{ scale: 2.4, rotation: -14, opacity: 0 }}, {{ scale: 1, rotation: -6, opacity: 1, duration: 0.22, ease: "power4.in" }}, {t:.3f});')
+    self.js.append(f'tl.fromTo("#{s}b", {{ x: -8 }}, {{ x: 8, duration: 0.05, yoyo: true, repeat: 5 }}, {t + 0.22:.3f});')
+    self.js.append(f'tl.to("#{s}b", {{ opacity: 0, duration: 0.2 }}, {t + dur - 0.2:.3f});')
+    self.sfx("impact-bass-2" if not ok else "chime", t + 0.2, 0.5)
+    if not ok:
+        self.sfx("error", t + 0.22, 0.3)
+
+
+def _comment(self, question, start, dur, typing_at):
+    b = self.uid("cb")
+    self.layers.append(f'<section id="{b}" class="clip" data-start="{start:.3f}" data-duration="{dur:.3f}" data-track-index="7">'
+                       f'<div class="cb" id="{b}m"><div class="cb-h"><i>💬</i>Komen kat bawah</div><div class="cb-t">{esc(question)}</div>'
+                       f'<div class="cb-d"><span id="{b}d0"></span><span id="{b}d1"></span><span id="{b}d2"></span></div></div></section>')
+    self.js.append(f'tl.fromTo("#{b}m", {{ y: 60, scale: 0.8, opacity: 0 }}, {{ y: 0, scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" }}, {start:.3f});')
+    for i in range(3):
+        self.js.append(f'tl.fromTo("#{b}d{i}", {{ y: 0 }}, {{ y: -12, duration: 0.25, yoyo: true, repeat: {max(1, int((dur - 1) / 0.5)) * 2 - 1}, ease: "sine.inOut" }}, {typing_at + i * 0.12:.3f});')
+    self.js.append(f'tl.to("#{b}m", {{ opacity: 0, duration: 0.25 }}, {start + dur - 0.25:.3f});')
+    self.sfx("notification", start, 0.45)
+
+
+def _wordstack(self, words, at, end, top=300):
+    w = self.uid("ws")
+    rows = "".join(f'<div id="{w}r{i}"><i>✓</i>{esc(t)}</div>' for i, t in enumerate(words))
+    self.layers.append(f'<section id="{w}" class="clip" data-start="{at[0] - 0.05:.3f}" data-duration="{end - at[0] + 0.05:.3f}" data-track-index="6"><div class="ws" style="top:{top}px">{rows}</div></section>')
+    for i, t in enumerate(at):
+        self.js.append(f'tl.fromTo("#{w}r{i}", {{ scale: 1.8, opacity: 0 }}, {{ scale: 1, opacity: 1, duration: 0.22, ease: "power3.out" }}, {t:.3f});')
+        self.sfx("ping", t, 0.4)
+    self.js.append(f'tl.to("#{w} .ws", {{ opacity: 0, duration: 0.25 }}, {end - 0.25:.3f});')
+
+
+def _pill(self, text, start, dur, y=1520):
+    p = self.uid("pl")
+    self.layers.append(f'<section id="{p}" class="clip" data-start="{start:.3f}" data-duration="{dur:.3f}" data-track-index="7"><div class="pill" style="top:{y}px"><span id="{p}b">{esc(text)}</span></div></section>')
+    self.js.append(f'tl.fromTo("#{p}b", {{ y: 30, scale: 0.7, opacity: 0 }}, {{ y: 0, scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2.4)" }}, {start:.3f});')
+    self.js.append(f'tl.to("#{p}b", {{ opacity: 0, duration: 0.15 }}, {start + dur - 0.15:.3f});')
+
+
+def _tap(self, x, y, t):
+    """A finger taps the screen: ripple ring + hand."""
+    k = self.uid("tp")
+    self.layers.append(f'<section id="{k}" class="clip" data-start="{t:.3f}" data-duration="0.9" data-track-index="7"><div class="tap" id="{k}r" style="left:{x}px;top:{y}px"></div><div class="tap-f" id="{k}f" style="left:{x}px;top:{y}px">👆</div></section>')
+    self.js.append(f'tl.fromTo("#{k}f", {{ y: 60, opacity: 0 }}, {{ y: 0, opacity: 1, duration: 0.18 }}, {t:.3f});')
+    self.js.append(f'tl.fromTo("#{k}r", {{ scale: 0.2, opacity: 1 }}, {{ scale: 1.6, opacity: 0, duration: 0.6, ease: "power2.out" }}, {t + 0.15:.3f});')
+    self.js.append(f'tl.to("#{k}f", {{ opacity: 0, duration: 0.15 }}, {t + 0.7:.3f});')
+    self.sfx("click", t + 0.15, 0.5)
+
+
+def _follow_end(self, start, dur, logo=LOGO):
+    e = self.uid("fe")
+    self.layers.append(f'<section id="{e}" class="clip" data-start="{start:.3f}" data-duration="{dur:.3f}" data-track-index="7">'
+                       f'<div class="fe" id="{e}m"><div class="fe-k" id="{e}k">Enoxin.Fitout</div><div class="fe-q" id="{e}q">Follow<em>for more tips</em></div>'
+                       f'<div class="fe-b" id="{e}b">＋ Follow</div><img class="ce-l" id="{e}l" src="{logo}" alt="Enoxin"></div></section>')
+    self.js.append(f'tl.fromTo("#{e}m", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.3 }}, {start:.3f});')
+    self.js.append(f'tl.fromTo("#{e}k", {{ y: 20, opacity: 0 }}, {{ y: 0, opacity: 1, duration: 0.3 }}, {start + 0.1:.3f});')
+    self.js.append(f'tl.fromTo("#{e}q", {{ y: 50, opacity: 0 }}, {{ y: 0, opacity: 1, duration: 0.4, ease: "back.out(1.8)" }}, {start + 0.2:.3f});')
+    self.js.append(f'tl.fromTo("#{e}b", {{ scale: 0.6, opacity: 0 }}, {{ scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" }}, {start + 0.6:.3f});')
+    self.js.append(f'tl.to("#{e}b", {{ scale: 1.06, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: {max(1, int((dur - 1.2) / 0.6)) * 2 - 1} }}, {start + 1.0:.3f});')
+    self.js.append(f'tl.fromTo("#{e}l", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.4 }}, {start + 0.8:.3f});')
+    self.sfx("chime", start + 0.1, 0.4)
+
+
+Ad.network, Ad.meters, Ad.stamp, Ad.comment = _network, _meters, _stamp, _comment
+Ad.wordstack, Ad.pill, Ad.tap, Ad.follow_end = _wordstack, _pill, _tap, _follow_end

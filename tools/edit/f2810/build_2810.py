@@ -91,10 +91,10 @@ def v1():
         c.section(k + 1, 9, title, a, b - a)
     G = dict(top=420)
     a, b = sp["r1"]; c.glass("Konsep", ["Nature + minimalis", "Texture paint"], a, b - a, at=[find(w, "nature", a), find(w, "texture", a)], **G)
-    a, b = sp["r2"]; tk = find(w, "kayu", a)
-    c.glass("Finishing kaunter", ["Blockboard", "Bukan melamin", "Curving elemen kayu"], a, b - a,
+    a, b = sp["r2"]; tk = find(w, "elemen", a); X = 1.8  # hold the curving shot past the cut so the row can be read
+    c.broll(F + "IMG_5559.mp4", tk - 0.4, b - tk + 0.4 + X, media_start=25.0, zoom=(1.0, 1.12))
+    c.glass("Finishing kaunter", ["Blockboard", "Bukan melamin", "Curving elemen kayu"], a, b - a + X,
             at=[find(w, "blockboard", a), find(w, "melamin", a), tk], icons=[("✓", ""), ("✕", "w"), ("✓", "")], **G)
-    c.broll(F + "IMG_5559.mp4", tk - 0.6, b - tk + 0.6, media_start=25.0, zoom=(1.0, 1.12))
     a, b = sp["r3"]; c.glass("Dispensary", ["Tulis & simpan barang", "Konsep pigeon hole"], a, b - a, at=[find(w, "tulis-tulis", a), find(w, "pigeon", a)], **G)
     a, b = sp["r4"]; c.glass("Waiting area 2", ["Lantai two-tone", "Siling L-box", "Rasa expensive"], a, b - a,
                               at=[find(w, "two", a), find(w, "l-box", a), find(w, "expensive", a)], **G)

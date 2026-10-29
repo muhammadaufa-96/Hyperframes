@@ -18,13 +18,13 @@ SHOTS = [
     ("v", "IMG_5564", 11.0, 21.0, 3.0),   # patient toilet
     ("v", "IMG_5565", 1.0, 9.0, 4.0),     # corridor -> OT door
     ("v", "IMG_5565", 10.0, 15.0, 2.0),   # OT room
-    ("v", "IMG_5565", 26.0, 42.0, 4.0),   # cabinets, quartz top, drawers
+    ("v", "IMG_5565", 36.0, 42.0, 2.0),   # quartz top, sink, drawers
     ("i", "IMG_5544", 0, 1.6, 0),         # treatment room
     ("i", "IMG_5570", 0, 1.4, 0),         # consultation
     ("i", "IMG_5569", 0, 1.4, 0),         # doctor room
     ("i", "IMG_5543", 0, 1.4, 0),         # utility sink
     ("i", "IMG_5568", 0, 1.4, 0),         # slat wood feature
-    ("v", "IMG_5563", 8.0, 17.0, 2.5),    # pantry
+    ("v", "IMG_5563", 7.0, 13.0, 2.0),    # pantry
     ("i", "IMG_5537", 0, 3.0, 0),         # lobby wide (recap)
 ]
 
@@ -50,7 +50,7 @@ def build():
         c.whip(s)
 
     # hook
-    c.hook2("Owner klinik estetik?", "Tengok<br>ni dulu", "sebelum korang renovate 👀", 0.05, T[1] - 0.1)
+    c.hook2("Owner klinik estetik?", "Tengok<br>ni dulu", "sebelum korang renovate", 0.05, T[1] - 0.1)
 
     # room labels 01-09 and one callout per shot
     rooms = [(1, "Ruang menunggu", 1, 3), (2, "Kaunter", 3, 6), (3, "Waiting area 2", 6, 7), (4, "Toilet pesakit", 7, 8),
@@ -70,7 +70,7 @@ def build():
 
     # recap over the lobby wide, then the CTA
     s, d = at[17]
-    c.hook2("Luma Clinic · Petaling Jaya", "Design &amp;<br>build A–Z", "siap dari kosong sampai beroperasi ✨", s + 0.1, d - 0.1)
+    c.hook2("Luma Clinic · Petaling Jaya", "Design &amp;<br>build A–Z", "siap dari kosong sampai beroperasi", s + 0.1, d - 0.1)
     c.image(PH + "IMG_5536.jpg", A, END)
     c.ckaps_end(A, END)
     c.write(OUT + "c9-full-klinik.html", "Luma Clinic: full tour bawah 60 saat")

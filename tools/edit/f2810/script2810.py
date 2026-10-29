@@ -1,7 +1,7 @@
 """Hand-corrected caption text per piece (tag) for the folder 28/10/26 videos.
 Timing comes from per-piece ASR (chk.py); align() maps these words onto it."""
-R8 = ("Ini adalah utility sink. Antara salah satu syarat nak buat estetik klinik pun mesti kena ada utility sink, "
-      "double sink lah, and kita buat janitor jugalah kat sini sekaligus.")
+R8 = ("Okay, ini adalah utility sink. Antara salah satu syarat, nak buat estetik klinik pun mesti kena ada utility sink, "
+      "double sink lah, direct. And kita buat janitor jugalah kat sini.")
 SCRIPT = {
  "v1": {
   "nine": "Dan kalau korang nak tahu, kat sini kita buat total 9 bilik untuk dalam saiz lebih kurang 1,500 square feet. Macam mana kita boleh buat? Itu rahsia lah.",
@@ -18,9 +18,9 @@ SCRIPT = {
   "outro": "So itulah sedikit sebanyak kita punya road tour untuk estetik klinik di Petaling Jaya.",
  },
  "v2": {
-  "hook": "Part paling aku suka dekat sini adalah… yang nak tahu apa dia? Yang ni lah.",
-  "tada": "Ta-da! Sebelum korang nak dapatkan treatment room tu, korang akan lalu macam satu dimensi yang berbeza lah, lalu sini.",
-  "world": "Dia macam kita masuk dunia lain, kalau kita lalu sini.",
+  "hook": "Dan part antara yang paling aku suka dekat sini adalah… yang nak tahu apa dia?",
+  "tada": "Sebelum korang nak dapatkan treatment room tu, korang akan lalu macam satu dimensi yang berbeza lah, lalu sini.",
+  "world": "Tempat curving ni lah. Dia macam kita masuk dunia lain tu, kalau kita lalu sini.",
  },
  "v3": {
   "p1": "Untuk maklumat korang, memang kita buat workflow dekat klinik ni memang untuk memastikan, first, kita nak make sure client tu rasa selesa setiap flow proses tu.",
@@ -36,7 +36,7 @@ SCRIPT = {
  "v5": {
   "syarat": R8,
   "tips": "Ingat, nak buat klinik, jangan start dengan terus buat renovate. Start dengan proper planning dulu. Workflow macam mana, daripada workflow baru fikirkan design.",
-  "cta": "Kepada siapa di luar sana yang ada impian nak ada klinik estetik sendiri tapi tak tahu macam mana nak mulakan, tak tahu the process, korang boleh je hubungi kita. InsyaAllah kita akan bantu korang daripada A to Z.",
+  "cta": "So kalau kepada siapa di luar sana yang ada impian nak ada klinik estetik sendiri tapi tak tahu macam mana nak mulakan, tak tahu the process, korang boleh je hubungi kita. InsyaAllah kita akan bantu korang daripada A to Z.",
  },
  "v6": {
   "hook": "Korang tahu tak sebenarnya, pintu ni lah salah satu yang main peranan utama untuk nak memastikan ruangan kita tu jadi nampak luas dan lebih nampak teratur.",

@@ -9,7 +9,7 @@ Video comes from raw/blur/<clip>.mp4 when present, else raw/sdr/<clip>.mp4.
 Silences longer than min_gap (from silencedetect on the clip) are removed,
 keeping `pad` seconds of air on each side. `drop` ranges are always removed.
 """
-import json, os, re, subprocess, sys
+import json, math, os, re, subprocess, sys
 
 RAW = "/home/user/Hyperframes/f2810"
 spec = json.load(open(sys.argv[1])); out = sys.argv[2]; seg_out = sys.argv[3]
@@ -56,8 +56,9 @@ for i, (c, a, b, tag, pi) in enumerate(ranges):
     fc.append(f"[{i}:v]setpts=PTS-STARTPTS[v{i}]")
     fc.append(f"[{i}:a]asetpts=PTS-STARTPTS,afade=t=in:d=0.012,afade=t=out:st={d-0.012:.3f}:d=0.012[a{i}]")
     labels.append(f"[v{i}][a{i}]")
-    segs.append({"clip": c, "src_in": a, "src_out": b, "out_in": round(t, 3), "out_out": round(t + d, 3), "tag": tag, "piece": pi})
-    t += d
+    dq = math.ceil(d * 30 - 1e-6) / 30  # each range comes out as whole 30 fps frames
+    segs.append({"clip": c, "src_in": a, "src_out": b, "out_in": round(t, 3), "out_out": round(t + dq, 3), "tag": tag, "piece": pi})
+    t += dq
 fc.append("".join(labels) + f"concat=n={len(ranges)}:v=1:a=1[v][a]")
 cmd = ["ffmpeg", "-v", "error", "-y"]
 for p, a, d in inputs: cmd += ["-ss", f"{a:.3f}", "-t", f"{d:.3f}", "-i", p]

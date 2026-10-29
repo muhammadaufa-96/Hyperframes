@@ -125,9 +125,9 @@ class K(Ad):
         s = self.uid("sc")
         self.layers.append(f'<section id="{s}" class="clip" data-start="{start:.3f}" data-duration="{dur:.3f}" data-track-index="6">'
                            f'<div class="sec"><div class="sec-p" id="{s}p"><span class="sec-n">{i:02d} / {total:02d}</span><span class="sec-t">{esc(title)}</span></div>'
-                           f'<div class="sec-bar"><i id="{s}b" style="transform:scaleX({(i - 1) / total:.3f})"></i></div></div></section>')
+                           f'<div class="sec-bar"><i id="{s}b"></i></div></div></section>')
         self.js.append(f'tl.fromTo("#{s}p", {{ y: -30, opacity: 0 }}, {{ y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }}, {start:.3f});')
-        self.js.append(f'tl.to("#{s}b", {{ scaleX: {i / total:.3f}, duration: 0.5, ease: "power2.out" }}, {start + 0.1:.3f});')
+        self.js.append(f'tl.fromTo("#{s}b", {{ scaleX: {(i - 1) / total:.3f} }}, {{ scaleX: {i / total:.3f}, duration: 0.5, ease: "power2.out" }}, {start + 0.1:.3f});')
         self.js.append(f'tl.to("#{s} .sec", {{ opacity: 0, duration: 0.2 }}, {start + dur - 0.2:.3f});')
         self.sfx("click", start, 0.4)
 

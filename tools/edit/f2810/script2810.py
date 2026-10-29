@@ -57,7 +57,7 @@ SCRIPT = {
   "hook": "Siapa yang duduk berdekatan Petaling Jaya, korang boleh datang dekat Luma Clinic.",
   "svc": "So basically sini buat perkhidmatan GP plus estetik klinik. Nak buat hair transplant ke, tak cukup rambut ke, boleh datang sini.",
   "doc": "So far service ni memang tip top lah daripada Dr. Lim and Miss Michelle. Diorang sangat berpengalaman dalam estetik ni, especially dalam hair transplant.",
-  "sel": "So kalau korang fikir takut selesa ke tak selesa ke, jangan risau lah. Kita bantu set up klinik estetik ni bagi patient sendiri ada pengalaman selesa. Start daripada nak register di depan, sampailah waiting dekat sini untuk nak menunggu treatment, sampailah nak menuju pergi ke treatment. Semuanya kita akan make sure klien akan rasa experience yang lain daripada yang lain. Sebelum masuk treatment room, nak akan baring kat sini lah. Okay.",
-  "cta": "Korang boleh like and share video ni kat siapa yang memerlukan.",
+  "sel": "So kalau korang fikir takut selesa ke tak selesa ke, jangan risau lah. Kita bantu set up klinik estetik ni bagi patient sendiri ada pengalaman selesa. Start daripada nak register di depan, sampailah waiting dekat sini untuk nak menunggu treatment, sampailah nak menuju pergi ke treatment. Semuanya kita akan make sure klien akan rasa experience yang lain daripada yang lain. Sebelum masuk treatment room, kita akan baringkan",
+  "cta": "kat sini lah. Korang boleh like and share video ni kepada siapa yang memerlukan.",
  },
 }

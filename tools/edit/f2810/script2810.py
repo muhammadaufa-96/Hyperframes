@@ -14,7 +14,7 @@ SCRIPT = {
   "r6": "Bilik treatment room yang main utama, kita akan convert-kan jadi OT lah. So basically kat sini buat servis hair transplant. So inilah tempat dia akan buat operation. Ini adalah kabinet-kabinet, kita sediakan full kabinet, semua custom made kat sini. Dan yang paling menarik, kita bagi yang high-end punya lah. So kat sini dia pakai stone, quartz stone. Macam biasa, sini pun soft close. Macam korang lihat kat sini.",
   "r7": "Ini adalah bilik air dia. Kita memang sahaja buat tutup lah supaya klien nak tunggu tu dia tak ada bau ke apa kan. Dan ini adalah patient toilet. Kita buat macam ni. Macam korang tengok kat sini, kita buat two tone colour tiles, tempat pegang.",
   "r8": "Okay, ini adalah utility sink. Antara salah satu syarat, nak buat estetik klinik pun mesti kena ada utility sink, double sink lah, direct. And kita buat janitor jugalah kat sini sekaligus, sebab kita nak maksimalkan ruangan. Dan sini kita convert jadi bilik untuk diorang nak cuci rambut, sit down, kita cuci rambut lah kat sini. So total bilik kat sini dah 9.",
-  "r9": "Ni boleh sitting, top kita pakai quartz stone. Duduk nak makan ke, staff nak makan ke, biar selesa lah. Ni pun kita bagi staff flexible.",
+  "r9": "So ini adalah pintu untuk pantry, nampak tak. Ni boleh sitting, top kita pakai quartz stone. Duduk nak makan ke, staff nak makan ke, biar selesa lah. Ni pun kita bagi staff flexible.",
   "outro": "So itulah sedikit sebanyak kita punya road tour untuk estetik klinik di Petaling Jaya.",
  },
  "v2": {

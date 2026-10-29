@@ -113,7 +113,7 @@ def v1():
     o0, o1 = sp["outro"]
     c.whip(o0)
     shots = [("IMG_5566.jpg", "Bilik OT"), ("IMG_5544.jpg", "Bilik treatment"), ("IMG_5570.jpg", "Bilik konsultasi"),
-             ("IMG_5569.jpg", "Bilik doktor"), ("IMG_5568.jpg", "Ruang rawatan")]
+             ("IMG_5569.jpg", "Bilik doktor"), ("IMG_5568.jpg", "Feature slat kayu")]
     d = M / len(shots)
     c.chip("Bilik-bilik lain 👇", A + 0.05, M - 0.1, y=300, yellow=True)
     for k, (img, lab) in enumerate(shots):

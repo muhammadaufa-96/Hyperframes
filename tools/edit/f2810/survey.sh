@@ -6,7 +6,7 @@ for f in ana/*.mp4; do
   D=$(ffprobe -v error -show_entries format=duration -of csv=p=0 $f)
   [ -f sheets/$b.jpg ] || ffmpeg -nostdin -v error -y -i $f -vf "fps=16/$D,scale=150:-2,drawtext=text='%{pts\:hms}':x=3:y=3:fontsize=11:fontcolor=red,tile=8x2" -frames:v 1 sheets/$b.jpg
   if [ ! -f tx/$b/transcript.json ]; then
-    mkdir -p tx/$b; (cd tx/$b && npx hyperframes transcribe ../../wav/$b.wav -m large-v3-turbo -l ms --json > log.txt 2>&1)
+    mkdir -p tx/$b; (cp wav/$b.wav tx/$b/a.wav; cd tx/$b && npx hyperframes transcribe a.wav -m large-v3-turbo -l ms --json > log.txt 2>&1)
   fi
 done
 echo SURVEYDONE

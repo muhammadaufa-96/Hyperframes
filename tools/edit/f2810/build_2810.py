@@ -230,8 +230,9 @@ def v7():
     c.pill("Gula Apong 🍧", a0 + 0.3, a1 - a0 + 1.5, y=1500)
     r0, r1 = sp["rate"]
     tr = find(w, "overall", r0)
-    c.rating([], 9.5, tr, find(w, "you", tr) - tr + 0.3, top=330)
-    c.chip("Food · Environment · Workflow", tr + 1.2, find(w, "you", tr) - tr - 1.0, y=700)
+    t95 = find(w, "9.5", tr) - 1.5
+    c.chip("Food · Environment · Workflow", find(w, "food", tr) - 0.1, t95 - find(w, "food", tr) + 0.1, y=330)
+    c.rating([], 9.5, t95, find(w, "you", tr) - t95 + 0.3, top=330)
     c.end_card("bangfasz", 'Follow<em>untuk review seterusnya</em>', "Peria Restoran · Bukit Jelutong", "＋ Follow bangfasz", A, END, logo=None)
     finish(c, w, A, "c7-peria-restoran.html", "28/10 Video 7: Peria Restoran", end=None, bg=F + "IMG_5435.mp4", bg_ms=4.0)
 

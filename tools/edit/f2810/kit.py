@@ -134,6 +134,9 @@ class K(Ad):
     def glass(self, head, rows, start, dur, top=430, at=None, icons=None):
         """rows: list of text; at: per-row reveal times; icons: per-row icon char + class ('', 'w', 'n')."""
         g = self.uid("gc")
+        if at and at[0] - 0.3 > start:  # never show an empty card: open it just before the first row
+            dur -= at[0] - 0.3 - start
+            start = at[0] - 0.3
         at = at or [start + 0.25 + k * 0.35 for k in range(len(rows))]
         icons = icons or [("✓", "")] * len(rows)
         rr = "".join(f'<div class="gc-r" id="{g}r{k}"><i class="{ic[1]}">{esc(ic[0])}</i>{esc(t)}</div>' for k, (t, ic) in enumerate(zip(rows, icons)))

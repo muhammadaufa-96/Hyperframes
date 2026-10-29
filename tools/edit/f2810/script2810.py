@@ -46,12 +46,12 @@ SCRIPT = {
  },
  "v7": {
   "hook": "Kali ni aku nak bawa korang pergi ke satu kedai ni. Dia mungkin lah tak hype macam Rembayung, tapi rasa dia memang subhanallah, sedap dia.",
-  "name": "Nama kedai dia adalah Peria Restoran, yang aku nak pergi ni dekat Bukit Jelutong. Okay, jom.",
+  "name": "Nama kedai dia adalah Peria Restoran, yang aku nak pergi ni dekat Bukit Jelutong.",
   "menu": "Kat sini makanan dia terkenal dengan makanan Negeri Sembilan, tapi dia punya lauk-lauk dia semua sedap. Semua my favourite.",
   "lomak": "Kat sini, makanan yang famous dia adalah masak lomak. So kali ni aku ada masak lomak dia, yang sambal dia full, memang syahdu. Lepas dah makan, kita kena dessert dia pula. So ni ada dessert dia, kita try pula dessert dia.",
   "apong": "Haa, ni dessert dia, kita panggil gula apong.",
   "taste": "Bismillah. Oh, sedap.",
-  "rate": "Tak manis sangat. Just nice. Memang sedap. Makan sini memang aku tak nafikan, semua memang sedap-sedap. So overall rating aku boleh bagi, dia punya food dia, environment dia, workflow dia, aku bagi dalam 9.5 per 10. So you guys yang mana tak pernah try lagi Peria, you guys should try and come here. Dia ada beberapa cawangan lah.",
+  "rate": "Oh, sedap. Tak manis sangat. Just nice. Memang sedap. Makan sini memang aku tak nafikan, semua memang sedap-sedap. So overall rating aku boleh bagi, dia punya food dia, environment dia, workflow dia, aku bagi dalam 9.5 per 10. So you guys yang mana tak pernah try lagi Peria, you guys should try and come here. Dia ada beberapa cawangan lah.",
  },
  "v8": {
   "hook": "Siapa yang duduk berdekatan Petaling Jaya, korang boleh datang dekat Luma Clinic.",

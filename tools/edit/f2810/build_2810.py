@@ -6,7 +6,7 @@ Audio: voice + sound effects only (no music)."""
 import json, sys
 sys.path.insert(0, "/home/user/Hyperframes/tools/edit/f2810")
 from kit import K, align, esc
-from script import SCRIPT
+from script2810 import SCRIPT
 
 E = "/home/user/Hyperframes/f2810/edit/"
 F = "../assets/footage/f2810/"
@@ -214,8 +214,8 @@ def v7():
     n0, n1 = sp["name"]
     c.whip(n0)
     c.pin("Peria Restoran", "Bukit Jelutong", n0 + 0.4, n1 - n0 + 2.0, top=300)
-    m0, m1 = sp["menu"]
-    c.pill("Masakan Negeri Sembilan", m0 + 0.5, m1 - m0 - 0.5, y=1500)
+    m0, m1 = sp["walk"]
+    c.pill("Masakan Negeri Sembilan", m0 + 0.2, m1 - m0 + 1.8, y=1500)
     for tag in ("walk", "drink", "serve", "lomak", "apong"):
         c.whip(sp[tag][0])
     s0, s1 = sp["serve"]

@@ -12,5 +12,5 @@ for i in 0 1 2 3; do
     -color_primaries bt709 -color_trc bt709 -colorspace bt709 -c:a aac -b:a 192k -ar 48000 parts/${n}_$i.mp4 &
 done
 wait
-printf "file '%s'\n" parts/${n}_0.mp4 parts/${n}_1.mp4 parts/${n}_2.mp4 parts/${n}_3.mp4 > parts/$n.txt
+printf "file '%s'\n" ${n}_0.mp4 ${n}_1.mp4 ${n}_2.mp4 ${n}_3.mp4 > parts/$n.txt
 ffmpeg -nostdin -v error -y -f concat -safe 0 -i parts/$n.txt -c copy -movflags +faststart sdr/$n.mp4 && echo "done $n $(ffprobe -v error -show_entries format=duration -of csv=p=0 sdr/$n.mp4)"

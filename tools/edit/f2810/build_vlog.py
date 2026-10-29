@@ -4,8 +4,8 @@ No voice: on-screen subtitles + sound effects only; the client adds their own mu
 usage: python3 build_vlog.py"""
 import sys
 sys.path.insert(0, "/home/user/Hyperframes/tools/edit/f2810")
-import gen
 from kit import K
+import gen
 from build_2810 import brate, F, PH, OUT, END
 
 LU = "../assets/footage/luma/"

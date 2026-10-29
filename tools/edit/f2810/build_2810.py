@@ -74,6 +74,9 @@ def finish(c, w, A, path, title, end="ckaps", bg=None, bg_ms=0.0):
 # ---------------------------------------------------------------------------
 def v1():
     c, segs, sp, w, A = base("v1", "c1-tour-9-bilik")
+    M = 7.2  # closing montage of the other rooms, after the outro line
+    c.duration = A + M + END
+    c.shade(A + END, M)
     n0, n1 = sp["nine"]
     c.broll(F + "IMG_5530.mp4", 0.0, 2.2, media_start=1.0, zoom=(1.12, 1.0))
     c.hook2("Live tour klinik estetik", "9 BILIK", "dalam 1,500 sqft?", 0.05, n1 - 0.1)
@@ -87,22 +90,37 @@ def v1():
         c.whip(a)
         c.section(k + 1, 9, title, a, b - a)
     G = dict(top=420)
-    a, b = sp["r1"]; c.glass("Konsep", ["Nature + minimalis", "Texture paint"], find(w, "nature", a) - 0.2, b - find(w, "nature", a) + 0.1, at=[find(w, "nature", a), find(w, "texture", a)], **G)
-    a, b = sp["r2"]; t = find(w, "blockboard", a); c.glass("Finishing", ["Blockboard", "Bukan melamin"], t - 0.2, b - t + 0.1, at=[t, find(w, "melamin", a)], icons=[("✓", ""), ("✕", "w")], **G)
-    a, b = sp["r3"]; c.glass("Dispensary", ["Konsep pigeon hole"], a + 0.4, b - a - 0.3, **G)
-    a, b = sp["r4"]; c.glass("Waiting area 2", ["Lantai two-tone", "Siling L-box", "Rasa expensive"], find(w, "two", a) - 0.2, b - find(w, "two", a) + 0.1,
+    a, b = sp["r1"]; c.glass("Konsep", ["Nature + minimalis", "Texture paint"], a, b - a, at=[find(w, "nature", a), find(w, "texture", a)], **G)
+    a, b = sp["r2"]; tk = find(w, "kayu", a)
+    c.glass("Finishing kaunter", ["Blockboard", "Bukan melamin", "Curving elemen kayu"], a, b - a,
+            at=[find(w, "blockboard", a), find(w, "melamin", a), tk], icons=[("✓", ""), ("✕", "w"), ("✓", "")], **G)
+    c.broll(F + "IMG_5559.mp4", tk - 0.6, b - tk + 0.6, media_start=25.0, zoom=(1.0, 1.12))
+    a, b = sp["r3"]; c.glass("Dispensary", ["Tulis & simpan barang", "Konsep pigeon hole"], a, b - a, at=[find(w, "tulis-tulis", a), find(w, "pigeon", a)], **G)
+    a, b = sp["r4"]; c.glass("Waiting area 2", ["Lantai two-tone", "Siling L-box", "Rasa expensive"], a, b - a,
                               at=[find(w, "two", a), find(w, "l-box", a), find(w, "expensive", a)], **G)
     c.image(PH + "IMG_5540.jpg", find(w, "l-box", a) + 0.3, 1.4, zoom=(1.0, 1.1))
     a, b = sp["r5"]; t = find(w, "dimensi", a); c.pill("✨ Dimensi lain", t, b - t, y=1500)
     c.image(PH + "IMG_5542.jpg", b - 1.3, 1.3, zoom=(1.0, 1.12))
-    a, b = sp["r6"]; c.glass("Treatment room", ["Mini OT", "Hair transplant"], find(w, "ot", a) - 0.2, b - find(w, "ot", a) + 0.1, at=[find(w, "ot", a), find(w, "hair", a)], **G)
-    a, b = sp["r7"]; c.glass("Toilet pesakit", ["Tiles two-tone", "Tempat pegang"], find(w, "two", a) - 0.2, b - find(w, "two", a) + 0.1, at=[find(w, "two", a), find(w, "pegang", a)], **G)
-    a, b = sp["r8"]; c.glass("Syarat klinik estetik", ["Utility sink (double)", "Janitor"], find(w, "syarat", a) - 0.2, b - find(w, "syarat", a) + 0.1,
-                              at=[find(w, "double", a), find(w, "janitor", a)], **G)
-    a, b = sp["r9"]; c.glass("Pantry staf", ["Top quartz stone"], find(w, "quartz", a) - 0.2, b - find(w, "quartz", a) + 0.1, **G)
+    a, b = sp["r6"]; tkab = find(w, "kabinet-kabinet", a)
+    c.glass("Treatment room", ["Mini OT", "Hair transplant"], a, tkab - a - 0.2, at=[find(w, "ot", a), find(w, "hair", a)], **G)
+    c.glass("Kabinet", ["Custom made", "Top quartz stone", "Soft close"], tkab - 0.1, b - tkab + 0.1,
+            at=[find(w, "custom", a), find(w, "quartz", a), find(w, "soft", a)], **G)
+    a, b = sp["r7"]; c.glass("Toilet pesakit", ["Tertutup, tak berbau", "Tiles two-tone", "Tempat pegang"], a, b - a,
+                              at=[find(w, "tutup", a), find(w, "two", a), find(w, "pegang", a)], **G)
+    a, b = sp["r8"]; c.glass("Syarat klinik estetik", ["Utility sink (double)", "Janitor", "Bilik cuci rambut"], a, b - a,
+                              at=[find(w, "double", a), find(w, "janitor", a), find(w, "cuci", a)], **G)
+    a, b = sp["r9"]; c.glass("Pantry staf", ["Top quartz stone", "Staff flexible"], a, b - a, at=[find(w, "quartz", a), find(w, "flexible", a)], **G)
     o0, o1 = sp["outro"]
     c.whip(o0)
-    finish(c, w, A, "c1-tour-9-bilik.html", "28/10 Video 1: Tour 9 bilik", bg=PH + "IMG_5537.jpg")
+    shots = [("IMG_5566.jpg", "Bilik OT"), ("IMG_5544.jpg", "Bilik treatment"), ("IMG_5570.jpg", "Bilik konsultasi"),
+             ("IMG_5569.jpg", "Bilik doktor"), ("IMG_5568.jpg", "Ruang rawatan")]
+    d = M / len(shots)
+    c.chip("Bilik-bilik lain 👇", A + 0.05, M - 0.1, y=300, yellow=True)
+    for k, (img, lab) in enumerate(shots):
+        c.image(PH + img, A + k * d, d, zoom=(1.0, 1.1))
+        c.pill(lab, A + k * d + 0.1, d - 0.1, y=1500)
+        c.sfx("whoosh-short", A + k * d, 0.35)
+    finish(c, w, A + M, "c1-tour-9-bilik.html", "28/10 Video 1: Tour penuh klinik estetik", bg=PH + "IMG_5537.jpg")
 
 
 def v2():

@@ -81,14 +81,27 @@ def build():
     s, d = vid(F + "IMG_8772_c.mp4", 1.0, 8.0, 2.33)
     nar(c, "", "Semua bermula dengan satu layout.", s + 0.2, d - 0.3)
 
-    # ---- PROSES ---------------------------------------------------------
-    s, d = vid(F + "IMG_9207_c.mp4", 0.0, 5.0, 2.0)
-    c.sfx("whoosh-short", s, 0.35)
-    s2, d2 = vid(F + "IMG_9208_c.mp4", 0.0, 36.0, 6.0)
-    nar(c, "Proses", "Yang lama dibongkar. Ruang dibina semula, satu demi satu.", s + 0.2, d + d2 - 0.3)
-    s, d = vid(F + "IMG_9209_c.mp4", 1.0, 6.0, 2.0)
-    s2, d2 = vid(F + "IMG_1004_o.mp4", 4.0, 13.0, 3.0)
-    nar(c, "", "Ia boleh jadi lebih dari tempat rawatan. Ia boleh jadi satu pengalaman.", s + 0.2, d + d2 - 0.3)
+    # ---- PROSES: short clean cuts at normal speed ----------------------
+    def cut(kind, src, a=0.0, d=1.4):
+        nonlocal t
+        if kind == "v":
+            c.broll(src, t, d, media_start=a, zoom=(1.0, 1.04))
+        else:
+            c.image(src, t, d, zoom=(1.0, 1.05))
+        c.sfx("click-soft", t, 0.25)
+        s = t; t += d
+        return s
+    p0 = cut("v", F + "IMG_9207_c.mp4", 0.5, 1.5)
+    cut("v", F + "IMG_9208_c.mp4", 2.0)
+    cut("v", F + "IMG_9208_c.mp4", 9.5)
+    cut("v", F + "IMG_9208_c.mp4", 22.0)
+    p1 = cut("v", F + "IMG_9209_c.mp4", 1.0)
+    cut("v", F + "IMG_1004_o.mp4", 4.5, 1.5)
+    cut("v", F + "IMG_1003_o.mp4", 1.0)
+    cut("i", LU + "IMG_1006.jpg")
+    cut("i", LU + "IMG_1007.jpg")
+    nar(c, "Proses", "Yang lama dibongkar. Ruang dibina semula, satu demi satu.", p0 + 0.2, p1 - p0 - 0.25)
+    nar(c, "", "Ia boleh jadi lebih dari tempat rawatan. Ia boleh jadi satu pengalaman.", p1 + 0.1, t - p1 - 0.2)
     c.sfx("riser", t - 1.6, 0.35, dur=1.6)
 
     # ---- AFTER ----------------------------------------------------------
@@ -99,26 +112,34 @@ def build():
     nar(c, "Luma Clinic hari ini", "Designed with intention. Built with care.", s + 0.4, d - 0.45)
 
     areas = [
-        ([("v", "IMG_5559.mp4", 0.0, 4.0, 1.3), ("i", "IMG_5536.jpg", 2.2)], "Ruang menunggu",
+        ([("l", "a_wait1.jpg", 3.6)], "Ruang menunggu",
          "Konsep nature + minimalis, dinding texture paint. Supaya klien terus rasa tenang sebaik masuk."),
-        ([("i", "IMG_5535.jpg", 2.3), ("v", "IMG_5559.mp4", 22.0, 28.0, 2.0)], "Kaunter",
-         "Blockboard, bukan melamin: lebih tahan dan kemas. Elemen kayu curving di belakang jadi identiti klinik."),
-        ([("v", "IMG_5559.mp4", 8.0, 15.0, 1.6)], "Siling",
-         "Siling curving + L-box dengan lampu tersembunyi. Ambience yang buat klien rasa 'expensive'."),
-        ([("v", "IMG_5565.mp4", 0.0, 9.0, 3.0), ("i", "IMG_5554.jpg", 2.2)], "Laluan treatment",
-         "Lengkung kayu + lampu. Klien rasa masuk 'dimensi lain' sebelum sampai bilik rawatan."),
-        ([("v", "IMG_5565.mp4", 10.0, 15.0, 1.7), ("v", "IMG_5565.mp4", 36.0, 42.0, 2.0)], "Bilik OT",
-         "Bilik utama dijadikan mini OT untuk hair transplant. Kabinet custom, top quartz stone, soft close."),
-        ([("v", "IMG_5564.mp4", 11.0, 21.0, 2.4)], "Toilet pesakit",
+        ([("l", "a_counter.jpg", 4.2)], "Kaunter",
+         "Blockboard, bukan melamin: lebih tahan dan kemas. Elemen kayu curving jadi identiti klinik."),
+        ([("v", "IMG_5559.mp4", 9.0, 13.0, 1.0)], "Siling",
+         "Siling curving dengan lampu tersembunyi, ikut aliran ruang. Lebih lembut, lebih premium."),
+        ([("l", "a_wait2.jpg", 3.8)], "Waiting area 2",
+         "Lantai two-tone + siling L-box untuk enhance ambience, supaya klien rasa lebih 'expensive'."),
+        ([("l", "a_corr.jpg", 3.8)], "Laluan treatment",
+         "Lengkung + lampu. Klien rasa masuk 'dimensi lain' sebelum sampai bilik rawatan."),
+        ([("v", "IMG_5565.mp4", 10.5, 14.0, 1.0)], "Bilik OT",
+         "Bilik utama dijadikan mini OT untuk hair transplant."),
+        ([("l", "a_treat.jpg", 3.8)], "Bilik treatment",
+         "Feature arch berlampu. Kabinet custom, top quartz stone, soft close."),
+        ([("v", "IMG_5564.mp4", 14.0, 18.0, 1.0)], "Toilet pesakit",
          "Dibuat tertutup supaya klien yang menunggu tak terbau. Tiles two-tone + tempat pegang."),
-        ([("i", "IMG_5543.jpg", 2.0), ("i", "IMG_5567.jpg", 2.0)], "Utility sink",
+        ([("i", "IMG_5543.jpg", 3.4)], "Utility sink",
          "Utility sink double + janitor. Syarat wajib klinik estetik."),
+        ([("l", "a_pantry.jpg", 3.2)], "Pantry staf",
+         "Top quartz stone, kabinet custom. Staf pun selesa."),
     ]
     for shots, kicker, text in areas:
         a0 = t
         for sh in shots:
             if sh[0] == "v":
                 vid(F + sh[1], sh[2], sh[3], sh[4])
+            elif sh[0] == "l":
+                img(LU + sh[1], sh[2], zoom=(1.0, 1.07))
             else:
                 img(PH + sh[1], sh[2])
         c.sfx("whoosh-short", a0, 0.3)
@@ -129,7 +150,7 @@ def build():
     A = t
     c.duration = A + END
     c.shade(0, A + END)
-    c.image(PH + "IMG_5536.jpg", A, END)
+    c.image(LU + "a_wait1.jpg", A, END)
     c.ckaps_end(A, END)
     c.write(OUT + "c11-before-after-luma.html", "Luma Clinic: before & after")
     print(f"total {A + END:.2f}s  (after starts {s:.2f})")

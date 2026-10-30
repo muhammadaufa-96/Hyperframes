@@ -18,7 +18,7 @@ gen.CSS += r"""
 .nar .k { display: block; font-weight: 800; font-size: 28px; letter-spacing: 0.12em; text-transform: uppercase; color: #a8810a; margin-bottom: 8px; }
 .nar .t { display: block; font-weight: 800; font-style: italic; font-size: 42px; line-height: 1.24; color: #15171a; }
 /* Opening title */
-.bat { position: absolute; left: 0; right: 0; top: 640px; text-align: center; }
+.bat { position: absolute; left: 0; right: 0; top: 1060px; text-align: center; padding: 34px 0 40px; background: linear-gradient(180deg, rgba(10,12,15,0) 0%, rgba(10,12,15,0.72) 22%, rgba(10,12,15,0.72) 78%, rgba(10,12,15,0) 100%); }
 .bat .a { display: block; font-weight: 800; font-size: 120px; line-height: 1; color: #fff; text-shadow: 0 6px 0 rgba(0,0,0,0.35), 0 0 40px rgba(0,0,0,0.5); }
 .bat .b { display: block; font-weight: 800; font-size: 84px; line-height: 1.1; color: #f5c22e; text-shadow: 0 5px 0 rgba(0,0,0,0.35), 0 0 30px rgba(0,0,0,0.5); }
 .flw { position: absolute; inset: 0; background: #fff; }

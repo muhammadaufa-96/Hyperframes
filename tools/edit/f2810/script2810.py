@@ -61,3 +61,11 @@ SCRIPT = {
   "cta": "kat sini lah. Korang boleh like and share video ni kepada siapa yang memerlukan.",
  },
 }
+
+SCRIPT["n1"] = {
+  "hook": "Biasanya the moment kita dah start masuk site, apa yang first kita kena buat adalah kita kena buat marking dulu eh.",
+  "size": "Kita nak make sure sizing setiap ruangan tu tepat.",
+  "layout": "Jadi sebelum nak jalan kerja, kena pastikan layout tu dah confirm, ruangan tu tepat. Dan paling penting sekali, kita kena dapatkan confirmation daripada klien dulu lah.",
+  "site": "Macam sekarang ni aku dekat Puncak Alam. Kita nak start jalan kerja kat sini, insyaAllah kita akan jalan kerja untuk butik lah. So nantikan eh, macam mana hasil dia kerja kat sini.",
+  "cta": "Okay, so kalau korang nak tahu lebih lanjut berkenaan dengan commercial renovation, korang boleh tekan button like, share dan follow aku dulu okay. So itu sahaja. See you in the next video. Assalamualaikum.",
+}

@@ -16,11 +16,12 @@ def n1():
     c.hook2("Kontraktor masuk site…", "Step #1<br>bukan terus bina", "ni yang kita buat dulu", 0.05, min(3.0, h1 - 0.1))
 
     # marking
+    tf = find(w, "first", h0)
     tm = find(w, "marking", h0)
-    c.whip(tm - 0.1)
-    c.broll(F + "IMG_5842.mp4", tm - 0.1, h1 - tm + 0.1, media_start=3.0, zoom=(1.0, 1.08))
-    c.pill("Marking dulu", tm + 0.1, h1 - tm - 0.2, y=1480)
-    c.sfx("pop", tm + 0.1, 0.35)
+    c.whip(tf - 0.1)
+    c.broll(F + "IMG_5842.mp4", tf - 0.1, h1 - tf + 0.1, media_start=2.5, zoom=(1.0, 1.08))
+    c.pill("Marking dulu", tm - 0.1, h1 - tm, y=1480)
+    c.sfx("pop", tm - 0.1, 0.35)
 
     # sizing: door opening discussion
     s0, s1 = sp["size"]

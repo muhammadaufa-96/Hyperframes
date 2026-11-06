@@ -49,7 +49,7 @@ def n2():
     # close: ask the viewer
     k0, k1 = sp["close"]
     c.whip(k0)
-    ts = find(w, "setuju", k0)
+    ts = find(w, "statement", k0)
     c.comment("Setuju tak dengan statement ni?", ts - 0.3, k1 - ts + 0.3, ts)
 
     # natural CTA, then the follow card

@@ -75,6 +75,6 @@ SCRIPT["n2"] = {
   "ctx": "Pukul 5 pagi aku ada dekat mana? Aku baru je lepas check-in, nak pergi ke gate lah. Kita ada urusan kerja sikit.",
   "mitos": "So aku sangat tak setuju dengan mana-mana statement yang mengatakan, oh nak jadi owner business ni untung lah, nak jadi entrepreneur ni untung lah. Boleh susun masa sendiri. Boleh cuti sendiri.",
   "realiti": "Sedangkan kalau kau nak tahu, hidup sebagai entrepreneur ni lebih keras eh. Kau takkan ada cuti sebenarnya. Kau akan kerja 25 jam sehari. Dan pada masa sama, kau tak boleh mengeluh. Kau kena berjuang mencari rezeki untuk keluarga kau.",
-  "close": "Tapi sebenarnya hidup dia lebih keras guys. Jadi kepada siapa entrepreneur, setuju tak dengan aku punya statement ni? Betul tak? Kan?",
+  "close": "Tapi sebenarnya hidup dia lebih keras guys. Jadi kepada siapa-siapa entrepreneur, kongsi je dengan aku punya statement ni. Betul tak?",
   "cta": "And kau boleh like dan share video ni kalau korang enjoy. And see you in the next video.",
 }

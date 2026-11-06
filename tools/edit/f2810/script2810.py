@@ -80,6 +80,8 @@ SCRIPT["n2"] = {
 }
 
 SCRIPT["n3"] = {
+  "intro": "Kita dekat mana? Valley Market. Sini ada apa? Ada spot untuk foto-foto banyak, dan restoran.",
+  "view2": "Nampak pergunungan. Sini restoran dia, daripada indoor.",
   "view": "Guys, tengok ni guys. MasyaAllah, tak sangka eh, dekat Sentul ni HD jugalah pemandangan dia.",
   "cottage": "Kalau korang suka vibe-vibe ala-ala macam English cottage, korang patut datang sini lah. Dia punya view, dia punya makanan, semuanya for me nice.",
   "rate": "Contoh macam makanan ni, aku ada yang sirloin punya. Okay lah, not bad. Okay macam ni lah, kalau ikutkan, dari segi environment dia, workflow dia, aku rasa dalam 9.5 per 10. Tapi in term of dia punya makanan, dia serve, mungkin dalam 7 per 10 lah. Dia agak kurang sikit, for me. Dari segi makanan dia kurang, tapi dia win dekat workflow dengan konsep design yang dibawakan lah.",

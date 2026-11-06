@@ -78,3 +78,10 @@ SCRIPT["n2"] = {
   "close": "Tapi sebenarnya hidup dia lebih keras guys. Jadi kepada siapa-siapa entrepreneur, kongsi je dengan aku punya statement ni. Betul tak?",
   "cta": "And kau boleh like dan share video ni kalau korang enjoy. And see you in the next video.",
 }
+
+SCRIPT["n3"] = {
+  "view": "Guys, tengok ni. Tak sangka eh, dekat Sentul ni HD jugalah pemandangan dia.",
+  "cottage": "Kalau korang suka vibe-vibe ala-ala macam English cottage, korang patut datang sini lah. Dia punya view, dia punya makanan, semuanya for me nice.",
+  "rate": "Contoh macam makanan ni, aku ada yang sirloin punya. Okay lah, not bad. Okay macam ni lah, kalau ikutkan, dari segi environment dia, workflow dia, aku rasa dalam 9.5 per 10. Tapi in term of dia punya makanan, dia serve, mungkin dalam 7 per 10 lah. Dia agak kurang sikit, for me. Dari segi makanan dia kurang, tapi dia win dekat workflow dengan konsep design yang dibawakan lah.",
+  "cta": "So kalau korang nak tahu dekat mana, korang boleh tengok dekat komen. Eh, korang boleh tengok dekat description, dekat bawah aku ada share location. Okay, so itu sahaja. Korang boleh like, share video ni kalau rasa bermanfaat. And see you in the next video. Assalamualaikum.",
+}

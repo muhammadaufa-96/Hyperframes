@@ -93,6 +93,6 @@ SCRIPT["n3"] = {
   "wow": "Korang tengok ni guys. Wow.",
   "nz": "Korang mesti fikir aku dekat mana, kat New Zealand kan? Tapi tak guys, aku sekarang kat negara jiran je. Tapi diorang manage untuk buatkan environment tu macam dekat negara Eropah. Kat sini dia punya environment dia memang sumpah best gila. Dia punya kedai dia memang dia betul-betul bawa elemen-elemen macam English cottage macam tu lah.",
   "rate": "Contoh macam makanan ni, aku ada yang sirloin punya. Okay lah, not bad. Okay macam ni lah, kalau ikutkan, dari segi environment dia, workflow dia, aku rasa dalam 9.5 per 10. Tapi in term of dia punya makanan, dia serve, mungkin dalam 7 per 10 lah. Dia agak kurang sikit, for me. Dari segi makanan dia kurang, tapi dia win dekat workflow dengan konsep design yang dibawakan lah.",
-  "gempak": "Ini sepatutnya, dengan tempat yang gempak, sepatutnya diorang kena jaga jugalah quality of food, dari segi food presentation dia kan.",
+  "gempak": "Ini sepatutnya, dengan tempat yang gempak macam ni, sebabnya diorang kena jaga jugalah quality of food, dari segi food presentation dia kan.",
   "end": "So kalau korang nak tahu kat mana ni, aku sekarang berada dekat Sentul, di Indonesia. Okay, aku akan share kat komen. So siapa yang ada di area Jakarta, Sentul, you guys should come here. Tak rugi lah. Itu je lah aku cakap, untuk pengalaman tu tak rugi pun. Okay, so itu sahaja. See you in the next video. Assalamualaikum.",
 }

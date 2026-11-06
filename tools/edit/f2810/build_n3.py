@@ -1,46 +1,48 @@
-"""6/11/26: contractor's review of The Dolomites / Valley Market, Sentul.
+"""6/11/26 (v3): The Dolomites / Valley Market, Sentul, told from the outdoor walk (IMG_5981)
+with the cafe rating in the middle. The earlier cut is kept in build_n3_v2.py.
 usage: python3 build_n3.py   (needs f2810/edit/aroll_n3.mp4 + n3_segs.json + chk/n3/words.json)"""
 import sys
 sys.path.insert(0, "/home/user/Hyperframes/tools/edit/f2810")
 import build_2810 as b
 from build_2810 import base, find, finish, F, END
 
-b.HOT |= {"sentul", "hd", "pemandangan", "english", "cottage", "view", "makanan", "sirloin", "environment", "workflow",
-          "9.5", "7", "kurang", "win", "konsep", "design", "description", "location", "like", "share"}
+b.HOT |= {"percaya", "pemandangan", "indah", "end", "zealand", "jiran", "eropah", "best", "english", "cottage", "sirloin",
+          "environment", "workflow", "9.5", "7", "kurang", "win", "konsep", "design", "gempak", "quality", "food",
+          "sentul", "indonesia", "komen", "jakarta", "rugi"}
 P6 = "../assets/footage/f0611/"
 
 
 def n3():
     c, segs, sp, w, A = base("n3", "n3-dolomites-review")
-    # opening: walking outside, "kita dekat mana?"
-    i0, i1 = sp["intro"]
+
+    # hook: his own line, plus the review title
+    h0, h1 = sp["hook"]
     c.hook2("Kontraktor review kafe", "9.5/10<br>untuk design", "tapi makanan…?", 0.05, 3.1)
-    tv = find(w, "valley", i0)
-    c.pin("The Dolomites", "Valley Market · Sentul", tv - 0.2, i1 - tv + 0.1, top=420)
+    ts = find(w, "stay", h0)
+    c.chip("Location kat hujung video", ts - 0.1, h1 - ts + 0.1, x=70, y=300, yellow=True)
 
-    # the view: windmill, then the mountains
-    v0, v1 = sp["view"]
-    c.whip(v0)
-    c.broll(F + "IMG_6081.mp4", v0, min(3.2, v1 - v0), media_start=1.0, zoom=(1.0, 1.08))
-    w0, w1 = sp["view2"]
-    c.whip(w0)
-    tg = find(w, "pergunungan", w0)
-    c.broll(F + "IMG_6006.mp4", tg - 0.3, 3.0, media_start=5.5, zoom=(1.1, 1.0))
-    c.chip("Pemandangan gunung", tg - 0.1, 2.7, x=70, y=300, yellow=True)
+    # wow: the view
+    o0, o1 = sp["wow"]
+    c.whip(o0)
+    c.broll(F + "IMG_6006.mp4", o0, o1 - o0, media_start=5.5, zoom=(1.1, 1.0))
 
-    # quick photo montage of the place while he describes the vibe
-    k0, k1 = sp["cottage"]
-    c.whip(k0)
-    te = find(w, "english", k0)
-    c.broll(F + "IMG_5954.mp4", te - 0.3, 2.6, media_start=2.0, zoom=(1.0, 1.06))
-    c.chip("English cottage", te, 2.2, x=70, y=300, yellow=True)
-    tv = find(w, "view", k0)
-    t = tv - 0.2
+    # "New Zealand?" -> neighbour country built like Europe
+    n0, n1 = sp["nz"]
+    c.whip(n0)
+    tz = find(w, "zealand", n0)
+    c.chip("New Zealand?", tz - 0.6, 1.8, x=70, y=300)
+    tj = find(w, "jiran", n0)
+    c.chip("Negara jiran je", tj - 0.3, 2.0, x=70, y=300, yellow=True)
+    te = find(w, "eropah", n0)
+    t = te - 0.3
     for img in ["IMG_6123", "IMG_6022", "IMG_6089", "IMG_6014"]:
-        c.image(P6 + img + ".jpg", t, 0.85, zoom=(1.0, 1.08))
+        c.image(P6 + img + ".jpg", t, 0.9, zoom=(1.0, 1.08))
         c.whip(t)
-        t += 0.85
-    c.broll(F + "IMG_6007.mp4", t, max(0.6, k1 - t), media_start=2.0, zoom=(1.0, 1.06))
+        t += 0.9
+    c.broll(F + "IMG_6081.mp4", t, 2.4, media_start=1.0, zoom=(1.0, 1.06))
+    tc = find(w, "english", n0)
+    c.broll(F + "IMG_5954.mp4", tc - 0.8, n1 - tc + 0.8, media_start=2.0, zoom=(1.0, 1.06))
+    c.chip("English cottage", tc - 0.2, n1 - tc + 0.1, x=70, y=300, yellow=True)
 
     # food + ratings
     r0, r1 = sp["rate"]
@@ -57,21 +59,22 @@ def n3():
     c.glass("Kenapa dia win", ["Workflow lancar", "Konsep design kuat"], tw - 0.2, r1 - tw + 0.2,
             at=[find(w, "workflow", tw - 0.1), find(w, "konsep", tw)], top=420)
 
-    # natural CTA, then the follow card
-    q0, q1 = sp["cta"]
-    c.whip(q0)
-    tl = find(w, "location", q0)
-    c.pill("Location dalam description", tl - 0.4, 2.4, y=1480)
-    c.sfx("pop", tl - 0.4, 0.35)
-    tk = find(w, "like", q0)
-    c.pill("Like · Share", tk - 0.1, 2.0, y=1480)
-    c.sfx("pop", tk - 0.1, 0.35)
-    # ending over the outdoor walk
-    c.broll(F + "IMG_6005.mp4", q0, 5.5, media_start=0.5, zoom=(1.0, 1.06))
-    c.whip(q0 + 5.5)
-    c.broll(F + "IMG_6007.mp4", q0 + 5.5, 3.6, media_start=2.0, zoom=(1.0, 1.06))
-    c.whip(q0 + 9.1)
-    c.broll(F + "IMG_6005.mp4", q0 + 9.1, q1 - q0 - 9.1, media_start=33.5, zoom=(1.0, 1.06))
+    # back outside: food should match the place
+    g0, g1 = sp["gempak"]
+    c.whip(g0)
+    tq = find(w, "quality", g0)
+    c.glass("Tempat gempak, kena jaga", ["Quality of food", "Food presentation"], tq - 0.3, g1 - tq + 0.3,
+            at=[tq, find(w, "presentation", g0)], icons=[("!", "w"), ("!", "w")], top=420)
+
+    # ending on the walk: location reveal, then the follow card
+    e0, e1 = sp["end"]
+    c.whip(e0)
+    tl = find(w, "sentul", e0)
+    c.pin("The Dolomites", "Sentul, Indonesia", tl - 0.3, 4.0, top=420)
+    c.sfx("sparkle", tl - 0.2, 0.4)
+    tk = find(w, "komen", e0)
+    c.pill("Location kat komen", tk - 0.2, 2.2, y=1480)
+    c.sfx("pop", tk - 0.2, 0.35)
     c.follow_end(A, END)
     finish(c, w, A, "n3-dolomites-review.html", "6/11: Kontraktor review The Dolomites, Sentul", end=None,
            bg=F + "IMG_6081.mp4", bg_ms=2.0)

@@ -96,3 +96,13 @@ SCRIPT["n3"] = {
   "gempak": "Ini sepatutnya, dengan tempat yang gempak macam ni, sebabnya diorang kena jaga jugalah quality of food, dari segi food presentation dia kan.",
   "end": "So kalau korang nak tahu kat mana ni, aku sekarang berada dekat Sentul, di Indonesia. Okay, aku akan share kat komen. So siapa yang ada di area Jakarta, Sentul, you guys should come here. Tak rugi lah. Itu je lah aku cakap, untuk pengalaman tu tak rugi pun. Okay, so itu sahaja. See you in the next video. Assalamualaikum.",
 }
+
+SCRIPT["n3"] = {
+  "hook": "Korang takkan percaya. Aku tak sangka eh, dekat sini pun MasyaAllah ada pemandangan yang sangat indah. Korang nak tahu kat mana?",
+  "intro": "Kita dekat mana? Valley Market. Sini ada apa? Ada spot untuk foto-foto banyak, dan restoran.",
+  "wow": "Korang tengok ni guys. Wow.",
+  "view2": "Nampak pergunungan. Sini restoran dia, daripada indoor.",
+  "cottage": "Kalau korang suka vibe-vibe ala-ala macam English cottage, korang patut datang sini lah. Dia punya view, dia punya makanan, semuanya for me nice.",
+  "rate": "Contoh macam makanan ni, aku ada yang sirloin punya. Okay lah, not bad. Okay macam ni lah, kalau ikutkan, dari segi environment dia, workflow dia, aku rasa dalam 9.5 per 10. Tapi in term of dia punya makanan, dia serve, mungkin dalam 7 per 10 lah. Dia agak kurang sikit, for me. Dari segi makanan dia kurang, tapi dia win dekat workflow dengan konsep design yang dibawakan lah.",
+  "cta": "So kalau korang nak tahu dekat mana, korang boleh tengok dekat komen. Eh, korang boleh tengok dekat description, dekat bawah aku ada share location. Okay, so itu sahaja. Korang boleh like, share video ni kalau rasa bermanfaat. And see you in the next video. Assalamualaikum.",
+}

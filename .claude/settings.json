@@ -10,5 +10,25 @@
         ]
       }
     ]
+  },
+  "enabledPlugins": {
+    "marketing-skills@marketingskills": true,
+    "claude-seo@agricidaniel-claude-seo": true
+  },
+  "extraKnownMarketplaces": {
+    "marketingskills": {
+      "source": {
+        "source": "github",
+        "repo": "coreyhaines31/marketingskills",
+        "ref": "v2.14.2"
+      }
+    },
+    "agricidaniel-claude-seo": {
+      "source": {
+        "source": "github",
+        "repo": "AgriciDaniel/claude-seo",
+        "ref": "v2.5.0"
+      }
+    }
   }
 }

@@ -19,3 +19,12 @@ SCRIPT = {
   "c2": "Tapi diorang masuk, diorang fokus pada tiga benda yang aku sebut tu, dan diorang jadi sangat stand up.",
  },
 }
+# v2: full hook sentence (no fancy innovation, like Tesla / Elon Musk), then the story before the points
+SCRIPT["r2"] = dict(SCRIPT["r1"])
+SCRIPT["r2"].update({
+  "hookA": "Diorang takde buat any inovatif yang agak-agak fancy.",
+  "hookT": "Contoh macam Tesla, macam Elon Musk.",
+  "story": "Aku baru lepas meeting dekat sini, makan, having a lunch.",
+  "intro": "Siapa je yang tak kenal Pagi Sore, sebuah brand yang jual nasi padang yang sangat famous dekat Indonesia, malah sampai ke Malaysia pun.",
+  "learn": "Satu benda yang kita boleh belajar dekat sini adalah macam mana diorang fill in the gap.",
+})

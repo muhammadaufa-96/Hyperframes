@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>7/11: Pagi Sore, pengajaran bisnes (v2)</title>
+    <script src="../assets/vendor/gsap.min.js"></script>
+    <style>
+@font-face { font-family: "Montserrat"; font-weight: 800; src: url("../assets/fonts/montserrat-latin-800-normal.woff2") format("woff2"); }
+@font-face { font-family: "Montserrat"; font-weight: 600; src: url("../assets/fonts/montserrat-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Share Tech Mono"; font-weight: 400; src: url("../assets/fonts/share-tech-mono-latin-400-normal.woff2") format("woff2"); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { margin: 0; overflow: hidden; background: #0d0f12; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Montserrat", sans-serif; color: #fff; background: #0d0f12; }
+.clip { position: absolute; inset: 0; }
+.cam { position: absolute; inset: 0; transform-origin: 50% 40%; }
+.cam video, .cam img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 28%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.45) 100%); }
+
+/* Hook title (top safe area) */
+.hook { position: absolute; left: 70px; right: 70px; top: 250px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.hook-line { display: block; background: #f5c22e; color: #15171a; font-weight: 800; font-size: 72px; line-height: 1.02; text-transform: uppercase; white-space: nowrap; padding: 10px 22px 12px; border-radius: 8px; }
+.hook-line.alt { background: #ffffff; }
+
+/* Kicker / info chips */
+.chip { position: absolute; display: flex; align-items: center; gap: 12px; background: rgba(15,17,20,0.82); color: #fff; font-weight: 800; font-size: 46px; text-transform: uppercase; padding: 14px 26px; border-radius: 999px; border: 3px solid #f5c22e; }
+.chip.yellow { background: #f5c22e; color: #15171a; border-color: #f5c22e; }
+
+/* Numbered checklist card */
+.card { position: absolute; left: 70px; right: 70px; top: 300px; display: flex; align-items: center; gap: 26px; background: rgba(15,17,20,0.86); border-radius: 22px; padding: 26px 30px; border-left: 14px solid #f5c22e; }
+.card-num { flex: none; width: 120px; height: 120px; border-radius: 50%; background: #f5c22e; color: #15171a; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 76px; }
+.card-text { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.card-title { font-weight: 800; font-size: 70px; line-height: 1; text-transform: uppercase; }
+.card-sub { font-weight: 600; font-size: 38px; line-height: 1.2; color: #d9dadc; }
+
+/* Captions */
+.cap { position: absolute; left: 60px; right: 60px; top: 1240px; text-align: center; font-weight: 800; font-size: 74px; line-height: 1.12; text-transform: uppercase; }
+.cap .w { display: inline-block; margin: 0 10px; color: #fff; text-shadow: 0 5px 0 rgba(0,0,0,0.6), 0 0 26px rgba(0,0,0,0.75); }
+
+/* Minimal captions (two speakers) */
+.capm { position: absolute; left: 90px; right: 90px; top: 1330px; text-align: center; font-weight: 600; font-size: 44px; line-height: 1.25; }
+.capm .w { display: inline-block; margin: 0 6px; opacity: 0.72; text-shadow: 0 2px 10px rgba(0,0,0,0.85), 0 1px 2px rgba(0,0,0,0.9); }
+.capm.me .w { color: #ffffff; }
+.capm.cl .w { color: #ffd34d; }
+.name { position: absolute; left: 70px; top: 1190px; display: flex; flex-direction: column; gap: 2px; background: rgba(15,17,20,0.78); border-left: 6px solid #ffd34d; padding: 12px 20px; border-radius: 8px; }
+.name b { font-weight: 800; font-size: 38px; }
+.name span { font-weight: 600; font-size: 28px; color: #d9dadc; }
+.label { position: absolute; left: 70px; top: 300px; font-weight: 600; font-size: 36px; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; padding: 10px 18px; background: rgba(15,17,20,0.55); border-radius: 6px; }
+.shot { position: absolute; left: 140px; right: 140px; top: 260px; border-radius: 26px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.6); }
+.shot img { display: block; width: 100%; }
+.hl { position: absolute; border: 6px solid #ffd34d; border-radius: 14px; box-shadow: 0 0 0 9999px rgba(0,0,0,0); }
+
+/* Comparison */
+.vs { position: absolute; left: 60px; right: 60px; top: 300px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.vs-box { background: rgba(15,17,20,0.86); border-radius: 22px; padding: 26px 22px; display: flex; flex-direction: column; gap: 8px; align-items: center; text-align: center; border-top: 12px solid #f5c22e; }
+.vs-box b { font-size: 54px; font-weight: 800; line-height: 1.02; text-transform: uppercase; }
+.vs-box span { font-size: 34px; font-weight: 600; color: #d9dadc; }
+
+/* Strike words (Gucci / LV) */
+.strike { position: absolute; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 120px; text-transform: uppercase; color: #fff; }
+.strike i { position: absolute; left: -10%; right: -10%; top: 50%; height: 16px; margin-top: -8px; background: #ff3b3b; border-radius: 8px; transform-origin: left center; }
+
+/* End card */
+.end { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; background: rgba(10,11,13,0.72); padding: 0 80px; text-align: center; }
+.end-q { font-weight: 800; font-size: 96px; line-height: 1.05; text-transform: uppercase; }
+.end-q em { font-style: normal; color: #f5c22e; }
+.end-q .ln { display: block; }
+.end-sub { font-weight: 600; font-size: 46px; color: #e7e7e7; }
+.end-logo { width: 560px; }
+
+/* Arrow label (site callouts) */
+.tag { position: absolute; display: flex; align-items: center; gap: 14px; background: #ffffff; color: #15171a; font-weight: 800; font-size: 50px; text-transform: uppercase; padding: 14px 26px; border-radius: 14px; box-shadow: 0 12px 30px rgba(0,0,0,0.45); }
+.tag .ic { width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; color: #fff; background: #20b26b; }
+.tag .ic.warn { background: #ff8a00; }
+
+/* Laser block */
+.lz-bgwrap { position: absolute; inset: -60px; filter: blur(16px) brightness(0.42) saturate(1.1); }
+.lz-bgwrap video { width: 100%; height: 100%; object-fit: cover; }
+.lz-title { position: absolute; left: 80px; right: 80px; top: 300px; display: flex; flex-direction: column; gap: 18px; }
+.lz-kicker { align-self: flex-start; background: #f5c22e; color: #15171a; font-weight: 800; font-size: 40px; letter-spacing: 0.04em; padding: 10px 20px; border-radius: 6px; }
+.lz-main { font-weight: 800; font-size: 104px; line-height: 0.98; text-transform: uppercase; }
+.lz-wall { position: absolute; top: 760px; height: 560px; right: 0; width: 110px; background: linear-gradient(90deg, #8a8d91, #b9bcc0 40%, #9a9da1); }
+.lz-device { position: absolute; left: 70px; top: 950px; width: 400px; height: 190px; border-radius: 34px; background: linear-gradient(180deg, #2c5fa8 0%, #1d4380 100%); box-shadow: 0 30px 60px rgba(0,0,0,0.55), inset 0 2px 0 rgba(255,255,255,0.25); }
+.lz-grip { position: absolute; left: 0; top: 0; bottom: 0; width: 120px; border-radius: 34px 0 0 34px; background: #17191d; }
+.lz-screen { position: absolute; left: 140px; top: 34px; width: 200px; height: 122px; border-radius: 12px; background: #0f1a12; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; padding: 0 16px; font-family: "Share Tech Mono", monospace; color: #9dff9a; }
+.lz-glow { position: absolute; inset: 0; border-radius: 12px; background: rgba(157,255,154,0.18); }
+.lz-read { font-size: 52px; line-height: 1; position: relative; }
+.lz-unit { font-size: 24px; opacity: 0.8; position: relative; }
+.lz-emit { position: absolute; right: -10px; top: 70px; width: 26px; height: 50px; border-radius: 8px; background: #111; }
+.lz-beam { position: absolute; left: 486px; top: 1043px; width: 484px; height: 6px; background: #ff3b3b; box-shadow: 0 0 18px 4px rgba(255,40,40,0.55); transform-origin: left center; border-radius: 3px; }
+.lz-dot { position: absolute; left: 948px; top: 1024px; width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle, #fff 0 18%, #ff3b3b 30%, rgba(255,40,40,0) 70%); }
+.lz-dim { position: absolute; left: 486px; width: 484px; top: 1190px; height: 40px; }
+.lz-dline { position: absolute; left: 0; right: 0; top: 19px; height: 3px; background: #f5c22e; transform-origin: left center; }
+.lz-cap { position: absolute; top: 0; width: 3px; height: 40px; background: #f5c22e; }
+.lz-dlabel { position: absolute; left: 0; right: 0; top: 54px; text-align: center; font-family: "Share Tech Mono", monospace; font-size: 46px; color: #f5c22e; }
+.lz-badge { position: absolute; left: 70px; top: 1330px; display: flex; align-items: center; gap: 16px; background: #fff; color: #15171a; border-radius: 999px; padding: 16px 30px 16px 18px; font-weight: 800; font-size: 40px; }
+.lz-check { width: 54px; height: 54px; border-radius: 50%; background: #20b26b; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 34px; }
+
+/* Question cards that flip from ? to a tick */
+.qg { position: absolute; left: 70px; right: 70px; top: 300px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.qc { background: rgba(15,17,20,0.88); border-radius: 20px; padding: 22px 22px; display: flex; align-items: center; gap: 18px; border: 3px solid rgba(255,255,255,0.14); }
+.qc .ic { position: relative; width: 66px; height: 66px; flex: none; }
+.qc .ic i { position: absolute; inset: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-style: normal; font-weight: 800; font-size: 40px; color: #fff; }
+.qc .ic .q { background: #ff4d4d; }
+.qc .ic .k { background: #20b26b; opacity: 0; }
+.qc b { font-weight: 800; font-size: 38px; text-transform: uppercase; white-space: nowrap; }
+
+/* Four-step timeline */
+.st { position: absolute; left: 60px; right: 60px; top: 300px; height: 190px; background: rgba(15,17,20,0.86); border-radius: 22px; }
+.st-line { position: absolute; left: 120px; right: 120px; top: 60px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.2); }
+.st-fill { position: absolute; left: 120px; right: 120px; top: 60px; height: 6px; border-radius: 3px; background: #f5c22e; transform-origin: left center; transform: scaleX(0); }
+.st-row { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(4, 1fr); }
+.st-n { display: flex; flex-direction: column; align-items: center; padding-top: 30px; gap: 14px; }
+.st-dot { width: 66px; height: 66px; border-radius: 50%; background: #2a2d33; border: 5px solid rgba(255,255,255,0.35); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 30px; }
+.st-lab { font-weight: 800; font-size: 27px; text-transform: uppercase; color: rgba(255,255,255,0.55); white-space: nowrap; }
+
+/* Blueprint intro */
+.bp { position: absolute; inset: 0; background-color: #0c3560; background-image: linear-gradient(rgba(255,255,255,0.07) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,0.07) 2px, transparent 2px); background-size: 60px 60px; }
+.bp svg { position: absolute; left: 260px; top: 480px; width: 560px; height: 784px; overflow: visible; }
+.bp .w { fill: none; stroke: #e8f1ff; stroke-width: 10; stroke-linecap: square; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.bp .p { fill: none; stroke: #8fc3ff; stroke-width: 5; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.bp .t { font-family: "Share Tech Mono", monospace; font-size: 30px; fill: #bcd9ff; opacity: 0; }
+.bp-k { position: absolute; left: 70px; top: 1720px; font-family: "Share Tech Mono", monospace; font-size: 34px; color: #bcd9ff; letter-spacing: 0.08em; opacity: 0; }
+.wipe { position: absolute; top: 0; bottom: 0; width: 40px; left: -40px; background: #f5c22e; box-shadow: 0 0 40px rgba(245,194,46,0.8); }
+
+/* Room route (layout tour) */
+.rt { position: absolute; left: 50px; top: 290px; width: 480px; background: rgba(15,17,20,0.78); border-radius: 20px; padding: 18px 22px 20px; display: flex; flex-direction: column; gap: 6px; }
+.rt-h { font-weight: 800; font-size: 26px; letter-spacing: 0.1em; color: #f5c22e; margin-bottom: 6px; }
+.rt-i { display: flex; align-items: center; gap: 14px; font-weight: 600; font-size: 35px; color: rgba(255,255,255,0.5); transform-origin: left center; white-space: nowrap; }
+.rt-i i { width: 18px; height: 18px; border-radius: 50%; background: rgba(255,255,255,0.35); flex: none; font-style: normal; }
+
+/* Flow lines */
+.fl svg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.fl path { fill: none; stroke-width: 14; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.fl .pa { stroke: #4fb3ff; }
+.fl .sf { stroke: #f5c22e; }
+.fl-leg { position: absolute; left: 70px; top: 300px; display: flex; flex-direction: column; gap: 14px; }
+.fl-leg div { display: flex; align-items: center; gap: 14px; background: rgba(15,17,20,0.84); padding: 12px 22px; border-radius: 999px; font-weight: 800; font-size: 36px; text-transform: uppercase; }
+.fl-leg span { width: 40px; height: 12px; border-radius: 6px; }
+
+/* Keyword captions */
+.capm .w.hot { color: #ffd34d; }
+
+/* CTA button */
+.btn { position: absolute; left: 90px; right: 90px; top: 1120px; display: flex; align-items: center; justify-content: center; gap: 16px; background: #f5c22e; color: #15171a; border-radius: 999px; padding: 26px 30px; font-weight: 800; font-size: 44px; text-transform: uppercase; box-shadow: 0 16px 40px rgba(0,0,0,0.45); white-space: nowrap; }
+
+/* CTA end card */
+.ce { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 34px; background: rgba(10,11,13,0.8); padding: 0 70px 200px; text-align: center; }
+.ce-k { background: #20b26b; color: #fff; font-weight: 800; font-size: 40px; letter-spacing: 0.08em; padding: 10px 26px; border-radius: 8px; text-transform: uppercase; }
+.ce-q { font-weight: 800; font-size: 100px; line-height: 1.02; text-transform: uppercase; }
+.ce-q span { display: block; }
+.ce-q em { display: block; font-style: normal; color: #f5c22e; }
+.ce-b { background: #fff; color: #15171a; border-radius: 999px; padding: 22px 44px; font-weight: 800; font-size: 44px; text-transform: uppercase; }
+.ce-l { width: 460px; margin-top: 10px; }
+
+.hook.c { align-items: center; text-align: center; }
+
+.nw svg { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+.nw line { stroke: #f5c22e; stroke-width: 5; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.nw-c { position: absolute; left: 400px; top: 640px; width: 280px; height: 280px; border-radius: 50%; background: #f5c22e; color: #15171a; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 50px; box-shadow: 0 0 0 14px rgba(245,194,46,0.25); }
+.nw-n { position: absolute; width: 250px; margin-left: -125px; margin-top: -40px; height: 80px; border-radius: 999px; background: rgba(15,17,20,0.9); border: 3px solid #fff; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 32px; text-transform: uppercase; }
+.mt { position: absolute; left: 70px; right: 70px; top: 300px; display: flex; flex-direction: column; gap: 22px; background: rgba(15,17,20,0.86); border-radius: 22px; padding: 26px 30px; }
+.mt-r { display: flex; flex-direction: column; gap: 10px; }
+.mt-r b { font-weight: 800; font-size: 40px; text-transform: uppercase; letter-spacing: 0.04em; }
+.mt-bar { height: 30px; border-radius: 15px; background: rgba(255,255,255,0.15); overflow: hidden; }
+.mt-bar i { display: block; height: 100%; width: 92%; border-radius: 15px; background: linear-gradient(90deg, #f5c22e, #ff3b3b); transform-origin: left center; transform: scaleX(0); }
+.stamp { position: absolute; left: 0; right: 0; display: flex; justify-content: center; }
+.stamp span { font-weight: 800; font-size: 130px; color: #ff3b3b; border: 12px solid #ff3b3b; border-radius: 18px; padding: 6px 34px; text-transform: uppercase; background: rgba(15,17,20,0.55); }
+.stamp.ok span { color: #20b26b; border-color: #20b26b; font-size: 76px; }
+.cb { position: absolute; left: 90px; right: 90px; top: 300px; background: #fff; color: #15171a; border-radius: 30px; padding: 26px 30px 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.45); }
+.cb::after { content: ""; position: absolute; left: 90px; bottom: -30px; border: 18px solid transparent; border-top: 20px solid #fff; }
+.cb-h { display: flex; align-items: center; gap: 16px; font-weight: 800; font-size: 32px; color: #666; }
+.cb-h i { width: 54px; height: 54px; border-radius: 50%; background: #f5c22e; font-style: normal; display: flex; align-items: center; justify-content: center; font-size: 30px; }
+.cb-t { margin-top: 12px; font-weight: 800; font-size: 50px; line-height: 1.1; }
+.cb-d { display: flex; gap: 10px; margin-top: 16px; }
+.cb-d span { width: 18px; height: 18px; border-radius: 50%; background: #bbb; }
+.ws { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.ws div { display: flex; align-items: center; gap: 18px; background: rgba(15,17,20,0.84); padding: 10px 30px 10px 14px; border-radius: 999px; font-weight: 800; font-size: 58px; text-transform: uppercase; }
+.ws i { width: 60px; height: 60px; border-radius: 50%; background: #20b26b; color: #fff; font-style: normal; display: flex; align-items: center; justify-content: center; font-size: 38px; }
+.pill { position: absolute; left: 0; right: 0; display: flex; justify-content: center; }
+.pill span { background: #f5c22e; color: #15171a; font-weight: 800; font-size: 50px; text-transform: uppercase; padding: 16px 36px; border-radius: 999px; box-shadow: 0 12px 30px rgba(0,0,0,0.4); white-space: nowrap; }
+.tap { position: absolute; width: 140px; height: 140px; margin: -70px 0 0 -70px; border-radius: 50%; border: 8px solid #fff; box-shadow: 0 0 30px rgba(255,255,255,0.6); }
+.tap-f { position: absolute; font-size: 110px; margin: -10px 0 0 -30px; }
+.fe { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 36px; background: rgba(10,11,13,0.8); padding: 0 70px 200px; text-align: center; }
+.fe-k { font-weight: 600; font-size: 40px; letter-spacing: 0.14em; color: #d9dadc; text-transform: uppercase; }
+.fe-q { font-weight: 800; font-size: 120px; line-height: 1; text-transform: uppercase; }
+.fe-q em { display: block; font-style: normal; color: #f5c22e; font-size: 92px; }
+.fe-b { background: #f5c22e; color: #15171a; border-radius: 999px; padding: 22px 50px; font-weight: 800; font-size: 48px; text-transform: uppercase; }
+
+/* two-tone hook (reference style) */
+.h2 { position: absolute; left: 50px; right: 50px; top: 270px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+.h2-k { font-weight: 600; font-size: 40px; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; text-shadow: 0 3px 14px rgba(0,0,0,0.7); }
+.h2-b { font-weight: 800; font-size: 118px; line-height: 0.98; text-transform: uppercase; color: #f5c22e; text-shadow: 0 6px 0 rgba(0,0,0,0.35), 0 0 40px rgba(0,0,0,0.55); }
+.h2-s { font-weight: 600; font-style: italic; font-size: 46px; color: #fff; text-shadow: 0 3px 14px rgba(0,0,0,0.75); }
+.h2-sh { position: absolute; left: 0; right: 0; top: 0; height: 900px; background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0) 100%); }
+
+/* numbered section label + progress */
+.sec { position: absolute; left: 0; right: 0; top: 230px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.sec-p { display: flex; align-items: center; gap: 14px; background: rgba(15,17,20,0.78); border: 2px solid rgba(255,255,255,0.18); border-radius: 999px; padding: 10px 26px 10px 12px; }
+.sec-n { background: #f5c22e; color: #15171a; font-weight: 800; font-size: 30px; border-radius: 999px; padding: 4px 16px; }
+.sec-t { font-weight: 800; font-size: 36px; text-transform: uppercase; color: #fff; letter-spacing: 0.03em; white-space: nowrap; }
+.sec-bar { width: 420px; height: 8px; border-radius: 4px; background: rgba(255,255,255,0.25); overflow: hidden; }
+.sec-bar i { display: block; height: 100%; background: #f5c22e; transform-origin: left center; }
+
+/* glass card */
+.gc { position: absolute; left: 90px; right: 90px; background: rgba(14,16,20,0.78); border: 2px solid rgba(255,255,255,0.16); border-radius: 28px; padding: 26px 30px; box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+.gc-h { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 28px; letter-spacing: 0.08em; text-transform: uppercase; color: #f5c22e; }
+.gc-r { display: flex; align-items: center; gap: 16px; margin-top: 16px; font-weight: 800; font-size: 44px; color: #fff; }
+.gc-r i { width: 52px; height: 52px; flex: none; border-radius: 50%; background: #20b26b; color: #fff; font-style: normal; display: flex; align-items: center; justify-content: center; font-size: 30px; }
+.gc-r i.w { background: #ff8a00; }
+.gc-r i.n { background: #f5c22e; color: #15171a; }
+
+/* journey line */
+.jy { position: absolute; left: 50px; right: 50px; top: 300px; height: 200px; background: rgba(14,16,20,0.78); border-radius: 26px; border: 2px solid rgba(255,255,255,0.14); }
+.jy-l { position: absolute; left: 80px; right: 80px; top: 70px; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; }
+.jy-f { position: absolute; left: 80px; right: 80px; top: 70px; height: 6px; background: #f5c22e; border-radius: 3px; transform-origin: left center; transform: scaleX(0); }
+.jy-d { position: absolute; top: 52px; width: 42px; height: 42px; margin-left: -21px; border-radius: 50%; background: #2a2d33; border: 5px solid rgba(255,255,255,0.4); }
+.jy-t { position: absolute; top: 112px; width: 200px; margin-left: -100px; text-align: center; font-weight: 800; font-size: 25px; text-transform: uppercase; color: rgba(255,255,255,0.5); line-height: 1.1; }
+
+/* door diagram */
+.dd { position: absolute; left: 90px; right: 90px; top: 300px; background: rgba(14,16,20,0.82); border-radius: 28px; padding: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.dd-c { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.dd-c b { font-weight: 800; font-size: 36px; text-transform: uppercase; }
+.dd-c span { font-weight: 600; font-size: 28px; }
+.dd svg { width: 380px; height: 300px; }
+
+/* rating */
+.rt2 { position: absolute; left: 90px; right: 90px; top: 280px; background: rgba(14,16,20,0.82); border-radius: 28px; padding: 26px 32px; border: 2px solid rgba(255,255,255,0.16); }
+.rt2-big { text-align: center; font-weight: 800; font-size: 150px; line-height: 1; color: #f5c22e; }
+.rt2-big small { font-size: 60px; color: #fff; }
+.rt2-r { margin-top: 18px; }
+.rt2-r b { display: flex; justify-content: space-between; font-weight: 800; font-size: 34px; text-transform: uppercase; }
+.rt2-bar { margin-top: 8px; height: 22px; border-radius: 11px; background: rgba(255,255,255,0.15); overflow: hidden; }
+.rt2-bar i { display: block; height: 100%; border-radius: 11px; background: linear-gradient(90deg, #f5c22e, #ff8a00); transform-origin: left center; transform: scaleX(0); }
+
+/* location pin */
+.pin { position: absolute; left: 0; right: 0; display: flex; justify-content: center; }
+.pin div { display: flex; align-items: center; gap: 14px; background: #fff; color: #15171a; border-radius: 999px; padding: 14px 30px 14px 16px; font-weight: 800; font-size: 40px; box-shadow: 0 16px 40px rgba(0,0,0,0.45); white-space: nowrap; }
+.pin i { width: 56px; height: 56px; border-radius: 50%; background: #ff3b3b; color: #fff; font-style: normal; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+.pin span { font-weight: 600; color: #555; }
+
+/* service cards */
+.sv { position: absolute; left: 60px; right: 60px; top: 300px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.sv div { background: rgba(14,16,20,0.82); border: 2px solid rgba(255,255,255,0.16); border-radius: 24px; padding: 22px 10px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.sv i { font-style: normal; font-size: 64px; }
+.sv b { font-weight: 800; font-size: 32px; text-transform: uppercase; line-height: 1.05; }
+
+/* name card */
+.nc { position: absolute; left: 90px; right: 90px; top: 300px; display: flex; align-items: center; gap: 22px; background: rgba(14,16,20,0.82); border-left: 12px solid #f5c22e; border-radius: 22px; padding: 22px 28px; }
+.nc i { width: 96px; height: 96px; flex: none; border-radius: 50%; background: #f5c22e; color: #15171a; font-style: normal; display: flex; align-items: center; justify-content: center; font-size: 52px; }
+.nc b { display: block; font-weight: 800; font-size: 48px; }
+.nc span { display: block; font-weight: 600; font-size: 32px; color: #d9dadc; margin-top: 4px; }
+
+/* end cards */
+.lc { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; background: rgba(10,11,13,0.78); padding: 0 70px 200px; text-align: center; }
+.lc-k { font-weight: 600; font-size: 38px; letter-spacing: 0.14em; color: #d9dadc; text-transform: uppercase; }
+.lc-q { font-weight: 800; font-size: 112px; line-height: 1; text-transform: uppercase; }
+.lc-q em { display: block; font-style: normal; color: #f5c22e; font-size: 70px; margin-top: 10px; }
+.lc-s { font-weight: 600; font-style: italic; font-size: 40px; color: #e7e7e7; }
+.lc-b { background: #f5c22e; color: #15171a; border-radius: 999px; padding: 20px 46px; font-weight: 800; font-size: 44px; text-transform: uppercase; }
+.lc-l { width: 300px; opacity: 0.9; }
+.lc-f { font-weight: 600; font-size: 28px; color: #bbb; }
+
+/* reference-style captions */
+.cr { position: absolute; left: 70px; right: 70px; top: 1250px; text-align: center; font-weight: 800; font-size: 54px; line-height: 1.15; }
+.cr .w { display: inline-block; margin: 0 8px; color: #fff; text-shadow: 0 4px 0 rgba(0,0,0,0.45), 0 0 22px rgba(0,0,0,0.7); }
+.cr .w.hot { color: #f5c22e; }
+
+/* flash for whip cuts */
+.fl2 { position: absolute; inset: 0; background: #fff; opacity: 0; }
+</style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="p1-pagi-sore-v2" data-start="0" data-width="1080" data-height="1920" data-duration="85.933">
+      <div class="cam" id="acam"><video id="ar1" class="clip" src="../assets/footage/f0711/aroll_r2.mp4" playsinline data-has-audio="true" data-start="0.000" data-duration="82.533" data-media-start="0.000" data-track-index="0" data-volume="1"></video></div>
+      <div class="cam" id="bw2" style="transform-origin:50% 50%"><video id="bv3" class="clip" src="../assets/footage/f0711/IMG_6178.mp4" muted playsinline data-start="0.000" data-duration="6.200" data-media-start="1.600" data-track-index="1"></video></div>
+      <div class="cam" id="bw16" style="transform-origin:50% 50%"><video id="bv17" class="clip" src="../assets/footage/f0711/IMG_6180.mp4" muted playsinline data-start="10.773" data-duration="0.927" data-media-start="0.200" data-track-index="1"></video></div>
+      <div class="cam" id="bw22" style="transform-origin:50% 50%"><video id="bv23" class="clip" src="../assets/footage/f0711/IMG_6180.mp4" muted playsinline data-start="15.290" data-duration="2.800" data-media-start="3.200" data-track-index="1"></video></div>
+      <div class="cam" id="bw37" style="transform-origin:50% 50%"><video id="bv38" class="clip" src="../assets/footage/f0711/IMG_6180.mp4" muted playsinline data-start="30.883" data-duration="3.917" data-media-start="0.000" data-track-index="1"></video></div>
+      <div class="cam" id="bw43" style="transform-origin:50% 50%"><video id="bv44" class="clip" src="../assets/footage/f0711/IMG_6180.mp4" muted playsinline data-start="36.130" data-duration="5.170" data-media-start="2.600" data-track-index="1"></video></div>
+      <div class="cam" id="bw49" style="transform-origin:50% 50%"><video id="bv50" class="clip" src="../assets/footage/f0711/IMG_6178.mp4" muted playsinline data-start="43.920" data-duration="0.903" data-media-start="9.600" data-track-index="1"></video></div>
+      <div class="cam" id="bw51" style="transform-origin:50% 50%"><video id="bv52" class="clip" src="../assets/footage/f0711/IMG_6179.mp4" muted playsinline data-start="44.823" data-duration="0.903" data-media-start="2.400" data-track-index="1"></video></div>
+      <div class="cam" id="bw54" style="transform-origin:50% 50%"><video id="bv55" class="clip" src="../assets/footage/f0711/IMG_6218.mp4" muted playsinline data-start="45.726" data-duration="0.903" data-media-start="5.200" data-track-index="1"></video></div>
+      <div class="cam" id="bw57" style="transform-origin:50% 50%"><video id="bv58" class="clip" src="../assets/footage/f0711/IMG_6219.mp4" muted playsinline data-start="46.630" data-duration="0.903" data-media-start="0.600" data-track-index="1"></video></div>
+      <div class="cam" id="bw77" style="transform-origin:50% 50%"><video id="bv78" class="clip" src="../assets/footage/f0711/IMG_6178.mp4" muted playsinline data-start="73.967" data-duration="2.200" data-media-start="0.000" data-track-index="1"></video></div>
+      <div class="cam" id="bw83" style="transform-origin:50% 50%"><video id="bv84" class="clip" src="../assets/footage/f0711/IMG_6218.mp4" muted playsinline data-start="82.533" data-duration="3.400" data-media-start="5.000" data-track-index="1"></video></div>
+      <div id="sh4" class="clip shade" data-start="0.000" data-duration="85.933" data-track-index="2"></div>
+      <section id="h25" class="clip" data-start="0.050" data-duration="6.150" data-track-index="5"><div class="h2-sh"></div><div class="h2"><div class="h2-k" id="h25k">Kedai nasi padang ni</div><div class="h2-b" id="h25b">TAK BUAT<br>INOVASI PELIK</div><div class="h2-s" id="h25s">macam Tesla, macam Elon Musk</div></div></section>
+      <audio id="sfx6" src="../assets/sfx/whoosh.mp3" data-start="0.050" data-track-index="9" data-volume="0.45"></audio>
+      <audio id="sfx7" src="../assets/sfx/impact-bass-1.mp3" data-start="0.200" data-track-index="9" data-volume="0.5"></audio>
+      <section id="wf8" class="clip" data-start="6.140" data-duration="0.3" data-track-index="7"><div class="fl2" id="wf8x"></div></section>
+      <audio id="sfx9" src="../assets/sfx/whoosh-short.mp3" data-start="6.080" data-track-index="9" data-volume="0.35"></audio>
+      <section id="ch10" class="clip" data-start="6.300" data-duration="2.633" data-track-index="6"><div class="chip yellow" id="ch10b" style="left:70px;top:300px">Tapi dah grow satu Indonesia</div></section>
+      <audio id="sfx11" src="../assets/sfx/pop.mp3" data-start="6.300" data-track-index="9" data-volume="0.45"></audio>
+      <section id="wf12" class="clip" data-start="8.873" data-duration="0.3" data-track-index="7"><div class="fl2" id="wf12x"></div></section>
+      <audio id="sfx13" src="../assets/sfx/whoosh-short.mp3" data-start="8.813" data-track-index="9" data-volume="0.35"></audio>
+      <section id="ch14" class="clip" data-start="9.033" data-duration="2.667" data-track-index="6"><div class="chip" id="ch14b" style="left:70px;top:300px">Baru lepas meeting + lunch</div></section>
+      <audio id="sfx15" src="../assets/sfx/pop.mp3" data-start="9.033" data-track-index="9" data-volume="0.45"></audio>
+      <section id="wf18" class="clip" data-start="11.640" data-duration="0.3" data-track-index="7"><div class="fl2" id="wf18x"></div></section>
+      <audio id="sfx19" src="../assets/sfx/whoosh-short.mp3" data-start="11.580" data-track-index="9" data-volume="0.35"></audio>
+      <section id="ch20" class="clip" data-start="12.970" data-duration="6.430" data-track-index="6"><div class="chip yellow" id="ch20b" style="left:70px;top:300px">Pagi Sore · Indonesia</div></section>
+      <audio id="sfx21" src="../assets/sfx/pop.mp3" data-start="12.970" data-track-index="9" data-volume="0.45"></audio>
+      <section id="wf24" class="clip" data-start="19.340" data-duration="0.3" data-track-index="7"><div class="fl2" id="wf24x"></div></section>
+      <audio id="sfx25" src="../assets/sfx/whoosh-short.mp3" data-start="19.280" data-track-index="9" data-volume="0.35"></audio>
+      <section id="ch26" class="clip" data-start="23.410" data-duration="1.457" data-track-index="6"><div class="chip yellow" id="ch26b" style="left:70px;top:300px">Macam mana dia fill the gap?</div></section>
+      <audio id="sfx27" src="../assets/sfx/pop.mp3" data-start="23.410" data-track-index="9" data-volume="0.45"></audio>
+      <section id="wf28" class="clip" data-start="24.807" data-duration="0.3" data-track-index="7"><div class="fl2" id="wf28x"></div></section>
+      <audio id="sfx29" src="../assets/sfx/whoosh-short.mp3" data-start="24.747" data-track-index="9" data-volume="0.35"></audio>
+      <section id="ct30" class="clip" data-start="27.807" data-duration="1.026" data-track-index="6"><div class="h2" style="top:520px"><div class="h2-b" id="ct30n" style="font-size:300px">1</div><div class="h2-s" id="ct30l">perkara asas je</div></div></section>
+      <audio id="sfx31" src="../assets/sfx/riser.mp3" data-start="27.807" data-duration="0.800" data-track-index="9" data-volume="0.25"></audio>
+      <audio id="sfx32" src="../assets/sfx/impact-bass-2.mp3" data-start="28.607" data-track-index="9" data-volume="0.45"></audio>
+      <section id="wf33" class="clip" data-start="28.773" data-duration="0.3" data-track-index="7"><div class="fl2" id="wf33x"></div></section>
+      <audio id="sfx34" src="../assets/sfx/whoosh-short.mp3" data-start="28.713" data-track-index="9" data-volume="0.35"></audio>
+      <section id="sc35" class="clip" data-start="28.833" data-duration="5.967" data-track-index="6"><div class="sec"><div class="sec-p" id="sc35p"><span class="sec-n">01 / 03</span><span class="sec-t">Servis</span></div><div class="sec-bar"><i id="sc35b"></i></div></div></section>
+      <audio id="sfx36" src="../assets/sfx/click.mp3" data-start="28.833" data-track-index="9" data-volume="0.4"></audio>
+      <section id="wf39" class="clip" data-start="34.740" data-duration="0.3" data-track-index="7"><div class="fl2" id="wf39x"></div></section>
+      <audio id="sfx40" src="../assets/sfx/whoosh-short.mp3" data-start="34.680" data-track-index="9" data-volume="0.35"></audio>
+      <section id="sc41" class="clip" data-start="34.800" data-duration="6.500" data-track-index="6"><div class="sec"><div class="sec-p" id="sc41p"><span class="sec-n">02 / 03</span><span class="sec-t">Makanan</span></div><div class="sec-bar"><i id="sc41b"></i></div></div></section>
+      <audio id="sfx42" src="../assets/sfx/click.mp3" data-start="34.800" data-track-index="9" data-volume="0.4"></audio>
+      <section id="wf45" class="clip" data-start="41.240" data-duration="0.3" data-track-index="7"><div class="fl2" id="wf45x"></div></section>
+      <audio id="sfx46" src="../assets/sfx/whoosh-short.mp3" data-start="41.180" data-track-index="9" data-volume="0.35"></audio>
+      <section id="sc47" class="clip" data-start="41.300" data-duration="6.233" data-track-index="6"><div class="sec"><div class="sec-p" id="sc47p"><span class="sec-n">03 / 03</span><span class="sec-t">Environment</span></div><div class="sec-bar"><i id="sc47b"></i></div></div></section>
+      <audio id="sfx48" src="../assets/sfx/click.mp3" data-start="41.300" data-track-index="9" data-volume="0.4"></audio>
+      <audio id="sfx53" src="../assets/sfx/whoosh-short.mp3" data-start="44.773" data-track-index="9" data-volume="0.3"></audio>
+      <audio id="sfx56" src="../assets/sfx/whoosh-short.mp3" data-start="45.676" data-track-index="9" data-volume="0.3"></audio>
+      <audio id="sfx59" src="../assets/sfx/whoosh-short.mp3" data-start="46.580" data-track-index="9" data-volume="0.3"></audio>
+      <section id="ch60" class="clip" data-start="46.617" data-duration="1.216" data-track-index="6"><div class="chip yellow" id="ch60b" style="left:70px;top:470px">Rasa hotel 5 bintang</div></section>
+      <audio id="sfx61" src="../assets/sfx/pop.mp3" data-start="46.617" data-track-index="9" data-volume="0.45"></audio>
+      <section id="wf62" class="clip" data-start="47.473" data-duration="0.3" data-track-index="7"><div class="fl2" id="wf62x"></div></section>
+      <audio id="sfx63" src="../assets/sfx/whoosh-short.mp3" data-start="47.413" data-track-index="9" data-volume="0.35"></audio>
+      <section id="gc64" class="clip" data-start="55.353" data-duration="9.147" data-track-index="7"><div class="gc" id="gc64m" style="top:420px"><div class="gc-h">Pengajaran</div><div class="gc-r" id="gc64r0"><i class="">✓</i>Tak perlu inovasi pelik</div><div class="gc-r" id="gc64r1"><i class="">✓</i>Fokus servis</div><div class="gc-r" id="gc64r2"><i class="">✓</i>Ikut kehendak pelanggan</div></div></section>
+      <audio id="sfx65" src="../assets/sfx/ping.mp3" data-start="55.653" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx66" src="../assets/sfx/ping.mp3" data-start="60.560" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx67" src="../assets/sfx/ping.mp3" data-start="62.310" data-track-index="9" data-volume="0.35"></audio>
+      <section id="wf68" class="clip" data-start="64.440" data-duration="0.3" data-track-index="7"><div class="fl2" id="wf68x"></div></section>
+      <audio id="sfx69" src="../assets/sfx/whoosh-short.mp3" data-start="64.380" data-track-index="9" data-volume="0.35"></audio>
+      <section id="ch70" class="clip" data-start="64.550" data-duration="2.400" data-track-index="6"><div class="chip yellow" id="ch70b" style="left:70px;top:300px">Dalam bisnes renovation</div></section>
+      <audio id="sfx71" src="../assets/sfx/pop.mp3" data-start="64.550" data-track-index="9" data-volume="0.45"></audio>
+      <section id="gc72" class="clip" data-start="65.600" data-duration="8.367" data-track-index="7"><div class="gc" id="gc72m" style="top:420px"><div class="gc-h">Cari gap</div><div class="gc-r" id="gc72r0"><i class="w">!</i>Kelemahan pesaing</div><div class="gc-r" id="gc72r1"><i class="">✓</i>Gap yang kita boleh menang</div></div></section>
+      <audio id="sfx73" src="../assets/sfx/ping.mp3" data-start="65.900" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx74" src="../assets/sfx/ping.mp3" data-start="73.110" data-track-index="9" data-volume="0.35"></audio>
+      <section id="wf75" class="clip" data-start="73.907" data-duration="0.3" data-track-index="7"><div class="fl2" id="wf75x"></div></section>
+      <audio id="sfx76" src="../assets/sfx/whoosh-short.mp3" data-start="73.847" data-track-index="9" data-volume="0.35"></audio>
+      <section id="gc79" class="clip" data-start="78.907" data-duration="3.626" data-track-index="7"><div class="gc" id="gc79m" style="top:420px"><div class="gc-h">3 benda je</div><div class="gc-r" id="gc79r0"><i class="">✓</i>Servis</div><div class="gc-r" id="gc79r1"><i class="">✓</i>Makanan</div><div class="gc-r" id="gc79r2"><i class="">✓</i>Environment</div></div></section>
+      <audio id="sfx80" src="../assets/sfx/ping.mp3" data-start="79.207" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx81" src="../assets/sfx/ping.mp3" data-start="79.507" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx82" src="../assets/sfx/ping.mp3" data-start="79.807" data-track-index="9" data-volume="0.35"></audio>
+      <section id="lc85" class="clip" data-start="82.533" data-duration="3.400" data-track-index="7"><div class="lc" id="lc85m"><div class="lc-k" id="lc85k">@bangfasz</div><div class="lc-q" id="lc85q">Follow<em>cerita bisnes kontraktor</em></div><div class="lc-s" id="lc85s">Renovation · klinik · bisnes</div><div class="lc-b" id="lc85b">Follow</div><img class="lc-l" id="lc85l" src="../assets/brand/enoxin-logo-white.png" alt="logo"></div></section>
+      <audio id="sfx86" src="../assets/sfx/whoosh-cinematic.mp3" data-start="82.433" data-track-index="9" data-volume="0.45"></audio>
+      <audio id="sfx87" src="../assets/sfx/chime.mp3" data-start="82.733" data-track-index="9" data-volume="0.4"></audio>
+      <section id="cr88" class="clip" data-start="0.000" data-duration="1.500" data-track-index="8"><div class="cr"><span class="w" id="cr88w0">Diorang</span><span class="w" id="cr88w1">takde</span><span class="w" id="cr88w2">buat</span><span class="w" id="cr88w3">any</span></div></section>
+      <section id="cr89" class="clip" data-start="1.500" data-duration="1.220" data-track-index="8"><div class="cr"><span class="w hot" id="cr89w0">inovatif</span><span class="w" id="cr89w1">yang</span></div></section>
+      <section id="cr90" class="clip" data-start="2.720" data-duration="1.083" data-track-index="8"><div class="cr"><span class="w" id="cr90w0">agak-agak</span><span class="w" id="cr90w1">fancy</span><span class="w" id="cr90w2">Contoh</span></div></section>
+      <section id="cr91" class="clip" data-start="3.803" data-duration="2.103" data-track-index="8"><div class="cr"><span class="w" id="cr91w0">macam</span><span class="w hot" id="cr91w1">Tesla</span><span class="w" id="cr91w2">macam</span><span class="w hot" id="cr91w3">Elon</span></div></section>
+      <section id="cr92" class="clip" data-start="5.906" data-duration="1.094" data-track-index="8"><div class="cr"><span class="w hot" id="cr92w0">Musk</span><span class="w" id="cr92w1">And</span><span class="w" id="cr92w2">now</span><span class="w" id="cr92w3">diorang</span></div></section>
+      <section id="cr93" class="clip" data-start="7.000" data-duration="0.730" data-track-index="8"><div class="cr"><span class="w" id="cr93w0">dah</span><span class="w hot" id="cr93w1">grow</span><span class="w" id="cr93w2">satu</span></div></section>
+      <section id="cr94" class="clip" data-start="7.730" data-duration="0.970" data-track-index="8"><div class="cr"><span class="w hot" id="cr94w0">Indonesia</span></div></section>
+      <section id="cr95" class="clip" data-start="8.963" data-duration="0.970" data-track-index="8"><div class="cr"><span class="w" id="cr95w0">Aku</span><span class="w" id="cr95w1">baru</span><span class="w" id="cr95w2">lepas</span><span class="w hot" id="cr95w3">meeting</span></div></section>
+      <section id="cr96" class="clip" data-start="9.933" data-duration="0.970" data-track-index="8"><div class="cr"><span class="w" id="cr96w0">dekat</span><span class="w" id="cr96w1">sini</span><span class="w" id="cr96w2">makan</span></div></section>
+      <section id="cr97" class="clip" data-start="10.903" data-duration="1.127" data-track-index="8"><div class="cr"><span class="w" id="cr97w0">having</span><span class="w" id="cr97w1">a</span><span class="w hot" id="cr97w2">lunch</span><span class="w" id="cr97w3">Siapa</span></div></section>
+      <section id="cr98" class="clip" data-start="12.030" data-duration="1.040" data-track-index="8"><div class="cr"><span class="w" id="cr98w0">je</span><span class="w" id="cr98w1">yang</span><span class="w" id="cr98w2">tak</span><span class="w" id="cr98w3">kenal</span></div></section>
+      <section id="cr99" class="clip" data-start="13.070" data-duration="1.740" data-track-index="8"><div class="cr"><span class="w hot" id="cr99w0">Pagi</span><span class="w hot" id="cr99w1">Sore</span><span class="w" id="cr99w2">sebuah</span><span class="w" id="cr99w3">brand</span></div></section>
+      <section id="cr100" class="clip" data-start="14.810" data-duration="1.340" data-track-index="8"><div class="cr"><span class="w" id="cr100w0">yang</span><span class="w" id="cr100w1">jual</span><span class="w" id="cr100w2">nasi</span><span class="w hot" id="cr100w3">padang</span></div></section>
+      <section id="cr101" class="clip" data-start="16.150" data-duration="0.780" data-track-index="8"><div class="cr"><span class="w" id="cr101w0">yang</span><span class="w" id="cr101w1">sangat</span><span class="w" id="cr101w2">famous</span></div></section>
+      <section id="cr102" class="clip" data-start="16.930" data-duration="1.470" data-track-index="8"><div class="cr"><span class="w" id="cr102w0">dekat</span><span class="w hot" id="cr102w1">Indonesia</span><span class="w" id="cr102w2">malah</span></div></section>
+      <section id="cr103" class="clip" data-start="18.400" data-duration="1.000" data-track-index="8"><div class="cr"><span class="w" id="cr103w0">sampai</span><span class="w" id="cr103w1">ke</span><span class="w hot" id="cr103w2">Malaysia</span><span class="w" id="cr103w3">pun</span></div></section>
+      <section id="cr104" class="clip" data-start="19.400" data-duration="1.460" data-track-index="8"><div class="cr"><span class="w" id="cr104w0">Satu</span><span class="w" id="cr104w1">benda</span><span class="w" id="cr104w2">yang</span><span class="w" id="cr104w3">kita</span></div></section>
+      <section id="cr105" class="clip" data-start="20.860" data-duration="0.850" data-track-index="8"><div class="cr"><span class="w" id="cr105w0">boleh</span><span class="w" id="cr105w1">belajar</span><span class="w" id="cr105w2">dekat</span></div></section>
+      <section id="cr106" class="clip" data-start="21.710" data-duration="1.570" data-track-index="8"><div class="cr"><span class="w" id="cr106w0">sini</span><span class="w" id="cr106w1">adalah</span><span class="w" id="cr106w2">macam</span><span class="w" id="cr106w3">mana</span></div></section>
+      <section id="cr107" class="clip" data-start="23.280" data-duration="1.330" data-track-index="8"><div class="cr"><span class="w" id="cr107w0">diorang</span><span class="w" id="cr107w1">fill</span><span class="w" id="cr107w2">in</span><span class="w" id="cr107w3">the</span></div></section>
+      <section id="cr108" class="clip" data-start="24.610" data-duration="0.987" data-track-index="8"><div class="cr"><span class="w hot" id="cr108w0">gap</span><span class="w" id="cr108w1">Diorang</span><span class="w" id="cr108w2">hanya</span></div></section>
+      <section id="cr109" class="clip" data-start="25.597" data-duration="0.980" data-track-index="8"><div class="cr"><span class="w" id="cr109w0">fokus</span><span class="w" id="cr109w1">kepada</span><span class="w" id="cr109w2">basic</span></div></section>
+      <section id="cr110" class="clip" data-start="26.577" data-duration="1.530" data-track-index="8"><div class="cr"><span class="w" id="cr110w0">principle</span><span class="w" id="cr110w1">sahaja</span><span class="w" id="cr110w2">iaitu</span></div></section>
+      <section id="cr111" class="clip" data-start="28.107" data-duration="0.996" data-track-index="8"><div class="cr"><span class="w hot" id="cr111w0">tiga</span><span class="w" id="cr111w1">perkara</span><span class="w" id="cr111w2">ni</span><span class="w" id="cr111w3">Yang</span></div></section>
+      <section id="cr112" class="clip" data-start="29.103" data-duration="1.230" data-track-index="8"><div class="cr"><span class="w" id="cr112w0">pertama</span><span class="w" id="cr112w1">first</span><span class="w" id="cr112w2">dari</span></div></section>
+      <section id="cr113" class="clip" data-start="30.333" data-duration="0.890" data-track-index="8"><div class="cr"><span class="w" id="cr113w0">segi</span><span class="w hot" id="cr113w1">servis</span><span class="w hot" id="cr113w2">Servis</span></div></section>
+      <section id="cr114" class="clip" data-start="31.223" data-duration="0.910" data-track-index="8"><div class="cr"><span class="w" id="cr114w0">diorang</span><span class="w" id="cr114w1">memang</span><span class="w" id="cr114w2">sangat</span></div></section>
+      <section id="cr115" class="clip" data-start="32.133" data-duration="1.680" data-track-index="8"><div class="cr"><span class="w hot" id="cr115w0">laju</span><span class="w" id="cr115w1">sangat</span><span class="w" id="cr115w2">bagus</span><span class="w" id="cr115w3">dia</span></div></section>
+      <section id="cr116" class="clip" data-start="33.813" data-duration="0.997" data-track-index="8"><div class="cr"><span class="w" id="cr116w0">punya</span><span class="w hot" id="cr116w1">hospitality</span><span class="w" id="cr116w2">dia</span></div></section>
+      <section id="cr117" class="clip" data-start="34.810" data-duration="0.710" data-track-index="8"><div class="cr"><span class="w" id="cr117w0">Yang</span><span class="w" id="cr117w1">kedua</span><span class="w" id="cr117w2">adalah</span><span class="w" id="cr117w3">di</span></div></section>
+      <section id="cr118" class="clip" data-start="35.520" data-duration="1.510" data-track-index="8"><div class="cr"><span class="w" id="cr118w0">segi</span><span class="w hot" id="cr118w1">food</span><span class="w" id="cr118w2">Makanan</span><span class="w" id="cr118w3">dia</span></div></section>
+      <section id="cr119" class="clip" data-start="37.030" data-duration="1.767" data-track-index="8"><div class="cr"><span class="w" id="cr119w0">sumpah</span><span class="w hot" id="cr119w1">sedap</span><span class="w" id="cr119w2">Dan</span><span class="w" id="cr119w3">semua</span></div></section>
+      <section id="cr120" class="clip" data-start="38.797" data-duration="0.930" data-track-index="8"><div class="cr"><span class="w" id="cr120w0">orang</span><span class="w" id="cr120w1">sanggup</span><span class="w hot" id="cr120w2">berebut</span></div></section>
+      <section id="cr121" class="clip" data-start="39.727" data-duration="1.080" data-track-index="8"><div class="cr"><span class="w" id="cr121w0">lah</span><span class="w" id="cr121w1">boleh</span><span class="w" id="cr121w2">lah</span><span class="w" id="cr121w3">willing</span></div></section>
+      <section id="cr122" class="clip" data-start="40.807" data-duration="0.673" data-track-index="8"><div class="cr"><span class="w" id="cr122w0">to</span><span class="w" id="cr122w1">spend</span><span class="w" id="cr122w2">lah</span><span class="w" id="cr122w3">Dan</span></div></section>
+      <section id="cr123" class="clip" data-start="41.480" data-duration="0.960" data-track-index="8"><div class="cr"><span class="w" id="cr123w0">yang</span><span class="w" id="cr123w1">ketiga</span><span class="w" id="cr123w2">sekali</span></div></section>
+      <section id="cr124" class="clip" data-start="42.440" data-duration="0.790" data-track-index="8"><div class="cr"><span class="w" id="cr124w0">adalah</span></div></section>
+      <section id="cr125" class="clip" data-start="43.360" data-duration="0.760" data-track-index="8"><div class="cr"><span class="w" id="cr125w0">diorang</span><span class="w" id="cr125w1">punya</span></div></section>
+      <section id="cr126" class="clip" data-start="44.120" data-duration="1.627" data-track-index="8"><div class="cr"><span class="w hot" id="cr126w0">environment</span><span class="w hot" id="cr126w1">ambience</span></div></section>
+      <section id="cr127" class="clip" data-start="45.747" data-duration="0.920" data-track-index="8"><div class="cr"><span class="w" id="cr127w0">Memang</span><span class="w" id="cr127w1">rasa</span><span class="w" id="cr127w2">macam</span></div></section>
+      <section id="cr128" class="clip" data-start="46.667" data-duration="1.036" data-track-index="8"><div class="cr"><span class="w" id="cr128w0">hotel</span><span class="w hot" id="cr128w1">five</span><span class="w hot" id="cr128w2">star</span><span class="w" id="cr128w3">Jadi</span></div></section>
+      <section id="cr129" class="clip" data-start="47.703" data-duration="0.770" data-track-index="8"><div class="cr"><span class="w" id="cr129w0">dekat</span><span class="w" id="cr129w1">sini</span><span class="w" id="cr129w2">kita</span><span class="w" id="cr129w3">boleh</span></div></section>
+      <section id="cr130" class="clip" data-start="48.473" data-duration="1.050" data-track-index="8"><div class="cr"><span class="w" id="cr130w0">belajar</span><span class="w" id="cr130w1">bahawasanya</span></div></section>
+      <section id="cr131" class="clip" data-start="49.523" data-duration="2.860" data-track-index="8"><div class="cr"><span class="w" id="cr131w0">untuk</span><span class="w" id="cr131w1">nak</span><span class="w" id="cr131w2">fill</span><span class="w" id="cr131w3">in</span></div></section>
+      <section id="cr132" class="clip" data-start="52.383" data-duration="0.760" data-track-index="8"><div class="cr"><span class="w" id="cr132w0">the</span><span class="w hot" id="cr132w1">gap</span><span class="w" id="cr132w2">Kita</span><span class="w" id="cr132w3">tak</span></div></section>
+      <section id="cr133" class="clip" data-start="53.143" data-duration="0.970" data-track-index="8"><div class="cr"><span class="w" id="cr133w0">semestinya</span><span class="w" id="cr133w1">kita</span><span class="w" id="cr133w2">kena</span></div></section>
+      <section id="cr134" class="clip" data-start="54.113" data-duration="1.540" data-track-index="8"><div class="cr"><span class="w" id="cr134w0">create</span><span class="w hot" id="cr134w1">inovatif</span><span class="w" id="cr134w2">yang</span></div></section>
+      <section id="cr135" class="clip" data-start="55.653" data-duration="1.647" data-track-index="8"><div class="cr"><span class="w hot" id="cr135w0">pelik-pelik</span><span class="w" id="cr135w1">Tak</span><span class="w" id="cr135w2">perlu</span></div></section>
+      <section id="cr136" class="clip" data-start="57.300" data-duration="1.010" data-track-index="8"><div class="cr"><span class="w" id="cr136w0">pun</span><span class="w" id="cr136w1">Kadang-kadang</span></div></section>
+      <section id="cr137" class="clip" data-start="58.310" data-duration="0.950" data-track-index="8"><div class="cr"><span class="w" id="cr137w0">cukup</span><span class="w" id="cr137w1">kita</span><span class="w" id="cr137w2">fokus</span><span class="w" id="cr137w3">pada</span></div></section>
+      <section id="cr138" class="clip" data-start="59.260" data-duration="1.300" data-track-index="8"><div class="cr"><span class="w" id="cr138w0">improve</span><span class="w" id="cr138w1">kita</span><span class="w" id="cr138w2">punya</span></div></section>
+      <section id="cr139" class="clip" data-start="60.560" data-duration="1.280" data-track-index="8"><div class="cr"><span class="w hot" id="cr139w0">servis</span><span class="w" id="cr139w1">dan</span><span class="w" id="cr139w2">sesuai</span></div></section>
+      <section id="cr140" class="clip" data-start="61.840" data-duration="1.450" data-track-index="8"><div class="cr"><span class="w" id="cr140w0">dengan</span><span class="w" id="cr140w1">permintaan</span></div></section>
+      <section id="cr141" class="clip" data-start="63.290" data-duration="1.490" data-track-index="8"><div class="cr"><span class="w hot" id="cr141w0">pelanggan</span><span class="w" id="cr141w1">kita</span><span class="w" id="cr141w2">Aku</span></div></section>
+      <section id="cr142" class="clip" data-start="64.780" data-duration="1.120" data-track-index="8"><div class="cr"><span class="w" id="cr142w0">kena</span><span class="w" id="cr142w1">tahu</span><span class="w" id="cr142w2">lah</span><span class="w" id="cr142w3">apa</span></div></section>
+      <section id="cr143" class="clip" data-start="65.900" data-duration="1.700" data-track-index="8"><div class="cr"><span class="w hot" id="cr143w0">kelemahan-kelemahan</span></div></section>
+      <section id="cr144" class="clip" data-start="67.600" data-duration="1.100" data-track-index="8"><div class="cr"><span class="w" id="cr144w0">yang</span><span class="w" id="cr144w1">mostly</span><span class="w" id="cr144w2">yang</span><span class="w" id="cr144w3">ada</span></div></section>
+      <section id="cr145" class="clip" data-start="68.700" data-duration="2.100" data-track-index="8"><div class="cr"><span class="w" id="cr145w0">among</span><span class="w hot" id="cr145w1">competitors</span><span class="w" id="cr145w2">dan</span></div></section>
+      <section id="cr146" class="clip" data-start="70.800" data-duration="1.100" data-track-index="8"><div class="cr"><span class="w" id="cr146w0">apa</span><span class="w hot" id="cr146w1">gap</span><span class="w" id="cr146w2">yang</span><span class="w" id="cr146w3">kita</span></div></section>
+      <section id="cr147" class="clip" data-start="71.900" data-duration="0.780" data-track-index="8"><div class="cr"><span class="w" id="cr147w0">boleh</span><span class="w" id="cr147w1">fill</span><span class="w" id="cr147w2">in</span><span class="w" id="cr147w3">yang</span></div></section>
+      <section id="cr148" class="clip" data-start="72.680" data-duration="0.820" data-track-index="8"><div class="cr"><span class="w" id="cr148w0">kita</span><span class="w" id="cr148w1">boleh</span><span class="w hot" id="cr148w2">win</span><span class="w" id="cr148w3">dekat</span></div></section>
+      <section id="cr149" class="clip" data-start="73.500" data-duration="1.027" data-track-index="8"><div class="cr"><span class="w hot" id="cr149w0">gap</span><span class="w" id="cr149w1">tu</span><span class="w hot" id="cr149w2">Indonesia</span></div></section>
+      <section id="cr150" class="clip" data-start="74.527" data-duration="0.970" data-track-index="8"><div class="cr"><span class="w" id="cr150w0">bersepah</span><span class="w" id="cr150w1">orang</span><span class="w" id="cr150w2">jual</span></div></section>
+      <section id="cr151" class="clip" data-start="75.497" data-duration="1.170" data-track-index="8"><div class="cr"><span class="w" id="cr151w0">nasi</span><span class="w hot" id="cr151w1">padang</span><span class="w" id="cr151w2">Tapi</span></div></section>
+      <section id="cr152" class="clip" data-start="76.667" data-duration="1.760" data-track-index="8"><div class="cr"><span class="w" id="cr152w0">diorang</span><span class="w" id="cr152w1">masuk</span><span class="w" id="cr152w2">diorang</span></div></section>
+      <section id="cr153" class="clip" data-start="78.427" data-duration="1.120" data-track-index="8"><div class="cr"><span class="w" id="cr153w0">fokus</span><span class="w" id="cr153w1">pada</span><span class="w hot" id="cr153w2">tiga</span><span class="w" id="cr153w3">benda</span></div></section>
+      <section id="cr154" class="clip" data-start="79.547" data-duration="0.560" data-track-index="8"><div class="cr"><span class="w" id="cr154w0">yang</span><span class="w" id="cr154w1">aku</span><span class="w" id="cr154w2">sebut</span><span class="w" id="cr154w3">tu</span></div></section>
+      <section id="cr155" class="clip" data-start="80.107" data-duration="1.260" data-track-index="8"><div class="cr"><span class="w" id="cr155w0">dan</span><span class="w" id="cr155w1">diorang</span><span class="w" id="cr155w2">jadi</span></div></section>
+      <section id="cr156" class="clip" data-start="81.367" data-duration="1.166" data-track-index="8"><div class="cr"><span class="w" id="cr156w0">sangat</span><span class="w hot" id="cr156w1">stand</span><span class="w" id="cr156w2">up</span></div></section>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 0.000);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 0.533);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 3.533);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 6.200);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 8.933);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 10.433);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 11.700);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 14.100);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 17.767);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 19.400);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 19.900);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 23.467);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 24.867);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 27.633);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 28.833);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 29.533);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 29.933);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 31.033);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 33.733);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 34.800);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 36.133);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 38.067);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 39.967);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 41.300);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 43.267);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 44.100);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 44.833);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 45.667);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 47.533);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 49.700);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 50.433);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 52.433);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 56.400);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 56.800);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 61.333);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 61.700);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 64.500);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 65.500);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 66.200);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 67.767);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 73.967);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 76.167);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 77.400);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 78.000);
+      tl.fromTo("#bw2", { scale: 1.14 }, { scale: 1.0, duration: 6.200, ease: "none" }, 0.000);
+      tl.fromTo("#h25k", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.25 }, 0.070);
+      tl.fromTo("#h25b", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power4.out" }, 0.200);
+      tl.fromTo("#h25s", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3 }, 0.500);
+      tl.to("#h25 > *", { opacity: 0, duration: 0.25 }, 5.950);
+      tl.fromTo("#wf8x", { opacity: 0.55 }, { opacity: 0, duration: 0.24, ease: "power2.out" }, 6.140);
+      tl.fromTo("#ch10b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 6.300);
+      tl.to("#ch10b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 8.713);
+      tl.fromTo("#wf12x", { opacity: 0.55 }, { opacity: 0, duration: 0.24, ease: "power2.out" }, 8.873);
+      tl.fromTo("#ch14b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 9.033);
+      tl.to("#ch14b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 11.480);
+      tl.fromTo("#bw16", { scale: 1.0 }, { scale: 1.06, duration: 0.927, ease: "none" }, 10.773);
+      tl.fromTo("#wf18x", { opacity: 0.55 }, { opacity: 0, duration: 0.24, ease: "power2.out" }, 11.640);
+      tl.fromTo("#ch20b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 12.970);
+      tl.to("#ch20b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 19.180);
+      tl.fromTo("#bw22", { scale: 1.0 }, { scale: 1.08, duration: 2.800, ease: "none" }, 15.290);
+      tl.fromTo("#wf24x", { opacity: 0.55 }, { opacity: 0, duration: 0.24, ease: "power2.out" }, 19.340);
+      tl.fromTo("#ch26b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 23.410);
+      tl.to("#ch26b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 24.647);
+      tl.fromTo("#wf28x", { opacity: 0.55 }, { opacity: 0, duration: 0.24, ease: "power2.out" }, 24.807);
+      const ct30o = { v: 1 }; const ct30e = document.getElementById("ct30n");
+      tl.fromTo(ct30o, { v: 1 }, { v: 3, duration: 0.8, ease: "power2.out", onUpdate: () => { ct30e.textContent = Math.round(ct30o.v); } }, 27.807);
+      tl.fromTo("#ct30n", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 27.807);
+      tl.fromTo("#ct30l", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3 }, 28.407);
+      tl.to("#ct30 .h2", { opacity: 0, duration: 0.2 }, 28.633);
+      tl.fromTo("#wf33x", { opacity: 0.55 }, { opacity: 0, duration: 0.24, ease: "power2.out" }, 28.773);
+      tl.fromTo("#sc35p", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 28.833);
+      tl.fromTo("#sc35b", { scaleX: 0.000 }, { scaleX: 0.333, duration: 0.5, ease: "power2.out" }, 28.933);
+      tl.to("#sc35 .sec", { opacity: 0, duration: 0.2 }, 34.600);
+      tl.fromTo("#bw37", { scale: 1.0 }, { scale: 1.06, duration: 3.917, ease: "none" }, 30.883);
+      tl.fromTo("#wf39x", { opacity: 0.55 }, { opacity: 0, duration: 0.24, ease: "power2.out" }, 34.740);
+      tl.fromTo("#sc41p", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 34.800);
+      tl.fromTo("#sc41b", { scaleX: 0.333 }, { scaleX: 0.667, duration: 0.5, ease: "power2.out" }, 34.900);
+      tl.to("#sc41 .sec", { opacity: 0, duration: 0.2 }, 41.100);
+      tl.fromTo("#bw43", { scale: 1.0 }, { scale: 1.12, duration: 5.170, ease: "none" }, 36.130);
+      tl.fromTo("#wf45x", { opacity: 0.55 }, { opacity: 0, duration: 0.24, ease: "power2.out" }, 41.240);
+      tl.fromTo("#sc47p", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 41.300);
+      tl.fromTo("#sc47b", { scaleX: 0.667 }, { scaleX: 1.000, duration: 0.5, ease: "power2.out" }, 41.400);
+      tl.to("#sc47 .sec", { opacity: 0, duration: 0.2 }, 47.333);
+      tl.fromTo("#bw49", { scale: 1.0 }, { scale: 1.1, duration: 0.903, ease: "none" }, 43.920);
+      tl.fromTo("#bw51", { scale: 1.0 }, { scale: 1.1, duration: 0.903, ease: "none" }, 44.823);
+      tl.fromTo("#bw54", { scale: 1.0 }, { scale: 1.1, duration: 0.903, ease: "none" }, 45.726);
+      tl.fromTo("#bw57", { scale: 1.0 }, { scale: 1.1, duration: 0.903, ease: "none" }, 46.630);
+      tl.fromTo("#ch60b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 46.617);
+      tl.to("#ch60b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 47.613);
+      tl.fromTo("#wf62x", { opacity: 0.55 }, { opacity: 0, duration: 0.24, ease: "power2.out" }, 47.473);
+      tl.fromTo("#gc64m", { y: 40, scale: 0.92, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.8)" }, 55.353);
+      tl.fromTo("#gc64r0", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.25, ease: "power2.out" }, 55.653);
+      tl.fromTo("#gc64r1", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.25, ease: "power2.out" }, 60.560);
+      tl.fromTo("#gc64r2", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.25, ease: "power2.out" }, 62.310);
+      tl.to("#gc64m", { opacity: 0, y: -20, duration: 0.25 }, 64.250);
+      tl.fromTo("#wf68x", { opacity: 0.55 }, { opacity: 0, duration: 0.24, ease: "power2.out" }, 64.440);
+      tl.fromTo("#ch70b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 64.550);
+      tl.to("#ch70b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 66.730);
+      tl.fromTo("#gc72m", { y: 40, scale: 0.92, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.8)" }, 65.600);
+      tl.fromTo("#gc72r0", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.25, ease: "power2.out" }, 65.900);
+      tl.fromTo("#gc72r1", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.25, ease: "power2.out" }, 73.110);
+      tl.to("#gc72m", { opacity: 0, y: -20, duration: 0.25 }, 73.717);
+      tl.fromTo("#wf75x", { opacity: 0.55 }, { opacity: 0, duration: 0.24, ease: "power2.out" }, 73.907);
+      tl.fromTo("#bw77", { scale: 1.0 }, { scale: 1.08, duration: 2.200, ease: "none" }, 73.967);
+      tl.fromTo("#gc79m", { y: 40, scale: 0.92, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.8)" }, 78.907);
+      tl.fromTo("#gc79r0", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.25, ease: "power2.out" }, 79.207);
+      tl.fromTo("#gc79r1", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.25, ease: "power2.out" }, 79.507);
+      tl.fromTo("#gc79r2", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.25, ease: "power2.out" }, 79.807);
+      tl.to("#gc79m", { opacity: 0, y: -20, duration: 0.25 }, 82.283);
+      tl.fromTo("#bw83", { scale: 1.0 }, { scale: 1.06, duration: 3.400, ease: "none" }, 82.533);
+      tl.fromTo("#lc85m", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 82.533);
+      tl.fromTo("#lc85k", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3 }, 82.633);
+      tl.fromTo("#lc85q", { scale: 1.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "power4.out" }, 82.733);
+      tl.fromTo("#lc85s", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3 }, 83.033);
+      tl.fromTo("#lc85b", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 83.233);
+      tl.to("#lc85b", { scale: 1.06, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 5 }, 83.633);
+      tl.fromTo("#lc85l", { opacity: 0 }, { opacity: 0.9, duration: 0.4 }, 83.433);
+      tl.fromTo("#cr88 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 0.000);
+      tl.fromTo("#cr88w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 0.000);
+      tl.fromTo("#cr88w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 0.620);
+      tl.fromTo("#cr88w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 0.870);
+      tl.fromTo("#cr88w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 1.220);
+      tl.fromTo("#cr89 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 1.500);
+      tl.fromTo("#cr89w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 1.500);
+      tl.fromTo("#cr89w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 2.550);
+      tl.fromTo("#cr90 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 2.720);
+      tl.fromTo("#cr90w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 2.720);
+      tl.fromTo("#cr90w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 3.250);
+      tl.fromTo("#cr90w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 3.583);
+      tl.fromTo("#cr91 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 3.803);
+      tl.fromTo("#cr91w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 3.803);
+      tl.fromTo("#cr91w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 4.043);
+      tl.fromTo("#cr91w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 4.683);
+      tl.fromTo("#cr91w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 5.693);
+      tl.fromTo("#cr92 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 5.906);
+      tl.fromTo("#cr92w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 5.906);
+      tl.fromTo("#cr92w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 6.210);
+      tl.fromTo("#cr92w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 6.390);
+      tl.fromTo("#cr92w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 6.650);
+      tl.fromTo("#cr93 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 7.000);
+      tl.fromTo("#cr93w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 7.000);
+      tl.fromTo("#cr93w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 7.170);
+      tl.fromTo("#cr93w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 7.430);
+      tl.fromTo("#cr94 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 7.730);
+      tl.fromTo("#cr94w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 7.730);
+      tl.fromTo("#cr95 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 8.963);
+      tl.fromTo("#cr95w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 8.963);
+      tl.fromTo("#cr95w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 9.083);
+      tl.fromTo("#cr95w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 9.293);
+      tl.fromTo("#cr95w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 9.543);
+      tl.fromTo("#cr96 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 9.933);
+      tl.fromTo("#cr96w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 9.933);
+      tl.fromTo("#cr96w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 10.123);
+      tl.fromTo("#cr96w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 10.503);
+      tl.fromTo("#cr97 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 10.903);
+      tl.fromTo("#cr97w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 10.903);
+      tl.fromTo("#cr97w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 11.223);
+      tl.fromTo("#cr97w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 11.373);
+      tl.fromTo("#cr97w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 11.770);
+      tl.fromTo("#cr98 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 12.030);
+      tl.fromTo("#cr98w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 12.030);
+      tl.fromTo("#cr98w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 12.160);
+      tl.fromTo("#cr98w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 12.430);
+      tl.fromTo("#cr98w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 12.630);
+      tl.fromTo("#cr99 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 13.070);
+      tl.fromTo("#cr99w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 13.070);
+      tl.fromTo("#cr99w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 13.440);
+      tl.fromTo("#cr99w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 13.970);
+      tl.fromTo("#cr99w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 14.360);
+      tl.fromTo("#cr100 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 14.810);
+      tl.fromTo("#cr100w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 14.810);
+      tl.fromTo("#cr100w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 15.140);
+      tl.fromTo("#cr100w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 15.490);
+      tl.fromTo("#cr100w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 15.720);
+      tl.fromTo("#cr101 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 16.150);
+      tl.fromTo("#cr101w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 16.150);
+      tl.fromTo("#cr101w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 16.290);
+      tl.fromTo("#cr101w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 16.580);
+      tl.fromTo("#cr102 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 16.930);
+      tl.fromTo("#cr102w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 16.930);
+      tl.fromTo("#cr102w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 17.110);
+      tl.fromTo("#cr102w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 17.650);
+      tl.fromTo("#cr103 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 18.400);
+      tl.fromTo("#cr103w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 18.400);
+      tl.fromTo("#cr103w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 18.700);
+      tl.fromTo("#cr103w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 18.800);
+      tl.fromTo("#cr103w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 19.290);
+      tl.fromTo("#cr104 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 19.400);
+      tl.fromTo("#cr104w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 19.400);
+      tl.fromTo("#cr104w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 19.970);
+      tl.fromTo("#cr104w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 20.560);
+      tl.fromTo("#cr104w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 20.720);
+      tl.fromTo("#cr105 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 20.860);
+      tl.fromTo("#cr105w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 20.860);
+      tl.fromTo("#cr105w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 21.020);
+      tl.fromTo("#cr105w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 21.380);
+      tl.fromTo("#cr106 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 21.710);
+      tl.fromTo("#cr106w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 21.710);
+      tl.fromTo("#cr106w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 21.980);
+      tl.fromTo("#cr106w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 22.380);
+      tl.fromTo("#cr106w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 23.010);
+      tl.fromTo("#cr107 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 23.280);
+      tl.fromTo("#cr107w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 23.280);
+      tl.fromTo("#cr107w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 23.810);
+      tl.fromTo("#cr107w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 24.160);
+      tl.fromTo("#cr107w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 24.360);
+      tl.fromTo("#cr108 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 24.610);
+      tl.fromTo("#cr108w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 24.610);
+      tl.fromTo("#cr108w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 24.907);
+      tl.fromTo("#cr108w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 25.257);
+      tl.fromTo("#cr109 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 25.597);
+      tl.fromTo("#cr109w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 25.597);
+      tl.fromTo("#cr109w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 25.987);
+      tl.fromTo("#cr109w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 26.197);
+      tl.fromTo("#cr110 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 26.577);
+      tl.fromTo("#cr110w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 26.577);
+      tl.fromTo("#cr110w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 27.207);
+      tl.fromTo("#cr110w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 27.667);
+      tl.fromTo("#cr111 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 28.107);
+      tl.fromTo("#cr111w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 28.107);
+      tl.fromTo("#cr111w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 28.317);
+      tl.fromTo("#cr111w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 28.783);
+      tl.fromTo("#cr111w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 28.863);
+      tl.fromTo("#cr112 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 29.103);
+      tl.fromTo("#cr112w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 29.103);
+      tl.fromTo("#cr112w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 29.613);
+      tl.fromTo("#cr112w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 30.093);
+      tl.fromTo("#cr113 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 30.333);
+      tl.fromTo("#cr113w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 30.333);
+      tl.fromTo("#cr113w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 30.583);
+      tl.fromTo("#cr113w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 30.983);
+      tl.fromTo("#cr114 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 31.223);
+      tl.fromTo("#cr114w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 31.223);
+      tl.fromTo("#cr114w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 31.543);
+      tl.fromTo("#cr114w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 31.813);
+      tl.fromTo("#cr115 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 32.133);
+      tl.fromTo("#cr115w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 32.133);
+      tl.fromTo("#cr115w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 32.323);
+      tl.fromTo("#cr115w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 33.073);
+      tl.fromTo("#cr115w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 33.713);
+      tl.fromTo("#cr116 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 33.813);
+      tl.fromTo("#cr116w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 33.813);
+      tl.fromTo("#cr116w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 34.063);
+      tl.fromTo("#cr116w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 34.623);
+      tl.fromTo("#cr117 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 34.810);
+      tl.fromTo("#cr117w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 34.810);
+      tl.fromTo("#cr117w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 35.030);
+      tl.fromTo("#cr117w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 35.160);
+      tl.fromTo("#cr117w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 35.420);
+      tl.fromTo("#cr118 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 35.520);
+      tl.fromTo("#cr118w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 35.520);
+      tl.fromTo("#cr118w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 35.760);
+      tl.fromTo("#cr118w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 36.230);
+      tl.fromTo("#cr118w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 36.850);
+      tl.fromTo("#cr119 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 37.030);
+      tl.fromTo("#cr119w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 37.030);
+      tl.fromTo("#cr119w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 37.550);
+      tl.fromTo("#cr119w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 38.147);
+      tl.fromTo("#cr119w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 38.387);
+      tl.fromTo("#cr120 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 38.797);
+      tl.fromTo("#cr120w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 38.797);
+      tl.fromTo("#cr120w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 38.927);
+      tl.fromTo("#cr120w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 39.307);
+      tl.fromTo("#cr121 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 39.727);
+      tl.fromTo("#cr121w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 39.727);
+      tl.fromTo("#cr121w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 40.007);
+      tl.fromTo("#cr121w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 40.207);
+      tl.fromTo("#cr121w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 40.657);
+      tl.fromTo("#cr122 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 40.807);
+      tl.fromTo("#cr122w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 40.807);
+      tl.fromTo("#cr122w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 40.897);
+      tl.fromTo("#cr122w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 41.127);
+      tl.fromTo("#cr122w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 41.380);
+      tl.fromTo("#cr123 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 41.480);
+      tl.fromTo("#cr123w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 41.480);
+      tl.fromTo("#cr123w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 41.720);
+      tl.fromTo("#cr123w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 42.140);
+      tl.fromTo("#cr124 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 42.440);
+      tl.fromTo("#cr124w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 42.440);
+      tl.fromTo("#cr125 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 43.360);
+      tl.fromTo("#cr125w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 43.360);
+      tl.fromTo("#cr125w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 43.510);
+      tl.fromTo("#cr126 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 44.120);
+      tl.fromTo("#cr126w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 44.120);
+      tl.fromTo("#cr126w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 45.110);
+      tl.fromTo("#cr127 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 45.747);
+      tl.fromTo("#cr127w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 45.747);
+      tl.fromTo("#cr127w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 45.967);
+      tl.fromTo("#cr127w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 46.317);
+      tl.fromTo("#cr128 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 46.667);
+      tl.fromTo("#cr128w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 46.667);
+      tl.fromTo("#cr128w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 46.917);
+      tl.fromTo("#cr128w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 47.099);
+      tl.fromTo("#cr128w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 47.563);
+      tl.fromTo("#cr129 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 47.703);
+      tl.fromTo("#cr129w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 47.703);
+      tl.fromTo("#cr129w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 47.913);
+      tl.fromTo("#cr129w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 48.083);
+      tl.fromTo("#cr129w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 48.253);
+      tl.fromTo("#cr130 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 48.473);
+      tl.fromTo("#cr130w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 48.473);
+      tl.fromTo("#cr130w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 48.833);
+      tl.fromTo("#cr131 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 49.523);
+      tl.fromTo("#cr131w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 49.523);
+      tl.fromTo("#cr131w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 51.073);
+      tl.fromTo("#cr131w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 51.473);
+      tl.fromTo("#cr131w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 52.093);
+      tl.fromTo("#cr132 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 52.383);
+      tl.fromTo("#cr132w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 52.383);
+      tl.fromTo("#cr132w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 52.383);
+      tl.fromTo("#cr132w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 52.473);
+      tl.fromTo("#cr132w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 52.713);
+      tl.fromTo("#cr133 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 53.143);
+      tl.fromTo("#cr133w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 53.143);
+      tl.fromTo("#cr133w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 53.713);
+      tl.fromTo("#cr133w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 53.913);
+      tl.fromTo("#cr134 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 54.113);
+      tl.fromTo("#cr134w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 54.113);
+      tl.fromTo("#cr134w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 54.453);
+      tl.fromTo("#cr134w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 55.253);
+      tl.fromTo("#cr135 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 55.653);
+      tl.fromTo("#cr135w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 55.653);
+      tl.fromTo("#cr135w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 56.810);
+      tl.fromTo("#cr135w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 56.990);
+      tl.fromTo("#cr136 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 57.300);
+      tl.fromTo("#cr136w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 57.300);
+      tl.fromTo("#cr136w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 57.630);
+      tl.fromTo("#cr137 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 58.310);
+      tl.fromTo("#cr137w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 58.310);
+      tl.fromTo("#cr137w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 58.620);
+      tl.fromTo("#cr137w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 58.760);
+      tl.fromTo("#cr137w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 59.150);
+      tl.fromTo("#cr138 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 59.260);
+      tl.fromTo("#cr138w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 59.260);
+      tl.fromTo("#cr138w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 59.800);
+      tl.fromTo("#cr138w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 60.140);
+      tl.fromTo("#cr139 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 60.560);
+      tl.fromTo("#cr139w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 60.560);
+      tl.fromTo("#cr139w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 61.130);
+      tl.fromTo("#cr139w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 61.410);
+      tl.fromTo("#cr140 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 61.840);
+      tl.fromTo("#cr140w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 61.840);
+      tl.fromTo("#cr140w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 62.310);
+      tl.fromTo("#cr141 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 63.290);
+      tl.fromTo("#cr141w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 63.290);
+      tl.fromTo("#cr141w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 63.770);
+      tl.fromTo("#cr141w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 64.570);
+      tl.fromTo("#cr142 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 64.780);
+      tl.fromTo("#cr142w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 64.780);
+      tl.fromTo("#cr142w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 64.990);
+      tl.fromTo("#cr142w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 65.270);
+      tl.fromTo("#cr142w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 65.580);
+      tl.fromTo("#cr143 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 65.900);
+      tl.fromTo("#cr143w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 65.900);
+      tl.fromTo("#cr144 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 67.600);
+      tl.fromTo("#cr144w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 67.600);
+      tl.fromTo("#cr144w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 67.920);
+      tl.fromTo("#cr144w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 68.420);
+      tl.fromTo("#cr144w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 68.420);
+      tl.fromTo("#cr145 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 68.700);
+      tl.fromTo("#cr145w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 68.700);
+      tl.fromTo("#cr145w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 69.160);
+      tl.fromTo("#cr145w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 70.190);
+      tl.fromTo("#cr146 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 70.800);
+      tl.fromTo("#cr146w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 70.800);
+      tl.fromTo("#cr146w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 71.180);
+      tl.fromTo("#cr146w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 71.590);
+      tl.fromTo("#cr146w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 71.730);
+      tl.fromTo("#cr147 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 71.900);
+      tl.fromTo("#cr147w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 71.900);
+      tl.fromTo("#cr147w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 72.150);
+      tl.fromTo("#cr147w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 72.290);
+      tl.fromTo("#cr147w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 72.490);
+      tl.fromTo("#cr148 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 72.680);
+      tl.fromTo("#cr148w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 72.680);
+      tl.fromTo("#cr148w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 72.870);
+      tl.fromTo("#cr148w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 73.110);
+      tl.fromTo("#cr148w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 73.290);
+      tl.fromTo("#cr149 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 73.500);
+      tl.fromTo("#cr149w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 73.500);
+      tl.fromTo("#cr149w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 73.610);
+      tl.fromTo("#cr149w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 73.987);
+      tl.fromTo("#cr150 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 74.527);
+      tl.fromTo("#cr150w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 74.527);
+      tl.fromTo("#cr150w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 75.067);
+      tl.fromTo("#cr150w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 75.307);
+      tl.fromTo("#cr151 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 75.497);
+      tl.fromTo("#cr151w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 75.497);
+      tl.fromTo("#cr151w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 75.737);
+      tl.fromTo("#cr151w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 76.207);
+      tl.fromTo("#cr152 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 76.667);
+      tl.fromTo("#cr152w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 76.667);
+      tl.fromTo("#cr152w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 77.187);
+      tl.fromTo("#cr152w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 77.947);
+      tl.fromTo("#cr153 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 78.427);
+      tl.fromTo("#cr153w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 78.427);
+      tl.fromTo("#cr153w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 78.787);
+      tl.fromTo("#cr153w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 79.007);
+      tl.fromTo("#cr153w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 79.207);
+      tl.fromTo("#cr154 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 79.547);
+      tl.fromTo("#cr154w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 79.547);
+      tl.fromTo("#cr154w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 79.717);
+      tl.fromTo("#cr154w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 79.827);
+      tl.fromTo("#cr154w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 79.997);
+      tl.fromTo("#cr155 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 80.107);
+      tl.fromTo("#cr155w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 80.107);
+      tl.fromTo("#cr155w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 80.337);
+      tl.fromTo("#cr155w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 80.967);
+      tl.fromTo("#cr156 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 81.367);
+      tl.fromTo("#cr156w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 81.367);
+      tl.fromTo("#cr156w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 81.977);
+      tl.fromTo("#cr156w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 82.317);
+      window.__timelines["p1-pagi-sore-v2"] = tl;
+    </script>
+  </body>
+</html>

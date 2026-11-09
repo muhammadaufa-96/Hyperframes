@@ -13,7 +13,7 @@ OUT = "/home/user/Hyperframes/compositions/"
 END = 3.4
 HOT = {"inovatif", "grow", "indonesia", "pagi", "sore", "padang", "tiga", "servis", "laju", "hospitality", "food",
        "sedap", "berebut", "environment", "ambience", "five", "star", "gap", "pelik-pelik", "pelanggan",
-       "kelemahan-kelemahan", "competitors", "win", "stand"}
+       "kelemahan-kelemahan", "competitors", "win", "stand", "tesla", "elon", "musk", "meeting", "lunch", "malaysia"}
 
 
 def find(w, token, after=0.0, nth=1):
@@ -37,11 +37,12 @@ def load(v):
     return segs, spans, align(asr, script, spans)
 
 
-def r1():
-    segs, sp, w = load("r1")
+def r1(v="r1"):
+    segs, sp, w = load(v)
     A = segs["duration"]
-    c = K("p1-pagi-sore", A + END)
-    c.aroll(F + "aroll_r1.mp4", [(0.0, A, 0.0)])
+    name = "p1-pagi-sore" if v == "r1" else "p1-pagi-sore-v2"
+    c = K(name, A + END)
+    c.aroll(F + f"aroll_{v}.mp4", [(0.0, A, 0.0)])
     # punch-in on jump cuts inside the same piece, reset on a new piece
     prev, z = None, 1.0
     for s in segs["segments"]:
@@ -52,10 +53,25 @@ def r1():
     # HOOK: best interior shot first, the conflict line over it, his face on the payoff
     a0, a1 = sp["hookA"]
     b0, b1 = sp["hookB"]
-    c.broll(F + "IMG_6178.mp4", 0.0, a1, media_start=1.6, zoom=(1.12, 1.0))
-    c.shade(0, A + END)
-    c.hook2("Kedai nasi padang ni", "TAK ADA<br>INOVASI PELIK", "tapi dah grow satu Indonesia", 0.05, b1 - 0.1)
-    c.whip(b0)
+    if v == "r1":
+        c.broll(F + "IMG_6178.mp4", 0.0, a1, media_start=1.6, zoom=(1.12, 1.0))
+        c.shade(0, A + END)
+        c.hook2("Kedai nasi padang ni", "TAK ADA<br>INOVASI PELIK", "tapi dah grow satu Indonesia", 0.05, b1 - 0.1)
+        c.whip(b0)
+    else:
+        # full sentence: no fancy innovation, like Tesla / Elon Musk ... and still grew across Indonesia
+        _, t1 = sp["hookT"]
+        c.broll(F + "IMG_6178.mp4", 0.0, t1, media_start=1.6, zoom=(1.14, 1.0))
+        c.shade(0, A + END)
+        c.hook2("Kedai nasi padang ni", "TAK BUAT<br>INOVASI PELIK", "macam Tesla, macam Elon Musk", 0.05, b0 - 0.05)
+        c.whip(b0)
+        c.chip("Tapi dah grow satu Indonesia", b0 + 0.1, b1 - b0 - 0.1, x=70, y=300, yellow=True)
+        # story first: just finished a meeting and lunch here
+        s0_, s1_ = sp["story"]
+        c.whip(s0_)
+        c.chip("Baru lepas meeting + lunch", s0_ + 0.1, s1_ - s0_ - 0.1, x=70, y=300)
+        tl_ = find(w, "lunch", s0_)
+        c.broll(F + "IMG_6180.mp4", tl_ - 0.6, s1_ - tl_ + 0.6, media_start=0.2, zoom=(1.0, 1.06))
 
     # who: Pagi Sore
     i0, i1 = sp["intro"]
@@ -63,7 +79,13 @@ def r1():
     tp = find(w, "pagi", i0)
     c.chip("Pagi Sore · Indonesia", tp - 0.1, i1 - tp + 0.1, x=70, y=300, yellow=True)
     tn = find(w, "nasi", i0)
-    c.broll(F + "IMG_6180.mp4", tn - 0.2, i1 - tn + 0.2, media_start=3.2, zoom=(1.0, 1.08))
+    c.broll(F + "IMG_6180.mp4", tn - 0.2, (tn + 2.6 if v != "r1" else i1) - tn + 0.2, media_start=3.2, zoom=(1.0, 1.08))
+    if v != "r1":
+        # what we can learn here: how they filled the gap
+        g0, g1 = sp["learn"]
+        c.whip(g0)
+        tg_ = find(w, "fill", g0)
+        c.chip("Macam mana dia fill the gap?", tg_ - 0.4, g1 - tg_ + 0.4, x=70, y=300, yellow=True)
 
     # the 3 basics
     k0, k1 = sp["basic"]
@@ -126,8 +148,8 @@ def r1():
     c.broll(F + "IMG_6218.mp4", A, END, media_start=5.0, zoom=(1.0, 1.06))
     c.end_card("@bangfasz", "Follow<em>cerita bisnes kontraktor</em>", "Renovation · klinik · bisnes", "Follow", A, END)
     c.captions_ref(w, HOT, hide=[(A, A + END)])
-    c.write(OUT + "p1-pagi-sore.html", "7/11: Pagi Sore, pengajaran bisnes")
+    c.write(OUT + f"{name}.html", "7/11: Pagi Sore, pengajaran bisnes" + ("" if v == "r1" else " (v2)"))
 
 
 if __name__ == "__main__":
-    r1()
+    r1(sys.argv[1] if len(sys.argv) > 1 else "r1")

@@ -136,7 +136,8 @@ SCRIPT['m2'] = {
 SCRIPT['m1'] = {
  "hook": "Orang biasa tanya dekat aku lah, mostly client, diorang akan tanya berapa lama tempoh setiap projek untuk kita nak siapkan.",
  "intro": "Okay, pada kawan semua kat luar sana, video kali ni aku akan explain perkara apa yang akan effect pada timeline kerja-kerja tersebut, daripada pendek jadi panjang, daripada panjang jadi pendek.",
- "save": "Okay, video ni mungkin agak panjang.",
+ "save": "Video ni mungkin agak panjang.",
+ "budget": "So kepada siapa yang nak renovate, tak kisah rumah ke, ofis ke, korang boleh tengok video ni untuk korang nak budgetkan masa korang, berapa lama tempoh yang korang perlu sediakan dari segi duit, masa, projek korang akan siap. Jom.",
  "site": "Sekarang ni adalah dekat area Setia Alam eh. Kita tengah buat renovate satu projek, size square feet lebih kurang 1200 lebih sahaja.",
  "cabaran": "Tapi kat sini dia punya cabaran dia adalah dari segi konsep dan design yang kita nak buat tu. Walaupun tak sebesar mana, tapi design tu lah agak mencabar.",
  "gantt": "Dan bila cakap pasal timeline kerja, sebenarnya timeline kerja ni, untuk kita sebagai design and build, kita dah ada satu timeline, kita dah ada satu Gantt chart, kita dah ada fokus punya projek, tempoh akan siap bila.",

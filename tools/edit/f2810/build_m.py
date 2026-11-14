@@ -28,6 +28,11 @@ def m1():
     c.whip(v0)
     c.stamp("SAVE dulu 🔖", find(w, "panjang", v0) - 0.3, v1 - find(w, "panjang", v0) + 0.5, y=480, ok=True)
     c.sfx("pop", find(w, "panjang", v0) - 0.3, 0.45)
+    g0, g1 = sp["budget"]
+    c.chip("Rumah · Ofis · Kedai", find(w, "rumah", g0) - 0.2, 2.4, x=70, y=300)
+    tb = find(w, "budgetkan", g0)
+    c.glass("Budgetkan", ["Masa", "Duit", "Bila projek siap"], tb - 0.3, g1 - tb + 0.2,
+            at=[tb, find(w, "duit", g0), find(w, "siap", g0)], top=420)
     s0, s1 = sp["site"]
     c.whip(s0)
     c.pin("Setia Alam", "± 1,200 sqft", find(w, "setia", s0) - 0.2, s1 - s0, top=420)

@@ -75,11 +75,11 @@ def m2():
     c, segs, sp, w, A = base("m2", "m2-butik-nampak-mahal")
     # cold open: he trips over the pipes -> "OPPS!" -> TV colour bars + beep (baked into the OOPS2 clip)
     o0, o1 = sp["oops"]
-    c.stamp("OPPS!", o0 + 0.75, 0.6, y=760)
-    c.sfx("impact-bass-2", o0 + 0.75, 0.5)
-    c.sfx("glitch-2", o1 - 1.15, 0.45)
+    c.stamp("OPPS!", o0 + 0.75, 0.6, y=760)   # real stumble sound + TV no-signal tone are in the clip itself
+    c.layers = [l for l in c.layers if not ('sfx/' in l and abs(float(l.split('data-start="')[1].split('"')[0]) - (o0 + 0.75)) < 0.3)]
     l0, l1 = sp["lampu"]
     c.hook2("Nak buka butik?", "Nampak mahal?<br>2 benda ni", "design gempak pun boleh nampak kusam", l0 + 0.05, 3.4)
+    c.layers = c.layers[:-2]   # no whoosh/impact here: he starts talking right after the TV tone
     tc = find(w, "cahaya", l0)
     c.section(1, 2, "Lampu", tc - 0.3, l1 - tc + 0.3)
     bcut(c, "IMG_6371.mp4", tc - 0.2, 2.4, 1.0)

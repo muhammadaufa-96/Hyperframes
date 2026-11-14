@@ -106,3 +106,43 @@ SCRIPT["n3"] = {
   "rate": "Contoh macam makanan ni, aku ada yang sirloin punya. Okay lah, not bad. Okay macam ni lah, kalau ikutkan, dari segi environment dia, workflow dia, aku rasa dalam 9.5 per 10. Tapi in term of dia punya makanan, dia serve, mungkin dalam 7 per 10 lah. Dia agak kurang sikit, for me. Dari segi makanan dia kurang, tapi dia win dekat workflow dengan konsep design yang dibawakan lah.",
   "cta": "So kalau korang nak tahu dekat mana, korang boleh tengok dekat description, dekat bawah aku ada share location. Okay, so itu sahaja. Korang boleh like, share video ni kalau rasa bermanfaat. And see you in the next video. Assalamualaikum.",
 }
+
+SCRIPT['m3'] = {
+ "intro": "Kita tengah nak bawa turun barang-barang aircon. Kita dah nak mula masuk fasa yang kedua. Total aircon kat sini, kita akan pasang total dalam 6 aircon, 2 cassette, balance adalah wall mounted.",
+ "butik": "Kalau korang nak tahu, dekat sini kita akan set up butik. Sekarang ni dah fasa 1, dah nak selesai. Kita nak masuk ke fasa yang kedua, iaitu fasa untuk kita nak buat finishing all the structure, siapkan undercoat, everything.",
+ "fasa": "Dan kepada korang yang mana nak tahu macam mana cara kita bekerja, kita ada 5 fasa. Pertama, kita akan start dengan buat fasa design, dan start dalam fasa structure. Yang kedua adalah fasa kita buat finishing structure. Yang ketiga, kita akan start dah mula masuk-masuk kerja-kerja ID lah, color chart ke, flooring ke, tiling ke. Yang keempat, kita akan start buat finishing cabinet, untuk carpentry, apa-apa kerja carpentry. Dan last kali, kerja-kerja finishing touch up lah. Macam kawan kita sekarang ni, kena buat skim.",
+ "rooms": "Dan ini akan jadi warehouse. Ini akan jadi tempat surau.",
+ "cta": "So kalau korang nak tahu kat sini kita buat apa, nantikan next video. Okay, so tu sahaja. Korang boleh like and share video ni kalau rasa bermanfaat. And see you in the next video. Assalamualaikum."
+}
+
+SCRIPT['m4'] = {
+ "load": "Kalau ikutkan, ni semua total barang-barang aircon, mechanical punya barang untuk kerja site kita dekat Setia Alam. Total barang ni, tengok ni guys, ini semua total untuk 6 unit. Dua kaset, yang balance adalah wall mounted.",
+ "cassette": "So basically nanti, ini area depan. Satu kaset akan pasang dekat sini. And satu kaset pasang dekat sini.",
+ "rooms1": "Sini akan jadi bilik live yang pertama, ada record juga sini. Sini bilik live yang kedua. Macam sini akan jadi tempat fitting lah.",
+ "rooms2": "Ini akan jadi ruang staff lah. Sini akan jadi bilik bos. Dan sini akan masuk akses untuk belah belakang, akan pergi ke toilet, surau. Dari sini akan jadi warehouse, untuk simpan-simpan barang.",
+ "concept": "Okay, sini kita akan bermain konsep luxury minimalis, dan kita ada campur elemen-elemen Bali sikit. Nanti korang tengok lah hasil dia macam mana nanti.",
+ "cta": "Korang boleh like and share video ni, and tekan button follow for more tips.",
+ "bye": "See you in the next video. Assalamualaikum."
+}
+
+SCRIPT['m2'] = {
+ "lampu": "Kalau kita nak set up butik ni sebenarnya, dua benda utama ni sangat penting untuk memastikan sama ada butik itu akan nampak gempak, nampak menarik, ataupun tidak. Iaitu yang pertama adalah dari segi cahaya, lampu. Lampu sangat main peranan eh. Kalau korang lampu letak sekadar je, dan peranan kecerahan lampu korang tak bermain dengan betul, butik korang tu boleh nampak kusam. Walaupun design gempak gila, still boleh nampak macam tak menarik, tak hidup.",
+ "siling": "Yang kedua adalah dari segi siling. Ketinggian daripada lantai ke siling tu mesti kena tinggi. Tinggi tu berapa? Suggestion kita biasanya mesti dalam 3000mm daripada lantai ke siling.",
+ "contoh": "Contoh macam kita sekarang ni, kita tengah set up satu projek eh dekat Setia Alam. Macam sekarang tinggi kita buat 3000mm.",
+ "tinggi": "Dan semua design-design, kalau korang perasan, semua kita main tinggi. Contoh macam ni, kita main tinggi design dia. Contoh macam sini, kita main tarik at least 5 kaki. Dia ada sebab kenapa kita tarik macam ni, design tinggi macam ni. Contoh macam belakang, jom aku tunjuk kat korang eh. Fitting area dia tak ikut ketinggian biasa, nampak? Kita main lebih tinggi macam ni. Sebab apa tau? Sebab macam aku cakapkan tadi, aku nak make sure butik ni orang akan lebih rasa bernafas, lebih rasa mahal, eksklusif, tapi dengan harga yang berpatutan.",
+ "cta": "Okay, so itu sahaja. Kalau korang nak buat renovate, tak kisahlah any commercial spaces, kalau korang perlukan bantuan kita, contact je. InsyaAllah kita akan bantu korang secara percuma sahaja. Okay, see you in the next video. Assalamualaikum."
+}
+
+SCRIPT['m1'] = {
+ "hook": "Orang biasa tanya dekat aku lah, mostly client, diorang akan tanya berapa lama tempoh setiap projek untuk kita nak siapkan.",
+ "intro": "Okay, pada kawan semua kat luar sana, video kali ni aku akan explain perkara apa yang akan effect pada timeline kerja-kerja tersebut, daripada pendek jadi panjang, daripada panjang jadi pendek.",
+ "site": "Sekarang ni adalah dekat area Setia Alam eh. Kita tengah buat renovate satu projek, size square feet lebih kurang 1200 lebih sahaja.",
+ "cabaran": "Tapi kat sini dia punya cabaran dia adalah dari segi konsep dan design yang kita nak buat tu. Walaupun tak sebesar mana, tapi design tu lah agak mencabar.",
+ "gantt": "Dan bila cakap pasal timeline kerja, sebenarnya timeline kerja ni, untuk kita sebagai design and build, kita dah ada satu timeline, kita dah ada satu Gantt chart, kita dah ada fokus punya projek, tempoh akan siap bila.",
+ "ubah": "Tetapi perkara yang membuatkan timeline tu berubah, sama ada makin cepat ataupun makin lambat, adalah disebabkan,",
+ "f1": "yang pertama, confirmation daripada klien, ataupun perubahan yang di tengah-tengah jalan. Contoh kita dah set final design macam ni, tiba-tiba dah siap next structure, klien kata oh nak tukarlah, nak tukar design lain, tak selesa dan sebagainya, baru nampak kan. So sebenarnya kat situ akan effect juga dekat tempoh untuk nak disiapkan tu. Sebab itu ada setengah-setengah contractor, dia orang akan charge, kita akan charge VO lah.",
+ "f2": "Yang kedua adalah dari segi design dan pemilihan material. Contoh, design tu dia complicated, kita banyak mainan curving ke, banyak mainan material, material yang finishing dia tu akan ambil masa yang lama. Itu effect juga dekat tempoh nak disiapkan projek tu.",
+ "f3": "Dan last but not least adalah dari segi payment progress lah. Kalau andai kata kerja dah siap, tiba-tiba klien lambat bayar, contoh lambat seminggu, dua minggu, jadi kita terpaksa hold lah, ikut progress payment punya kerja. Kalau sampai seminggu dua minggu tu, yang kadang kita terpaksa stop.",
+ "moral": "So moral of the story kat sini, kalau korang nak renovate commercial space especially, korang mesti kena betul-betul tahu apa yang korang nak, design macam mana yang korang nak, apa workflow yang memudahkan kerja korang. Korang kena confirmkan semua benda ni dulu, baru korang cari someone yang boleh make it into reality dari segi design tu.",
+ "cta": "Okay, so itu sahaja. Korang boleh like and share video ni kalau rasa bermanfaat. And see you in the next video."
+}

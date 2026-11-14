@@ -26,7 +26,7 @@ def m1():
     c.hook2("3 benda yang buat", "Renovate<br>lambat siap", "berapa lama nak siap?", 0.05, min(3.4, h1 - 0.1))
     v0, v1 = sp["save"]
     c.whip(v0)
-    c.stamp("SAVE dulu 🔖", find(w, "panjang", v0) - 0.3, v1 - find(w, "panjang", v0) + 0.5, y=900, ok=True)
+    c.stamp("SAVE dulu 🔖", find(w, "panjang", v0) - 0.3, v1 - find(w, "panjang", v0) + 0.5, y=480, ok=True)
     c.sfx("pop", find(w, "panjang", v0) - 0.3, 0.45)
     s0, s1 = sp["site"]
     c.whip(s0)

@@ -101,9 +101,15 @@ def m2():
 
 def m3():
     c, segs, sp, w, A = base("m3", "m3-5-fasa-renovate")
+    # cold open: he trips on the pipes -> "OPPS!" -> TV colour bars + beep (baked into the OOPS clip)
+    o0, o1 = sp["oops"]
+    c.js.append('tl.set("#acam", { scale: 1.0 }, 0);')
+    c.stamp("OPPS!", o0 + 0.55, 0.7, y=760)
+    c.sfx("impact-bass-2", o0 + 0.55, 0.5)
+    c.sfx("glitch-2", o1 - 1.15, 0.45)
     i0, i1 = sp["intro"]
-    bcut(c, "IMG_6362.mp4", 0.0, 3.2, 0.5)
-    c.hook2("Kontraktor share", "5 fasa<br>renovate kedai", "fasa 1 dah nak siap", 0.05, 3.1)
+    bcut(c, "IMG_6362.mp4", i0, 3.2, 0.5)
+    c.hook2("Kontraktor share", "5 fasa<br>renovate kedai", "fasa 1 dah nak siap", i0 + 0.05, 3.1)
     t6 = find(w, "6", i0)
     c.counter(6, t6 - 0.3, i1 - t6 + 0.2, "unit aircon · 2 cassette + 4 wall mounted", top=560)
     u0, u1 = sp["butik"]

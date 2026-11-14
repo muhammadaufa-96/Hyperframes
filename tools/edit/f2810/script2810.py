@@ -146,3 +146,5 @@ SCRIPT['m1'] = {
  "moral": "So moral of the story kat sini, kalau korang nak renovate commercial space especially, korang mesti kena betul-betul tahu apa yang korang nak, design macam mana yang korang nak, apa workflow yang memudahkan kerja korang. Korang kena confirmkan semua benda ni dulu, baru korang cari someone yang boleh make it into reality dari segi design tu.",
  "cta": "Okay, so itu sahaja. Korang boleh like and share video ni kalau rasa bermanfaat. And see you in the next video."
 }
+
+SCRIPT["m3"]["oops"] = ""

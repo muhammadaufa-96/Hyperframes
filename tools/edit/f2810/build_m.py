@@ -24,6 +24,10 @@ def m1():
     c, segs, sp, w, A = base("m1", "m1-renovate-lambat-siap")
     h0, h1 = sp["hook"]
     c.hook2("3 benda yang buat", "Renovate<br>lambat siap", "berapa lama nak siap?", 0.05, min(3.4, h1 - 0.1))
+    v0, v1 = sp["save"]
+    c.whip(v0)
+    c.stamp("SAVE dulu 🔖", find(w, "panjang", v0) - 0.3, v1 - find(w, "panjang", v0) + 0.5, y=900, ok=True)
+    c.sfx("pop", find(w, "panjang", v0) - 0.3, 0.45)
     s0, s1 = sp["site"]
     c.whip(s0)
     c.pin("Setia Alam", "± 1,200 sqft", find(w, "setia", s0) - 0.2, s1 - s0, top=420)
@@ -41,7 +45,12 @@ def m1():
     c.whip(f1a)
     c.section(1, 3, "Perubahan klien", f1a, f1b - f1a)
     bcut(c, "IMG_6372.mp4", find(w, "tukar", f1a) - 0.3, 2.4, 8.0)
-    c.stamp("Kena VO", find(w, "vo", f1a) - 0.1, f1b - find(w, "vo", f1a) + 0.1, y=900)
+    tv = find(w, "vo", f1a)
+    c.stamp("Kena VO", tv - 0.1, 1.8, y=900)
+    tt = find(w, "toleransi", f1a)
+    ta = find(w, "awal", f1a)
+    c.glass("Dengan kami", ["Ubah di fasa awal: tiada VO", "Dah siap baru ubah: ada VO", "Kami bantu serap costing"], ta - 0.6, f1b - ta + 0.6,
+            at=[ta, ta + 0.9, find(w, "serapkan", f1a)], icons=[("✓", ""), ("!", "w"), ("✓", "")], top=420)
     f2a, f2b = sp["f2"]
     c.whip(f2a)
     c.section(2, 3, "Design & material", f2a, f2b - f2a)

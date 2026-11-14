@@ -109,7 +109,7 @@ SCRIPT["n3"] = {
 
 SCRIPT['m3'] = {
  "intro": "Kita tengah nak bawa turun barang-barang aircon. Kita dah nak mula masuk fasa yang kedua. Total aircon kat sini, kita akan pasang total dalam 6 aircon, 2 cassette, balance adalah wall mounted.",
- "butik": "Kalau korang nak tahu, dekat sini kita akan set up butik. Sekarang ni dah fasa 1, dah nak selesai. Kita nak masuk ke fasa yang kedua, iaitu fasa untuk kita nak buat finishing all the structure, siapkan undercoat, everything.",
+ "butik": "Sekarang ni dah fasa 1, dah nak selesai. Kita nak masuk ke fasa yang kedua, iaitu fasa untuk kita nak buat finishing all the structure, siapkan undercoat, everything.",
  "fasa": "Dan kepada korang yang mana nak tahu macam mana cara kita bekerja, kita ada 5 fasa. Pertama, kita akan start dengan buat fasa design, dan start dalam fasa structure. Yang kedua adalah fasa kita buat finishing structure. Yang ketiga, kita akan start dah mula masuk-masuk kerja-kerja ID lah, color chart ke, flooring ke, tiling ke. Yang keempat, kita akan start buat finishing cabinet, untuk carpentry, apa-apa kerja carpentry. Dan last kali, kerja-kerja finishing touch up lah. Macam kawan kita sekarang ni, kena buat skim.",
  "rooms": "Dan ini akan jadi warehouse. Ini akan jadi tempat surau.",
  "cta": "So kalau korang nak tahu kat sini kita buat apa, nantikan next video. Okay, so tu sahaja. Korang boleh like and share video ni kalau rasa bermanfaat. And see you in the next video. Assalamualaikum."
@@ -147,4 +147,4 @@ SCRIPT['m1'] = {
  "cta": "Okay, so itu sahaja. Korang boleh like and share video ni kalau rasa bermanfaat. And see you in the next video."
 }
 
-SCRIPT["m3"]["oops"] = ""
+SCRIPT["m2"]["oops"] = ""

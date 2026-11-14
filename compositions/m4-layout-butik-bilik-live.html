@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>13/11: Layout butik 1,200 sqft dengan 2 bilik live</title>
+    <script src="../assets/vendor/gsap.min.js"></script>
+    <style>
+@font-face { font-family: "Montserrat"; font-weight: 800; src: url("../assets/fonts/montserrat-latin-800-normal.woff2") format("woff2"); }
+@font-face { font-family: "Montserrat"; font-weight: 600; src: url("../assets/fonts/montserrat-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Share Tech Mono"; font-weight: 400; src: url("../assets/fonts/share-tech-mono-latin-400-normal.woff2") format("woff2"); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { margin: 0; overflow: hidden; background: #0d0f12; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Montserrat", sans-serif; color: #fff; background: #0d0f12; }
+.clip { position: absolute; inset: 0; }
+.cam { position: absolute; inset: 0; transform-origin: 50% 40%; }
+.cam video, .cam img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 28%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.45) 100%); }
+
+/* Hook title (top safe area) */
+.hook { position: absolute; left: 70px; right: 70px; top: 250px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.hook-line { display: block; background: #f5c22e; color: #15171a; font-weight: 800; font-size: 72px; line-height: 1.02; text-transform: uppercase; white-space: nowrap; padding: 10px 22px 12px; border-radius: 8px; }
+.hook-line.alt { background: #ffffff; }
+
+/* Kicker / info chips */
+.chip { position: absolute; display: flex; align-items: center; gap: 12px; background: rgba(15,17,20,0.82); color: #fff; font-weight: 800; font-size: 46px; text-transform: uppercase; padding: 14px 26px; border-radius: 999px; border: 3px solid #f5c22e; }
+.chip.yellow { background: #f5c22e; color: #15171a; border-color: #f5c22e; }
+
+/* Numbered checklist card */
+.card { position: absolute; left: 70px; right: 70px; top: 300px; display: flex; align-items: center; gap: 26px; background: rgba(15,17,20,0.86); border-radius: 22px; padding: 26px 30px; border-left: 14px solid #f5c22e; }
+.card-num { flex: none; width: 120px; height: 120px; border-radius: 50%; background: #f5c22e; color: #15171a; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 76px; }
+.card-text { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.card-title { font-weight: 800; font-size: 70px; line-height: 1; text-transform: uppercase; }
+.card-sub { font-weight: 600; font-size: 38px; line-height: 1.2; color: #d9dadc; }
+
+/* Captions */
+.cap { position: absolute; left: 60px; right: 60px; top: 1240px; text-align: center; font-weight: 800; font-size: 74px; line-height: 1.12; text-transform: uppercase; }
+.cap .w { display: inline-block; margin: 0 10px; color: #fff; text-shadow: 0 5px 0 rgba(0,0,0,0.6), 0 0 26px rgba(0,0,0,0.75); }
+
+/* Minimal captions (two speakers) */
+.capm { position: absolute; left: 90px; right: 90px; top: 1330px; text-align: center; font-weight: 600; font-size: 44px; line-height: 1.25; }
+.capm .w { display: inline-block; margin: 0 6px; opacity: 0.72; text-shadow: 0 2px 10px rgba(0,0,0,0.85), 0 1px 2px rgba(0,0,0,0.9); }
+.capm.me .w { color: #ffffff; }
+.capm.cl .w { color: #ffd34d; }
+.name { position: absolute; left: 70px; top: 1190px; display: flex; flex-direction: column; gap: 2px; background: rgba(15,17,20,0.78); border-left: 6px solid #ffd34d; padding: 12px 20px; border-radius: 8px; }
+.name b { font-weight: 800; font-size: 38px; }
+.name span { font-weight: 600; font-size: 28px; color: #d9dadc; }
+.label { position: absolute; left: 70px; top: 300px; font-weight: 600; font-size: 36px; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; padding: 10px 18px; background: rgba(15,17,20,0.55); border-radius: 6px; }
+.shot { position: absolute; left: 140px; right: 140px; top: 260px; border-radius: 26px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.6); }
+.shot img { display: block; width: 100%; }
+.hl { position: absolute; border: 6px solid #ffd34d; border-radius: 14px; box-shadow: 0 0 0 9999px rgba(0,0,0,0); }
+
+/* Comparison */
+.vs { position: absolute; left: 60px; right: 60px; top: 300px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.vs-box { background: rgba(15,17,20,0.86); border-radius: 22px; padding: 26px 22px; display: flex; flex-direction: column; gap: 8px; align-items: center; text-align: center; border-top: 12px solid #f5c22e; }
+.vs-box b { font-size: 54px; font-weight: 800; line-height: 1.02; text-transform: uppercase; }
+.vs-box span { font-size: 34px; font-weight: 600; color: #d9dadc; }
+
+/* Strike words (Gucci / LV) */
+.strike { position: absolute; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 120px; text-transform: uppercase; color: #fff; }
+.strike i { position: absolute; left: -10%; right: -10%; top: 50%; height: 16px; margin-top: -8px; background: #ff3b3b; border-radius: 8px; transform-origin: left center; }
+
+/* End card */
+.end { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; background: rgba(10,11,13,0.72); padding: 0 80px; text-align: center; }
+.end-q { font-weight: 800; font-size: 96px; line-height: 1.05; text-transform: uppercase; }
+.end-q em { font-style: normal; color: #f5c22e; }
+.end-q .ln { display: block; }
+.end-sub { font-weight: 600; font-size: 46px; color: #e7e7e7; }
+.end-logo { width: 560px; }
+
+/* Arrow label (site callouts) */
+.tag { position: absolute; display: flex; align-items: center; gap: 14px; background: #ffffff; color: #15171a; font-weight: 800; font-size: 50px; text-transform: uppercase; padding: 14px 26px; border-radius: 14px; box-shadow: 0 12px 30px rgba(0,0,0,0.45); }
+.tag .ic { width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; color: #fff; background: #20b26b; }
+.tag .ic.warn { background: #ff8a00; }
+
+/* Laser block */
+.lz-bgwrap { position: absolute; inset: -60px; filter: blur(16px) brightness(0.42) saturate(1.1); }
+.lz-bgwrap video { width: 100%; height: 100%; object-fit: cover; }
+.lz-title { position: absolute; left: 80px; right: 80px; top: 300px; display: flex; flex-direction: column; gap: 18px; }
+.lz-kicker { align-self: flex-start; background: #f5c22e; color: #15171a; font-weight: 800; font-size: 40px; letter-spacing: 0.04em; padding: 10px 20px; border-radius: 6px; }
+.lz-main { font-weight: 800; font-size: 104px; line-height: 0.98; text-transform: uppercase; }
+.lz-wall { position: absolute; top: 760px; height: 560px; right: 0; width: 110px; background: linear-gradient(90deg, #8a8d91, #b9bcc0 40%, #9a9da1); }
+.lz-device { position: absolute; left: 70px; top: 950px; width: 400px; height: 190px; border-radius: 34px; background: linear-gradient(180deg, #2c5fa8 0%, #1d4380 100%); box-shadow: 0 30px 60px rgba(0,0,0,0.55), inset 0 2px 0 rgba(255,255,255,0.25); }
+.lz-grip { position: absolute; left: 0; top: 0; bottom: 0; width: 120px; border-radius: 34px 0 0 34px; background: #17191d; }
+.lz-screen { position: absolute; left: 140px; top: 34px; width: 200px; height: 122px; border-radius: 12px; background: #0f1a12; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; padding: 0 16px; font-family: "Share Tech Mono", monospace; color: #9dff9a; }
+.lz-glow { position: absolute; inset: 0; border-radius: 12px; background: rgba(157,255,154,0.18); }
+.lz-read { font-size: 52px; line-height: 1; position: relative; }
+.lz-unit { font-size: 24px; opacity: 0.8; position: relative; }
+.lz-emit { position: absolute; right: -10px; top: 70px; width: 26px; height: 50px; border-radius: 8px; background: #111; }
+.lz-beam { position: absolute; left: 486px; top: 1043px; width: 484px; height: 6px; background: #ff3b3b; box-shadow: 0 0 18px 4px rgba(255,40,40,0.55); transform-origin: left center; border-radius: 3px; }
+.lz-dot { position: absolute; left: 948px; top: 1024px; width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle, #fff 0 18%, #ff3b3b 30%, rgba(255,40,40,0) 70%); }
+.lz-dim { position: absolute; left: 486px; width: 484px; top: 1190px; height: 40px; }
+.lz-dline { position: absolute; left: 0; right: 0; top: 19px; height: 3px; background: #f5c22e; transform-origin: left center; }
+.lz-cap { position: absolute; top: 0; width: 3px; height: 40px; background: #f5c22e; }
+.lz-dlabel { position: absolute; left: 0; right: 0; top: 54px; text-align: center; font-family: "Share Tech Mono", monospace; font-size: 46px; color: #f5c22e; }
+.lz-badge { position: absolute; left: 70px; top: 1330px; display: flex; align-items: center; gap: 16px; background: #fff; color: #15171a; border-radius: 999px; padding: 16px 30px 16px 18px; font-weight: 800; font-size: 40px; }
+.lz-check { width: 54px; height: 54px; border-radius: 50%; background: #20b26b; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 34px; }
+
+/* Question cards that flip from ? to a tick */
+.qg { position: absolute; left: 70px; right: 70px; top: 300px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.qc { background: rgba(15,17,20,0.88); border-radius: 20px; padding: 22px 22px; display: flex; align-items: center; gap: 18px; border: 3px solid rgba(255,255,255,0.14); }
+.qc .ic { position: relative; width: 66px; height: 66px; flex: none; }
+.qc .ic i { position: absolute; inset: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-style: normal; font-weight: 800; font-size: 40px; color: #fff; }
+.qc .ic .q { background: #ff4d4d; }
+.qc .ic .k { background: #20b26b; opacity: 0; }
+.qc b { font-weight: 800; font-size: 38px; text-transform: uppercase; white-space: nowrap; }
+
+/* Four-step timeline */
+.st { position: absolute; left: 60px; right: 60px; top: 300px; height: 190px; background: rgba(15,17,20,0.86); border-radius: 22px; }
+.st-line { position: absolute; left: 120px; right: 120px; top: 60px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.2); }
+.st-fill { position: absolute; left: 120px; right: 120px; top: 60px; height: 6px; border-radius: 3px; background: #f5c22e; transform-origin: left center; transform: scaleX(0); }
+.st-row { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(4, 1fr); }
+.st-n { display: flex; flex-direction: column; align-items: center; padding-top: 30px; gap: 14px; }
+.st-dot { width: 66px; height: 66px; border-radius: 50%; background: #2a2d33; border: 5px solid rgba(255,255,255,0.35); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 30px; }
+.st-lab { font-weight: 800; font-size: 27px; text-transform: uppercase; color: rgba(255,255,255,0.55); white-space: nowrap; }
+
+/* Blueprint intro */
+.bp { position: absolute; inset: 0; background-color: #0c3560; background-image: linear-gradient(rgba(255,255,255,0.07) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,0.07) 2px, transparent 2px); background-size: 60px 60px; }
+.bp svg { position: absolute; left: 260px; top: 480px; width: 560px; height: 784px; overflow: visible; }
+.bp .w { fill: none; stroke: #e8f1ff; stroke-width: 10; stroke-linecap: square; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.bp .p { fill: none; stroke: #8fc3ff; stroke-width: 5; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.bp .t { font-family: "Share Tech Mono", monospace; font-size: 30px; fill: #bcd9ff; opacity: 0; }
+.bp-k { position: absolute; left: 70px; top: 1720px; font-family: "Share Tech Mono", monospace; font-size: 34px; color: #bcd9ff; letter-spacing: 0.08em; opacity: 0; }
+.wipe { position: absolute; top: 0; bottom: 0; width: 40px; left: -40px; background: #f5c22e; box-shadow: 0 0 40px rgba(245,194,46,0.8); }
+
+/* Room route (layout tour) */
+.rt { position: absolute; left: 50px; top: 290px; width: 480px; background: rgba(15,17,20,0.78); border-radius: 20px; padding: 18px 22px 20px; display: flex; flex-direction: column; gap: 6px; }
+.rt-h { font-weight: 800; font-size: 26px; letter-spacing: 0.1em; color: #f5c22e; margin-bottom: 6px; }
+.rt-i { display: flex; align-items: center; gap: 14px; font-weight: 600; font-size: 35px; color: rgba(255,255,255,0.5); transform-origin: left center; white-space: nowrap; }
+.rt-i i { width: 18px; height: 18px; border-radius: 50%; background: rgba(255,255,255,0.35); flex: none; font-style: normal; }
+
+/* Flow lines */
+.fl svg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.fl path { fill: none; stroke-width: 14; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.fl .pa { stroke: #4fb3ff; }
+.fl .sf { stroke: #f5c22e; }
+.fl-leg { position: absolute; left: 70px; top: 300px; display: flex; flex-direction: column; gap: 14px; }
+.fl-leg div { display: flex; align-items: center; gap: 14px; background: rgba(15,17,20,0.84); padding: 12px 22px; border-radius: 999px; font-weight: 800; font-size: 36px; text-transform: uppercase; }
+.fl-leg span { width: 40px; height: 12px; border-radius: 6px; }
+
+/* Keyword captions */
+.capm .w.hot { color: #ffd34d; }
+
+/* CTA button */
+.btn { position: absolute; left: 90px; right: 90px; top: 1120px; display: flex; align-items: center; justify-content: center; gap: 16px; background: #f5c22e; color: #15171a; border-radius: 999px; padding: 26px 30px; font-weight: 800; font-size: 44px; text-transform: uppercase; box-shadow: 0 16px 40px rgba(0,0,0,0.45); white-space: nowrap; }
+
+/* CTA end card */
+.ce { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 34px; background: rgba(10,11,13,0.8); padding: 0 70px 200px; text-align: center; }
+.ce-k { background: #20b26b; color: #fff; font-weight: 800; font-size: 40px; letter-spacing: 0.08em; padding: 10px 26px; border-radius: 8px; text-transform: uppercase; }
+.ce-q { font-weight: 800; font-size: 100px; line-height: 1.02; text-transform: uppercase; }
+.ce-q span { display: block; }
+.ce-q em { display: block; font-style: normal; color: #f5c22e; }
+.ce-b { background: #fff; color: #15171a; border-radius: 999px; padding: 22px 44px; font-weight: 800; font-size: 44px; text-transform: uppercase; }
+.ce-l { width: 460px; margin-top: 10px; }
+
+.hook.c { align-items: center; text-align: center; }
+
+.nw svg { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+.nw line { stroke: #f5c22e; stroke-width: 5; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.nw-c { position: absolute; left: 400px; top: 640px; width: 280px; height: 280px; border-radius: 50%; background: #f5c22e; color: #15171a; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 50px; box-shadow: 0 0 0 14px rgba(245,194,46,0.25); }
+.nw-n { position: absolute; width: 250px; margin-left: -125px; margin-top: -40px; height: 80px; border-radius: 999px; background: rgba(15,17,20,0.9); border: 3px solid #fff; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 32px; text-transform: uppercase; }
+.mt { position: absolute; left: 70px; right: 70px; top: 300px; display: flex; flex-direction: column; gap: 22px; background: rgba(15,17,20,0.86); border-radius: 22px; padding: 26px 30px; }
+.mt-r { display: flex; flex-direction: column; gap: 10px; }
+.mt-r b { font-weight: 800; font-size: 40px; text-transform: uppercase; letter-spacing: 0.04em; }
+.mt-bar { height: 30px; border-radius: 15px; background: rgba(255,255,255,0.15); overflow: hidden; }
+.mt-bar i { display: block; height: 100%; width: 92%; border-radius: 15px; background: linear-gradient(90deg, #f5c22e, #ff3b3b); transform-origin: left center; transform: scaleX(0); }
+.stamp { position: absolute; left: 0; right: 0; display: flex; justify-content: center; }
+.stamp span { font-weight: 800; font-size: 130px; color: #ff3b3b; border: 12px solid #ff3b3b; border-radius: 18px; padding: 6px 34px; text-transform: uppercase; background: rgba(15,17,20,0.55); }
+.stamp.ok span { color: #20b26b; border-color: #20b26b; font-size: 76px; }
+.cb { position: absolute; left: 90px; right: 90px; top: 300px; background: #fff; color: #15171a; border-radius: 30px; padding: 26px 30px 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.45); }
+.cb::after { content: ""; position: absolute; left: 90px; bottom: -30px; border: 18px solid transparent; border-top: 20px solid #fff; }
+.cb-h { display: flex; align-items: center; gap: 16px; font-weight: 800; font-size: 32px; color: #666; }
+.cb-h i { width: 54px; height: 54px; border-radius: 50%; background: #f5c22e; font-style: normal; display: flex; align-items: center; justify-content: center; font-size: 30px; }
+.cb-t { margin-top: 12px; font-weight: 800; font-size: 50px; line-height: 1.1; }
+.cb-d { display: flex; gap: 10px; margin-top: 16px; }
+.cb-d span { width: 18px; height: 18px; border-radius: 50%; background: #bbb; }
+.ws { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.ws div { display: flex; align-items: center; gap: 18px; background: rgba(15,17,20,0.84); padding: 10px 30px 10px 14px; border-radius: 999px; font-weight: 800; font-size: 58px; text-transform: uppercase; }
+.ws i { width: 60px; height: 60px; border-radius: 50%; background: #20b26b; color: #fff; font-style: normal; display: flex; align-items: center; justify-content: center; font-size: 38px; }
+.pill { position: absolute; left: 0; right: 0; display: flex; justify-content: center; }
+.pill span { background: #f5c22e; color: #15171a; font-weight: 800; font-size: 50px; text-transform: uppercase; padding: 16px 36px; border-radius: 999px; box-shadow: 0 12px 30px rgba(0,0,0,0.4); white-space: nowrap; }
+.tap { position: absolute; width: 140px; height: 140px; margin: -70px 0 0 -70px; border-radius: 50%; border: 8px solid #fff; box-shadow: 0 0 30px rgba(255,255,255,0.6); }
+.tap-f { position: absolute; font-size: 110px; margin: -10px 0 0 -30px; }
+.fe { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 36px; background: rgba(10,11,13,0.8); padding: 0 70px 200px; text-align: center; }
+.fe-k { font-weight: 600; font-size: 40px; letter-spacing: 0.14em; color: #d9dadc; text-transform: uppercase; }
+.fe-q { font-weight: 800; font-size: 120px; line-height: 1; text-transform: uppercase; }
+.fe-q em { display: block; font-style: normal; color: #f5c22e; font-size: 92px; }
+.fe-b { background: #f5c22e; color: #15171a; border-radius: 999px; padding: 22px 50px; font-weight: 800; font-size: 48px; text-transform: uppercase; }
+
+/* two-tone hook (reference style) */
+.h2 { position: absolute; left: 50px; right: 50px; top: 270px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+.h2-k { font-weight: 600; font-size: 40px; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; text-shadow: 0 3px 14px rgba(0,0,0,0.7); }
+.h2-b { font-weight: 800; font-size: 118px; line-height: 0.98; text-transform: uppercase; color: #f5c22e; text-shadow: 0 6px 0 rgba(0,0,0,0.35), 0 0 40px rgba(0,0,0,0.55); }
+.h2-s { font-weight: 600; font-style: italic; font-size: 46px; color: #fff; text-shadow: 0 3px 14px rgba(0,0,0,0.75); }
+.h2-sh { position: absolute; left: 0; right: 0; top: 0; height: 900px; background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0) 100%); }
+
+/* numbered section label + progress */
+.sec { position: absolute; left: 0; right: 0; top: 230px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.sec-p { display: flex; align-items: center; gap: 14px; background: rgba(15,17,20,0.78); border: 2px solid rgba(255,255,255,0.18); border-radius: 999px; padding: 10px 26px 10px 12px; }
+.sec-n { background: #f5c22e; color: #15171a; font-weight: 800; font-size: 30px; border-radius: 999px; padding: 4px 16px; }
+.sec-t { font-weight: 800; font-size: 36px; text-transform: uppercase; color: #fff; letter-spacing: 0.03em; white-space: nowrap; }
+.sec-bar { width: 420px; height: 8px; border-radius: 4px; background: rgba(255,255,255,0.25); overflow: hidden; }
+.sec-bar i { display: block; height: 100%; background: #f5c22e; transform-origin: left center; }
+
+/* glass card */
+.gc { position: absolute; left: 90px; right: 90px; background: rgba(14,16,20,0.78); border: 2px solid rgba(255,255,255,0.16); border-radius: 28px; padding: 26px 30px; box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+.gc-h { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 28px; letter-spacing: 0.08em; text-transform: uppercase; color: #f5c22e; }
+.gc-r { display: flex; align-items: center; gap: 16px; margin-top: 16px; font-weight: 800; font-size: 44px; color: #fff; }
+.gc-r i { width: 52px; height: 52px; flex: none; border-radius: 50%; background: #20b26b; color: #fff; font-style: normal; display: flex; align-items: center; justify-content: center; font-size: 30px; }
+.gc-r i.w { background: #ff8a00; }
+.gc-r i.n { background: #f5c22e; color: #15171a; }
+
+/* journey line */
+.jy { position: absolute; left: 50px; right: 50px; top: 300px; height: 200px; background: rgba(14,16,20,0.78); border-radius: 26px; border: 2px solid rgba(255,255,255,0.14); }
+.jy-l { position: absolute; left: 80px; right: 80px; top: 70px; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; }
+.jy-f { position: absolute; left: 80px; right: 80px; top: 70px; height: 6px; background: #f5c22e; border-radius: 3px; transform-origin: left center; transform: scaleX(0); }
+.jy-d { position: absolute; top: 52px; width: 42px; height: 42px; margin-left: -21px; border-radius: 50%; background: #2a2d33; border: 5px solid rgba(255,255,255,0.4); }
+.jy-t { position: absolute; top: 112px; width: 200px; margin-left: -100px; text-align: center; font-weight: 800; font-size: 25px; text-transform: uppercase; color: rgba(255,255,255,0.5); line-height: 1.1; }
+
+/* door diagram */
+.dd { position: absolute; left: 90px; right: 90px; top: 300px; background: rgba(14,16,20,0.82); border-radius: 28px; padding: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.dd-c { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.dd-c b { font-weight: 800; font-size: 36px; text-transform: uppercase; }
+.dd-c span { font-weight: 600; font-size: 28px; }
+.dd svg { width: 380px; height: 300px; }
+
+/* rating */
+.rt2 { position: absolute; left: 90px; right: 90px; top: 280px; background: rgba(14,16,20,0.82); border-radius: 28px; padding: 26px 32px; border: 2px solid rgba(255,255,255,0.16); }
+.rt2-big { text-align: center; font-weight: 800; font-size: 150px; line-height: 1; color: #f5c22e; }
+.rt2-big small { font-size: 60px; color: #fff; }
+.rt2-r { margin-top: 18px; }
+.rt2-r b { display: flex; justify-content: space-between; font-weight: 800; font-size: 34px; text-transform: uppercase; }
+.rt2-bar { margin-top: 8px; height: 22px; border-radius: 11px; background: rgba(255,255,255,0.15); overflow: hidden; }
+.rt2-bar i { display: block; height: 100%; border-radius: 11px; background: linear-gradient(90deg, #f5c22e, #ff8a00); transform-origin: left center; transform: scaleX(0); }
+
+/* location pin */
+.pin { position: absolute; left: 0; right: 0; display: flex; justify-content: center; }
+.pin div { display: flex; align-items: center; gap: 14px; background: #fff; color: #15171a; border-radius: 999px; padding: 14px 30px 14px 16px; font-weight: 800; font-size: 40px; box-shadow: 0 16px 40px rgba(0,0,0,0.45); white-space: nowrap; }
+.pin i { width: 56px; height: 56px; border-radius: 50%; background: #ff3b3b; color: #fff; font-style: normal; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+.pin span { font-weight: 600; color: #555; }
+
+/* service cards */
+.sv { position: absolute; left: 60px; right: 60px; top: 300px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.sv div { background: rgba(14,16,20,0.82); border: 2px solid rgba(255,255,255,0.16); border-radius: 24px; padding: 22px 10px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.sv i { font-style: normal; font-size: 64px; }
+.sv b { font-weight: 800; font-size: 32px; text-transform: uppercase; line-height: 1.05; }
+
+/* name card */
+.nc { position: absolute; left: 90px; right: 90px; top: 300px; display: flex; align-items: center; gap: 22px; background: rgba(14,16,20,0.82); border-left: 12px solid #f5c22e; border-radius: 22px; padding: 22px 28px; }
+.nc i { width: 96px; height: 96px; flex: none; border-radius: 50%; background: #f5c22e; color: #15171a; font-style: normal; display: flex; align-items: center; justify-content: center; font-size: 52px; }
+.nc b { display: block; font-weight: 800; font-size: 48px; }
+.nc span { display: block; font-weight: 600; font-size: 32px; color: #d9dadc; margin-top: 4px; }
+
+/* end cards */
+.lc { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; background: rgba(10,11,13,0.78); padding: 0 70px 200px; text-align: center; }
+.lc-k { font-weight: 600; font-size: 38px; letter-spacing: 0.14em; color: #d9dadc; text-transform: uppercase; }
+.lc-q { font-weight: 800; font-size: 112px; line-height: 1; text-transform: uppercase; }
+.lc-q em { display: block; font-style: normal; color: #f5c22e; font-size: 70px; margin-top: 10px; }
+.lc-s { font-weight: 600; font-style: italic; font-size: 40px; color: #e7e7e7; }
+.lc-b { background: #f5c22e; color: #15171a; border-radius: 999px; padding: 20px 46px; font-weight: 800; font-size: 44px; text-transform: uppercase; }
+.lc-l { width: 300px; opacity: 0.9; }
+.lc-f { font-weight: 600; font-size: 28px; color: #bbb; }
+
+/* reference-style captions */
+.cr { position: absolute; left: 70px; right: 70px; top: 1250px; text-align: center; font-weight: 800; font-size: 54px; line-height: 1.15; }
+.cr .w { display: inline-block; margin: 0 8px; color: #fff; text-shadow: 0 4px 0 rgba(0,0,0,0.45), 0 0 22px rgba(0,0,0,0.7); }
+.cr .w.hot { color: #f5c22e; }
+
+/* flash for whip cuts */
+.fl2 { position: absolute; inset: 0; background: #fff; opacity: 0; }
+</style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="m4-layout-butik-bilik-live" data-start="0" data-width="1080" data-height="1920" data-duration="69.700">
+      <div class="cam" id="acam"><video id="ar1" class="clip" src="../assets/footage/f2810/aroll_m4.mp4" playsinline data-has-audio="true" data-start="0.000" data-duration="66.100" data-media-start="0.000" data-track-index="0" data-volume="1"></video></div>
+      <div class="cam" id="bw35" style="transform-origin:50% 50%"><video id="bv36" class="clip" src="../assets/footage/f2810/IMG_6372.mp4" muted playsinline data-start="51.407" data-duration="2.600" data-media-start="2.000" data-track-index="1"></video></div>
+      <div class="cam" id="bw47" style="transform-origin:50% 50%"><video id="bv48" class="clip" src="../assets/footage/f2810/IMG_6371.mp4" muted playsinline data-start="66.100" data-duration="3.600" data-media-start="4.000" data-track-index="1"></video></div>
+      <div id="sh2" class="clip shade" data-start="0.000" data-duration="69.700" data-track-index="2"></div>
+      <section id="h23" class="clip" data-start="0.050" data-duration="3.100" data-track-index="5"><div class="h2-sh"></div><div class="h2"><div class="h2-k" id="h23k">Butik 1,200 sqft</div><div class="h2-b" id="h23b">Ada 2<br>bilik live?</div><div class="h2-s" id="h23s">tour layout butik</div></div></section>
+      <audio id="sfx4" src="../assets/sfx/whoosh.mp3" data-start="0.050" data-track-index="9" data-volume="0.45"></audio>
+      <audio id="sfx5" src="../assets/sfx/impact-bass-1.mp3" data-start="0.200" data-track-index="9" data-volume="0.5"></audio>
+      <section id="pn6" class="clip" data-start="8.660" data-duration="2.600" data-track-index="7"><div class="pin" style="top:420px"><div id="pn6b"><i>📍</i>Setia Alam<span>· Barang mechanical</span></div></div></section>
+      <audio id="sfx7" src="../assets/sfx/pop.mp3" data-start="8.910" data-track-index="9" data-volume="0.45"></audio>
+      <section id="ct8" class="clip" data-start="15.360" data-duration="3.707" data-track-index="6"><div class="h2" style="top:560px"><div class="h2-b" id="ct8n" style="font-size:300px">1</div><div class="h2-s" id="ct8l">unit aircon · 2 kaset</div></div></section>
+      <audio id="sfx9" src="../assets/sfx/riser.mp3" data-start="15.360" data-duration="0.800" data-track-index="9" data-volume="0.25"></audio>
+      <audio id="sfx10" src="../assets/sfx/impact-bass-2.mp3" data-start="16.160" data-track-index="9" data-volume="0.45"></audio>
+      <section id="wf11" class="clip" data-start="19.107" data-duration="0.3" data-track-index="7"><div class="fl2" id="wf11x"></div></section>
+      <audio id="sfx12" src="../assets/sfx/whoosh-short.mp3" data-start="19.047" data-track-index="9" data-volume="0.35"></audio>
+      <section id="ch13" class="clip" data-start="23.237" data-duration="2.000" data-track-index="6"><div class="chip yellow" id="ch13b" style="left:70px;top:300px">Kaset 1</div></section>
+      <audio id="sfx14" src="../assets/sfx/pop.mp3" data-start="23.237" data-track-index="9" data-volume="0.45"></audio>
+      <section id="ch15" class="clip" data-start="26.087" data-duration="1.246" data-track-index="6"><div class="chip yellow" id="ch15b" style="left:70px;top:300px">Kaset 2</div></section>
+      <audio id="sfx16" src="../assets/sfx/pop.mp3" data-start="26.087" data-track-index="9" data-volume="0.45"></audio>
+      <section id="sc17" class="clip" data-start="29.353" data-duration="2.280" data-track-index="6"><div class="sec"><div class="sec-p" id="sc17p"><span class="sec-n">01 / 07</span><span class="sec-t">Bilik live 1</span></div><div class="sec-bar"><i id="sc17b"></i></div></div></section>
+      <audio id="sfx18" src="../assets/sfx/click.mp3" data-start="29.353" data-track-index="9" data-volume="0.4"></audio>
+      <section id="sc19" class="clip" data-start="31.633" data-duration="1.790" data-track-index="6"><div class="sec"><div class="sec-p" id="sc19p"><span class="sec-n">02 / 07</span><span class="sec-t">Bilik live 2</span></div><div class="sec-bar"><i id="sc19b"></i></div></div></section>
+      <audio id="sfx20" src="../assets/sfx/click.mp3" data-start="31.633" data-track-index="9" data-volume="0.4"></audio>
+      <section id="sc21" class="clip" data-start="33.423" data-duration="1.757" data-track-index="6"><div class="sec"><div class="sec-p" id="sc21p"><span class="sec-n">03 / 07</span><span class="sec-t">Fitting</span></div><div class="sec-bar"><i id="sc21b"></i></div></div></section>
+      <audio id="sfx22" src="../assets/sfx/click.mp3" data-start="33.423" data-track-index="9" data-volume="0.4"></audio>
+      <section id="wf23" class="clip" data-start="34.540" data-duration="0.3" data-track-index="7"><div class="fl2" id="wf23x"></div></section>
+      <audio id="sfx24" src="../assets/sfx/whoosh-short.mp3" data-start="34.480" data-track-index="9" data-volume="0.35"></audio>
+      <section id="sc25" class="clip" data-start="35.180" data-duration="2.170" data-track-index="6"><div class="sec"><div class="sec-p" id="sc25p"><span class="sec-n">04 / 07</span><span class="sec-t">Ruang staf</span></div><div class="sec-bar"><i id="sc25b"></i></div></div></section>
+      <audio id="sfx26" src="../assets/sfx/click.mp3" data-start="35.180" data-track-index="9" data-volume="0.4"></audio>
+      <section id="sc27" class="clip" data-start="37.350" data-duration="5.790" data-track-index="6"><div class="sec"><div class="sec-p" id="sc27p"><span class="sec-n">05 / 07</span><span class="sec-t">Bilik bos</span></div><div class="sec-bar"><i id="sc27b"></i></div></div></section>
+      <audio id="sfx28" src="../assets/sfx/click.mp3" data-start="37.350" data-track-index="9" data-volume="0.4"></audio>
+      <section id="sc29" class="clip" data-start="43.140" data-duration="2.500" data-track-index="6"><div class="sec"><div class="sec-p" id="sc29p"><span class="sec-n">06 / 07</span><span class="sec-t">Toilet &amp; surau</span></div><div class="sec-bar"><i id="sc29b"></i></div></div></section>
+      <audio id="sfx30" src="../assets/sfx/click.mp3" data-start="43.140" data-track-index="9" data-volume="0.4"></audio>
+      <section id="sc31" class="clip" data-start="45.640" data-duration="2.327" data-track-index="6"><div class="sec"><div class="sec-p" id="sc31p"><span class="sec-n">07 / 07</span><span class="sec-t">Warehouse</span></div><div class="sec-bar"><i id="sc31b"></i></div></div></section>
+      <audio id="sfx32" src="../assets/sfx/click.mp3" data-start="45.640" data-track-index="9" data-volume="0.4"></audio>
+      <section id="wf33" class="clip" data-start="47.907" data-duration="0.3" data-track-index="7"><div class="fl2" id="wf33x"></div></section>
+      <audio id="sfx34" src="../assets/sfx/whoosh-short.mp3" data-start="47.847" data-track-index="9" data-volume="0.35"></audio>
+      <section id="wf37" class="clip" data-start="51.347" data-duration="0.3" data-track-index="7"><div class="fl2" id="wf37x"></div></section>
+      <audio id="sfx38" src="../assets/sfx/whoosh-short.mp3" data-start="51.287" data-track-index="9" data-volume="0.35"></audio>
+      <section id="gc39" class="clip" data-start="52.537" data-duration="7.563" data-track-index="7"><div class="gc" id="gc39m" style="top:420px"><div class="gc-h">Konsep</div><div class="gc-r" id="gc39r0"><i class="">✓</i>Luxury minimalis</div><div class="gc-r" id="gc39r1"><i class="">✓</i>Elemen Bali</div></div></section>
+      <audio id="sfx40" src="../assets/sfx/ping.mp3" data-start="52.837" data-track-index="9" data-volume="0.35"></audio>
+      <audio id="sfx41" src="../assets/sfx/ping.mp3" data-start="57.807" data-track-index="9" data-volume="0.35"></audio>
+      <section id="wf42" class="clip" data-start="60.040" data-duration="0.3" data-track-index="7"><div class="fl2" id="wf42x"></div></section>
+      <audio id="sfx43" src="../assets/sfx/whoosh-short.mp3" data-start="59.980" data-track-index="9" data-volume="0.35"></audio>
+      <section id="pl44" class="clip" data-start="62.940" data-duration="2.000" data-track-index="7"><div class="pill" style="top:1480px"><span id="pl44b">Follow for more tips</span></div></section>
+      <section id="fe45" class="clip" data-start="66.100" data-duration="3.600" data-track-index="7"><div class="fe" id="fe45m"><div class="fe-k" id="fe45k">Enoxin.Fitout</div><div class="fe-q" id="fe45q">Follow<em>for more tips</em></div><div class="fe-b" id="fe45b">＋ Follow</div><img class="ce-l" id="fe45l" src="../assets/brand/enoxin-logo-white.png" alt="Enoxin"></div></section>
+      <audio id="sfx46" src="../assets/sfx/chime.mp3" data-start="66.200" data-track-index="9" data-volume="0.4"></audio>
+      <section id="cr49" class="clip" data-start="0.000" data-duration="1.760" data-track-index="8"><div class="cr"><span class="w" id="cr49w0">Kalau</span><span class="w" id="cr49w1">ikutkan</span><span class="w" id="cr49w2">ni</span><span class="w" id="cr49w3">semua</span></div></section>
+      <section id="cr50" class="clip" data-start="1.760" data-duration="1.580" data-track-index="8"><div class="cr"><span class="w" id="cr50w0">total</span><span class="w" id="cr50w1">barang-barang</span></div></section>
+      <section id="cr51" class="clip" data-start="3.340" data-duration="2.480" data-track-index="8"><div class="cr"><span class="w hot" id="cr51w0">aircon</span><span class="w" id="cr51w1">mechanical</span></div></section>
+      <section id="cr52" class="clip" data-start="5.820" data-duration="1.420" data-track-index="8"><div class="cr"><span class="w" id="cr52w0">punya</span><span class="w" id="cr52w1">barang</span><span class="w" id="cr52w2">untuk</span></div></section>
+      <section id="cr53" class="clip" data-start="7.240" data-duration="1.620" data-track-index="8"><div class="cr"><span class="w" id="cr53w0">kerja</span><span class="w" id="cr53w1">site</span><span class="w" id="cr53w2">kita</span><span class="w" id="cr53w3">dekat</span></div></section>
+      <section id="cr54" class="clip" data-start="8.860" data-duration="2.980" data-track-index="8"><div class="cr"><span class="w hot" id="cr54w0">Setia</span><span class="w hot" id="cr54w1">Alam</span><span class="w" id="cr54w2">Total</span></div></section>
+      <section id="cr55" class="clip" data-start="11.840" data-duration="1.620" data-track-index="8"><div class="cr"><span class="w" id="cr55w0">barang</span><span class="w" id="cr55w1">ni</span><span class="w" id="cr55w2">tengok</span><span class="w" id="cr55w3">ni</span></div></section>
+      <section id="cr56" class="clip" data-start="13.460" data-duration="2.000" data-track-index="8"><div class="cr"><span class="w" id="cr56w0">guys</span><span class="w" id="cr56w1">ini</span><span class="w" id="cr56w2">semua</span><span class="w" id="cr56w3">total</span></div></section>
+      <section id="cr57" class="clip" data-start="15.460" data-duration="1.190" data-track-index="8"><div class="cr"><span class="w" id="cr57w0">untuk</span><span class="w hot" id="cr57w1">6</span><span class="w" id="cr57w2">unit</span><span class="w" id="cr57w3">Dua</span></div></section>
+      <section id="cr58" class="clip" data-start="16.650" data-duration="1.350" data-track-index="8"><div class="cr"><span class="w hot" id="cr58w0">kaset</span><span class="w" id="cr58w1">yang</span><span class="w" id="cr58w2">balance</span></div></section>
+      <section id="cr59" class="clip" data-start="18.000" data-duration="1.417" data-track-index="8"><div class="cr"><span class="w" id="cr59w0">adalah</span><span class="w" id="cr59w1">wall</span><span class="w" id="cr59w2">mounted</span><span class="w" id="cr59w3">So</span></div></section>
+      <section id="cr60" class="clip" data-start="19.417" data-duration="2.250" data-track-index="8"><div class="cr"><span class="w" id="cr60w0">basically</span><span class="w" id="cr60w1">nanti</span><span class="w" id="cr60w2">ini</span></div></section>
+      <section id="cr61" class="clip" data-start="21.667" data-duration="2.440" data-track-index="8"><div class="cr"><span class="w" id="cr61w0">area</span><span class="w" id="cr61w1">depan</span><span class="w" id="cr61w2">Satu</span><span class="w hot" id="cr61w3">kaset</span></div></section>
+      <section id="cr62" class="clip" data-start="24.107" data-duration="1.230" data-track-index="8"><div class="cr"><span class="w" id="cr62w0">akan</span><span class="w" id="cr62w1">pasang</span><span class="w" id="cr62w2">dekat</span><span class="w" id="cr62w3">sini</span></div></section>
+      <section id="cr63" class="clip" data-start="25.337" data-duration="2.046" data-track-index="8"><div class="cr"><span class="w" id="cr63w0">And</span><span class="w" id="cr63w1">satu</span><span class="w hot" id="cr63w2">kaset</span><span class="w" id="cr63w3">pasang</span></div></section>
+      <section id="cr64" class="clip" data-start="27.383" data-duration="0.550" data-track-index="8"><div class="cr"><span class="w" id="cr64w0">dekat</span><span class="w" id="cr64w1">sini</span></div></section>
+      <section id="cr65" class="clip" data-start="28.123" data-duration="1.120" data-track-index="8"><div class="cr"><span class="w" id="cr65w0">Sini</span><span class="w" id="cr65w1">akan</span><span class="w" id="cr65w2">jadi</span><span class="w hot" id="cr65w3">bilik</span></div></section>
+      <section id="cr66" class="clip" data-start="29.243" data-duration="0.990" data-track-index="8"><div class="cr"><span class="w hot" id="cr66w0">live</span><span class="w" id="cr66w1">yang</span><span class="w" id="cr66w2">pertama</span><span class="w" id="cr66w3">ada</span></div></section>
+      <section id="cr67" class="clip" data-start="30.233" data-duration="1.140" data-track-index="8"><div class="cr"><span class="w" id="cr67w0">record</span><span class="w" id="cr67w1">juga</span><span class="w" id="cr67w2">sini</span><span class="w" id="cr67w3">Sini</span></div></section>
+      <section id="cr68" class="clip" data-start="31.373" data-duration="0.860" data-track-index="8"><div class="cr"><span class="w hot" id="cr68w0">bilik</span><span class="w hot" id="cr68w1">live</span><span class="w" id="cr68w2">yang</span><span class="w" id="cr68w3">kedua</span></div></section>
+      <section id="cr69" class="clip" data-start="32.233" data-duration="1.240" data-track-index="8"><div class="cr"><span class="w" id="cr69w0">Macam</span><span class="w" id="cr69w1">sini</span><span class="w" id="cr69w2">akan</span><span class="w" id="cr69w3">jadi</span></div></section>
+      <section id="cr70" class="clip" data-start="33.473" data-duration="1.297" data-track-index="8"><div class="cr"><span class="w" id="cr70w0">tempat</span><span class="w hot" id="cr70w1">fitting</span><span class="w" id="cr70w2">lah</span><span class="w" id="cr70w3">Ini</span></div></section>
+      <section id="cr71" class="clip" data-start="34.770" data-duration="1.030" data-track-index="8"><div class="cr"><span class="w" id="cr71w0">akan</span><span class="w" id="cr71w1">jadi</span><span class="w" id="cr71w2">ruang</span><span class="w hot" id="cr71w3">staff</span></div></section>
+      <section id="cr72" class="clip" data-start="35.800" data-duration="0.630" data-track-index="8"><div class="cr"><span class="w" id="cr72w0">lah</span></div></section>
+      <section id="cr73" class="clip" data-start="36.470" data-duration="1.180" data-track-index="8"><div class="cr"><span class="w" id="cr73w0">Sini</span><span class="w" id="cr73w1">akan</span><span class="w" id="cr73w2">jadi</span><span class="w hot" id="cr73w3">bilik</span></div></section>
+      <section id="cr74" class="clip" data-start="37.650" data-duration="2.370" data-track-index="8"><div class="cr"><span class="w hot" id="cr74w0">bos</span><span class="w" id="cr74w1">Dan</span><span class="w" id="cr74w2">sini</span><span class="w" id="cr74w3">akan</span></div></section>
+      <section id="cr75" class="clip" data-start="40.020" data-duration="1.320" data-track-index="8"><div class="cr"><span class="w" id="cr75w0">masuk</span><span class="w" id="cr75w1">akses</span><span class="w" id="cr75w2">untuk</span></div></section>
+      <section id="cr76" class="clip" data-start="41.340" data-duration="1.167" data-track-index="8"><div class="cr"><span class="w" id="cr76w0">belah</span><span class="w" id="cr76w1">belakang</span><span class="w" id="cr76w2">akan</span></div></section>
+      <section id="cr77" class="clip" data-start="42.507" data-duration="2.253" data-track-index="8"><div class="cr"><span class="w" id="cr77w0">pergi</span><span class="w" id="cr77w1">ke</span><span class="w" id="cr77w2">toilet</span></div></section>
+      <section id="cr78" class="clip" data-start="44.800" data-duration="0.890" data-track-index="8"><div class="cr"><span class="w hot" id="cr78w0">surau</span><span class="w" id="cr78w1">Dari</span><span class="w" id="cr78w2">sini</span><span class="w" id="cr78w3">akan</span></div></section>
+      <section id="cr79" class="clip" data-start="45.690" data-duration="1.510" data-track-index="8"><div class="cr"><span class="w" id="cr79w0">jadi</span><span class="w hot" id="cr79w1">warehouse</span><span class="w" id="cr79w2">untuk</span></div></section>
+      <section id="cr80" class="clip" data-start="47.200" data-duration="0.787" data-track-index="8"><div class="cr"><span class="w" id="cr80w0">simpan-simpan</span><span class="w" id="cr80w1">barang</span></div></section>
+      <section id="cr81" class="clip" data-start="47.987" data-duration="3.320" data-track-index="8"><div class="cr"><span class="w" id="cr81w0">Okay</span><span class="w" id="cr81w1">sini</span><span class="w" id="cr81w2">kita</span><span class="w" id="cr81w3">akan</span></div></section>
+      <section id="cr82" class="clip" data-start="51.307" data-duration="2.530" data-track-index="8"><div class="cr"><span class="w" id="cr82w0">bermain</span><span class="w" id="cr82w1">konsep</span><span class="w hot" id="cr82w2">luxury</span></div></section>
+      <section id="cr83" class="clip" data-start="53.837" data-duration="2.890" data-track-index="8"><div class="cr"><span class="w hot" id="cr83w0">minimalis</span><span class="w" id="cr83w1">dan</span><span class="w" id="cr83w2">kita</span><span class="w" id="cr83w3">ada</span></div></section>
+      <section id="cr84" class="clip" data-start="56.727" data-duration="1.080" data-track-index="8"><div class="cr"><span class="w" id="cr84w0">campur</span><span class="w" id="cr84w1">elemen-elemen</span></div></section>
+      <section id="cr85" class="clip" data-start="57.807" data-duration="1.060" data-track-index="8"><div class="cr"><span class="w hot" id="cr85w0">Bali</span><span class="w" id="cr85w1">sikit</span><span class="w" id="cr85w2">Nanti</span></div></section>
+      <section id="cr86" class="clip" data-start="58.867" data-duration="0.330" data-track-index="8"><div class="cr"><span class="w" id="cr86w0">korang</span><span class="w" id="cr86w1">tengok</span><span class="w" id="cr86w2">lah</span></div></section>
+      <section id="cr87" class="clip" data-start="59.197" data-duration="0.550" data-track-index="8"><div class="cr"><span class="w" id="cr87w0">hasil</span><span class="w" id="cr87w1">dia</span><span class="w" id="cr87w2">macam</span><span class="w" id="cr87w3">mana</span></div></section>
+      <section id="cr88" class="clip" data-start="59.747" data-duration="1.003" data-track-index="8"><div class="cr"><span class="w" id="cr88w0">nanti</span><span class="w" id="cr88w1">Korang</span><span class="w" id="cr88w2">boleh</span></div></section>
+      <section id="cr89" class="clip" data-start="60.750" data-duration="1.100" data-track-index="8"><div class="cr"><span class="w" id="cr89w0">like</span><span class="w" id="cr89w1">and</span><span class="w" id="cr89w2">share</span><span class="w" id="cr89w3">video</span></div></section>
+      <section id="cr90" class="clip" data-start="61.850" data-duration="1.290" data-track-index="8"><div class="cr"><span class="w" id="cr90w0">ni</span><span class="w" id="cr90w1">and</span><span class="w" id="cr90w2">tekan</span><span class="w" id="cr90w3">button</span></div></section>
+      <section id="cr91" class="clip" data-start="63.140" data-duration="1.333" data-track-index="8"><div class="cr"><span class="w hot" id="cr91w0">follow</span><span class="w" id="cr91w1">for</span><span class="w" id="cr91w2">more</span><span class="w" id="cr91w3">tips</span></div></section>
+      <section id="cr92" class="clip" data-start="64.473" data-duration="0.430" data-track-index="8"><div class="cr"><span class="w" id="cr92w0">See</span><span class="w" id="cr92w1">you</span><span class="w" id="cr92w2">in</span><span class="w" id="cr92w3">the</span></div></section>
+      <section id="cr93" class="clip" data-start="64.903" data-duration="0.690" data-track-index="8"><div class="cr"><span class="w" id="cr93w0">next</span><span class="w" id="cr93w1">video</span></div></section>
+      <section id="cr94" class="clip" data-start="65.593" data-duration="0.507" data-track-index="8"><div class="cr"><span class="w" id="cr94w0">Assalamualaikum</span></div></section>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 0.000);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 0.767);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 2.800);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 6.667);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 9.200);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 10.667);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 13.800);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 16.367);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 17.533);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 19.167);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 21.633);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 22.967);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 25.133);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 25.800);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 27.433);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 28.533);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 31.267);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 32.367);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 34.600);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 36.033);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 36.667);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 38.600);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 42.333);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 44.667);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 47.167);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 47.967);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 50.467);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 53.500);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 54.533);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 55.667);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 58.467);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 60.100);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 62.100);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 62.533);
+      tl.set("#acam", { scale: 1.1, transformOrigin: "50% 40%" }, 63.633);
+      tl.set("#acam", { scale: 1.0, transformOrigin: "50% 40%" }, 64.333);
+      tl.fromTo("#h23k", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.25 }, 0.070);
+      tl.fromTo("#h23b", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power4.out" }, 0.200);
+      tl.fromTo("#h23s", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3 }, 0.500);
+      tl.to("#h23 > *", { opacity: 0, duration: 0.25 }, 2.900);
+      tl.fromTo("#pn6b", { y: -80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "bounce.out" }, 8.660);
+      tl.to("#pn6b", { opacity: 0, duration: 0.2 }, 11.060);
+      const ct8o = { v: 1 }; const ct8e = document.getElementById("ct8n");
+      tl.fromTo(ct8o, { v: 1 }, { v: 6, duration: 0.8, ease: "power2.out", onUpdate: () => { ct8e.textContent = Math.round(ct8o.v); } }, 15.360);
+      tl.fromTo("#ct8n", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 15.360);
+      tl.fromTo("#ct8l", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3 }, 15.960);
+      tl.to("#ct8 .h2", { opacity: 0, duration: 0.2 }, 18.867);
+      tl.fromTo("#wf11x", { opacity: 0.55 }, { opacity: 0, duration: 0.24, ease: "power2.out" }, 19.107);
+      tl.fromTo("#ch13b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 23.237);
+      tl.to("#ch13b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 25.017);
+      tl.fromTo("#ch15b", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 26.087);
+      tl.to("#ch15b", { scale: 0.8, opacity: 0, duration: 0.2, ease: "power2.in" }, 27.113);
+      tl.fromTo("#sc17p", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 29.353);
+      tl.fromTo("#sc17b", { scaleX: 0.000 }, { scaleX: 0.143, duration: 0.5, ease: "power2.out" }, 29.453);
+      tl.to("#sc17 .sec", { opacity: 0, duration: 0.2 }, 31.433);
+      tl.fromTo("#sc19p", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 31.633);
+      tl.fromTo("#sc19b", { scaleX: 0.143 }, { scaleX: 0.286, duration: 0.5, ease: "power2.out" }, 31.733);
+      tl.to("#sc19 .sec", { opacity: 0, duration: 0.2 }, 33.223);
+      tl.fromTo("#sc21p", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 33.423);
+      tl.fromTo("#sc21b", { scaleX: 0.286 }, { scaleX: 0.429, duration: 0.5, ease: "power2.out" }, 33.523);
+      tl.to("#sc21 .sec", { opacity: 0, duration: 0.2 }, 34.980);
+      tl.fromTo("#wf23x", { opacity: 0.55 }, { opacity: 0, duration: 0.24, ease: "power2.out" }, 34.540);
+      tl.fromTo("#sc25p", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 35.180);
+      tl.fromTo("#sc25b", { scaleX: 0.429 }, { scaleX: 0.571, duration: 0.5, ease: "power2.out" }, 35.280);
+      tl.to("#sc25 .sec", { opacity: 0, duration: 0.2 }, 37.150);
+      tl.fromTo("#sc27p", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 37.350);
+      tl.fromTo("#sc27b", { scaleX: 0.571 }, { scaleX: 0.714, duration: 0.5, ease: "power2.out" }, 37.450);
+      tl.to("#sc27 .sec", { opacity: 0, duration: 0.2 }, 42.940);
+      tl.fromTo("#sc29p", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 43.140);
+      tl.fromTo("#sc29b", { scaleX: 0.714 }, { scaleX: 0.857, duration: 0.5, ease: "power2.out" }, 43.240);
+      tl.to("#sc29 .sec", { opacity: 0, duration: 0.2 }, 45.440);
+      tl.fromTo("#sc31p", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 45.640);
+      tl.fromTo("#sc31b", { scaleX: 0.857 }, { scaleX: 1.000, duration: 0.5, ease: "power2.out" }, 45.740);
+      tl.to("#sc31 .sec", { opacity: 0, duration: 0.2 }, 47.767);
+      tl.fromTo("#wf33x", { opacity: 0.55 }, { opacity: 0, duration: 0.24, ease: "power2.out" }, 47.907);
+      tl.fromTo("#bw35", { scale: 1.0 }, { scale: 1.06, duration: 2.600, ease: "none" }, 51.407);
+      tl.fromTo("#wf37x", { opacity: 0.55 }, { opacity: 0, duration: 0.24, ease: "power2.out" }, 51.347);
+      tl.fromTo("#gc39m", { y: 40, scale: 0.92, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.8)" }, 52.537);
+      tl.fromTo("#gc39r0", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.25, ease: "power2.out" }, 52.837);
+      tl.fromTo("#gc39r1", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.25, ease: "power2.out" }, 57.807);
+      tl.to("#gc39m", { opacity: 0, y: -20, duration: 0.25 }, 59.850);
+      tl.fromTo("#wf42x", { opacity: 0.55 }, { opacity: 0, duration: 0.24, ease: "power2.out" }, 60.040);
+      tl.fromTo("#pl44b", { y: 30, scale: 0.7, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2.4)" }, 62.940);
+      tl.to("#pl44b", { opacity: 0, duration: 0.15 }, 64.790);
+      tl.fromTo("#fe45m", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 66.100);
+      tl.fromTo("#fe45k", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3 }, 66.200);
+      tl.fromTo("#fe45q", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "back.out(1.8)" }, 66.300);
+      tl.fromTo("#fe45b", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 66.700);
+      tl.to("#fe45b", { scale: 1.06, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 7 }, 67.100);
+      tl.fromTo("#fe45l", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 66.900);
+      tl.fromTo("#bw47", { scale: 1.0 }, { scale: 1.08, duration: 3.600, ease: "none" }, 66.100);
+      tl.fromTo("#cr49 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 0.000);
+      tl.fromTo("#cr49w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 0.000);
+      tl.fromTo("#cr49w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 0.490);
+      tl.fromTo("#cr49w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 1.170);
+      tl.fromTo("#cr49w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 1.400);
+      tl.fromTo("#cr50 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 1.760);
+      tl.fromTo("#cr50w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 1.760);
+      tl.fromTo("#cr50w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 2.140);
+      tl.fromTo("#cr51 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 3.340);
+      tl.fromTo("#cr51w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 3.340);
+      tl.fromTo("#cr51w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 3.840);
+      tl.fromTo("#cr52 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 5.820);
+      tl.fromTo("#cr52w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 5.820);
+      tl.fromTo("#cr52w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 5.970);
+      tl.fromTo("#cr52w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 6.280);
+      tl.fromTo("#cr53 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 7.240);
+      tl.fromTo("#cr53w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 7.240);
+      tl.fromTo("#cr53w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 7.670);
+      tl.fromTo("#cr53w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 7.940);
+      tl.fromTo("#cr53w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 8.260);
+      tl.fromTo("#cr54 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 8.860);
+      tl.fromTo("#cr54w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 8.860);
+      tl.fromTo("#cr54w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 9.720);
+      tl.fromTo("#cr54w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 10.360);
+      tl.fromTo("#cr55 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 11.840);
+      tl.fromTo("#cr55w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 11.840);
+      tl.fromTo("#cr55w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 12.720);
+      tl.fromTo("#cr55w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 13.020);
+      tl.fromTo("#cr55w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 13.350);
+      tl.fromTo("#cr56 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 13.460);
+      tl.fromTo("#cr56w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 13.460);
+      tl.fromTo("#cr56w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 13.720);
+      tl.fromTo("#cr56w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 14.360);
+      tl.fromTo("#cr56w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 14.600);
+      tl.fromTo("#cr57 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 15.460);
+      tl.fromTo("#cr57w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 15.460);
+      tl.fromTo("#cr57w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 15.660);
+      tl.fromTo("#cr57w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 15.910);
+      tl.fromTo("#cr57w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 16.260);
+      tl.fromTo("#cr58 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 16.650);
+      tl.fromTo("#cr58w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 16.650);
+      tl.fromTo("#cr58w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 17.320);
+      tl.fromTo("#cr58w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 17.560);
+      tl.fromTo("#cr59 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 18.000);
+      tl.fromTo("#cr59w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 18.000);
+      tl.fromTo("#cr59w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 18.160);
+      tl.fromTo("#cr59w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 18.820);
+      tl.fromTo("#cr59w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 19.337);
+      tl.fromTo("#cr60 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 19.417);
+      tl.fromTo("#cr60w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 19.417);
+      tl.fromTo("#cr60w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 20.647);
+      tl.fromTo("#cr60w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 21.337);
+      tl.fromTo("#cr61 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 21.667);
+      tl.fromTo("#cr61w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 21.667);
+      tl.fromTo("#cr61w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 22.327);
+      tl.fromTo("#cr61w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 23.337);
+      tl.fromTo("#cr61w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 23.597);
+      tl.fromTo("#cr62 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 24.107);
+      tl.fromTo("#cr62w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 24.107);
+      tl.fromTo("#cr62w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 24.527);
+      tl.fromTo("#cr62w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 25.157);
+      tl.fromTo("#cr62w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 25.167);
+      tl.fromTo("#cr63 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 25.337);
+      tl.fromTo("#cr63w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 25.337);
+      tl.fromTo("#cr63w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 26.187);
+      tl.fromTo("#cr63w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 26.697);
+      tl.fromTo("#cr63w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 27.383);
+      tl.fromTo("#cr64 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 27.383);
+      tl.fromTo("#cr64w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 27.383);
+      tl.fromTo("#cr64w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 27.383);
+      tl.fromTo("#cr65 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 28.123);
+      tl.fromTo("#cr65w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 28.123);
+      tl.fromTo("#cr65w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 28.633);
+      tl.fromTo("#cr65w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 28.763);
+      tl.fromTo("#cr65w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 28.973);
+      tl.fromTo("#cr66 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 29.243);
+      tl.fromTo("#cr66w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 29.243);
+      tl.fromTo("#cr66w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 29.493);
+      tl.fromTo("#cr66w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 29.653);
+      tl.fromTo("#cr66w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 29.973);
+      tl.fromTo("#cr67 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 30.233);
+      tl.fromTo("#cr67w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 30.233);
+      tl.fromTo("#cr67w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 30.473);
+      tl.fromTo("#cr67w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 30.793);
+      tl.fromTo("#cr67w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 31.113);
+      tl.fromTo("#cr68 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 31.373);
+      tl.fromTo("#cr68w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 31.373);
+      tl.fromTo("#cr68w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 31.493);
+      tl.fromTo("#cr68w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 31.633);
+      tl.fromTo("#cr68w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 31.933);
+      tl.fromTo("#cr69 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 32.233);
+      tl.fromTo("#cr69w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 32.233);
+      tl.fromTo("#cr69w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 32.233);
+      tl.fromTo("#cr69w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 32.583);
+      tl.fromTo("#cr69w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 32.933);
+      tl.fromTo("#cr70 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 33.473);
+      tl.fromTo("#cr70w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 33.473);
+      tl.fromTo("#cr70w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 33.723);
+      tl.fromTo("#cr70w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 34.303);
+      tl.fromTo("#cr70w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 34.720);
+      tl.fromTo("#cr71 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 34.770);
+      tl.fromTo("#cr71w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 34.770);
+      tl.fromTo("#cr71w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 34.990);
+      tl.fromTo("#cr71w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 35.210);
+      tl.fromTo("#cr71w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 35.480);
+      tl.fromTo("#cr72 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 35.800);
+      tl.fromTo("#cr72w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 35.800);
+      tl.fromTo("#cr73 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 36.470);
+      tl.fromTo("#cr73w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 36.470);
+      tl.fromTo("#cr73w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 36.710);
+      tl.fromTo("#cr73w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 36.950);
+      tl.fromTo("#cr73w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 37.190);
+      tl.fromTo("#cr74 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 37.650);
+      tl.fromTo("#cr74w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 37.650);
+      tl.fromTo("#cr74w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 37.860);
+      tl.fromTo("#cr74w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 38.800);
+      tl.fromTo("#cr74w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 39.470);
+      tl.fromTo("#cr75 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 40.020);
+      tl.fromTo("#cr75w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 40.020);
+      tl.fromTo("#cr75w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 40.600);
+      tl.fromTo("#cr75w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 41.100);
+      tl.fromTo("#cr76 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 41.340);
+      tl.fromTo("#cr76w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 41.340);
+      tl.fromTo("#cr76w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 41.570);
+      tl.fromTo("#cr76w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 42.040);
+      tl.fromTo("#cr77 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 42.507);
+      tl.fromTo("#cr77w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 42.507);
+      tl.fromTo("#cr77w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 42.973);
+      tl.fromTo("#cr77w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 43.440);
+      tl.fromTo("#cr78 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 44.800);
+      tl.fromTo("#cr78w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 44.800);
+      tl.fromTo("#cr78w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 44.940);
+      tl.fromTo("#cr78w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 45.190);
+      tl.fromTo("#cr78w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 45.440);
+      tl.fromTo("#cr79 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 45.690);
+      tl.fromTo("#cr79w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 45.690);
+      tl.fromTo("#cr79w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 45.940);
+      tl.fromTo("#cr79w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 46.720);
+      tl.fromTo("#cr80 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 47.200);
+      tl.fromTo("#cr80w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 47.200);
+      tl.fromTo("#cr80w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 47.500);
+      tl.fromTo("#cr81 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 47.987);
+      tl.fromTo("#cr81w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 47.987);
+      tl.fromTo("#cr81w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 48.547);
+      tl.fromTo("#cr81w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 49.437);
+      tl.fromTo("#cr81w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 50.697);
+      tl.fromTo("#cr82 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 51.307);
+      tl.fromTo("#cr82w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 51.307);
+      tl.fromTo("#cr82w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 51.707);
+      tl.fromTo("#cr82w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 52.837);
+      tl.fromTo("#cr83 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 53.837);
+      tl.fromTo("#cr83w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 53.837);
+      tl.fromTo("#cr83w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 55.527);
+      tl.fromTo("#cr83w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 56.247);
+      tl.fromTo("#cr83w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 56.487);
+      tl.fromTo("#cr84 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 56.727);
+      tl.fromTo("#cr84w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 56.727);
+      tl.fromTo("#cr84w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 57.057);
+      tl.fromTo("#cr85 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 57.807);
+      tl.fromTo("#cr85w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 57.807);
+      tl.fromTo("#cr85w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 58.087);
+      tl.fromTo("#cr85w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 58.647);
+      tl.fromTo("#cr86 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 58.867);
+      tl.fromTo("#cr86w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 58.867);
+      tl.fromTo("#cr86w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 58.907);
+      tl.fromTo("#cr86w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 59.097);
+      tl.fromTo("#cr87 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 59.197);
+      tl.fromTo("#cr87w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 59.197);
+      tl.fromTo("#cr87w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 59.427);
+      tl.fromTo("#cr87w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 59.457);
+      tl.fromTo("#cr87w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 59.617);
+      tl.fromTo("#cr88 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 59.747);
+      tl.fromTo("#cr88w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 59.747);
+      tl.fromTo("#cr88w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 60.260);
+      tl.fromTo("#cr88w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 60.450);
+      tl.fromTo("#cr89 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 60.750);
+      tl.fromTo("#cr89w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 60.750);
+      tl.fromTo("#cr89w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 60.940);
+      tl.fromTo("#cr89w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 61.220);
+      tl.fromTo("#cr89w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 61.530);
+      tl.fromTo("#cr90 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 61.850);
+      tl.fromTo("#cr90w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 61.850);
+      tl.fromTo("#cr90w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 62.180);
+      tl.fromTo("#cr90w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 62.240);
+      tl.fromTo("#cr90w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 62.610);
+      tl.fromTo("#cr91 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 63.140);
+      tl.fromTo("#cr91w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 63.140);
+      tl.fromTo("#cr91w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 63.540);
+      tl.fromTo("#cr91w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 63.740);
+      tl.fromTo("#cr91w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 64.200);
+      tl.fromTo("#cr92 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 64.473);
+      tl.fromTo("#cr92w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 64.473);
+      tl.fromTo("#cr92w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 64.603);
+      tl.fromTo("#cr92w2", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 64.653);
+      tl.fromTo("#cr92w3", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 64.753);
+      tl.fromTo("#cr93 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 64.903);
+      tl.fromTo("#cr93w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 64.903);
+      tl.fromTo("#cr93w1", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 65.123);
+      tl.fromTo("#cr94 .cr", { scale: 0.88, y: 14 }, { scale: 1, y: 0, duration: 0.14, ease: "back.out(2)" }, 65.593);
+      tl.fromTo("#cr94w0", { opacity: 0.55 }, { opacity: 1, duration: 0.05 }, 65.593);
+      window.__timelines["m4-layout-butik-bilik-live"] = tl;
+    </script>
+  </body>
+</html>

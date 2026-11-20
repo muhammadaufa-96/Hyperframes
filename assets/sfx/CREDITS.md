@@ -33,3 +33,4 @@ All files are distributed under the [Pixabay Content License](https://pixabay.co
 - Redistribution as part of derivative works (such as videos rendered with HyperFrames)
 
 without any attribution requirement.
+- `glitch-short.mp3`: 0.7 s cut of `glitch-3.mp3` (0.2–0.9 s) with fades, +10 dB, limited — made for the 20/11 HICCUP stamp.

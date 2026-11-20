@@ -34,6 +34,14 @@ The domain skills (`/hyperframes-core`, `/hyperframes-animation`, `/hyperframes-
 > everything already installed — neither pulls the full set. Restart the agent session so
 > newly installed skills load.
 
+## BangFasz video edits — read first
+
+Before cutting or animating a BangFasz raw video, read `bangfasz/editing-style.md` in the
+`aufa-punya-files` repo (learned from the user's own cut on 20/11/2026): cut mistakes, not
+personality; no fixed length target (under 2 min is fine); hook first, one animated graphic per
+point, captions on a dark backing below the face, SFX on every move, no emoji. Builder for that
+edit: `tools/edit/f2011/build.py`.
+
 ## Commands
 
 ```bash

@@ -347,8 +347,8 @@ class V(K):
         J(f'tl.fromTo("#{h}n span", {{ scale: 0.2, rotation: 10 }}, {{ scale: 1, rotation: -3, duration: 0.45, ease: "elastic.out(1, 0.5)" }}, {t_new:.3f});')
         J(f'tl.to("#{h}n", {{ opacity: 0, y: -30, duration: 0.25 }}, {end - 0.25:.3f});')
         self.sfx("pop", t_plan, 0.4)
-        self.sfx("glitch-2", t_hic - 0.05, 0.5)
-        self.sfx("impact-bass-2", t_hic + 0.2, 0.5)
+        self.sfx("pop", t_hic + 0.18, 0.45)                        # short stamp; the long glitch-2 "broken TV" was too loud
+        self.sfx("impact-bass-2", t_hic + 0.2, 0.35, dur=0.8)
         self.sfx("sparkle", t_new, 0.45)
 
     # -- 6. "mode tukang" switch flips ON, hammer swings

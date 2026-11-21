@@ -85,9 +85,11 @@ def build_a():
     T = lambda tok, after=0.0: at(ws, tok, after)
     c.camera21(punches=[(T("god"), 1.0), (T("jealous"), 1.2), (T("merah"), 1.0), (T("sedap"), 1.0), (T("sedap", 78), 0.9),
                         (T("penuh", 93), 0.9), (T("bujang", 100), 0.9), (T("okay", 118), 0.6)], shakes=[T("jealous")])
-    for t, same in c.cuts:
-        if not same:
-            c.flash(t)
+    # section transitions (part 1 unboxing -> 2 taste test -> 3 soalan -> 4 penutup) + a few inside part 1
+    c.trans(65.07, "wipe", "Part 2", "Taste<br>test")
+    c.trans(96.38, "zoom"); c.trans(96.42, "glitch")
+    c.trans(125.76, "dip")
+    c.trans(27.26, "whip"); c.trans(47.30, "whip"); c.trans(58.94, "zoom")
     c.hook21("Sambil tunggu lori sampai", "Unboxing", "bekal isteri", 0.0, 3.4, icon="box3")
     c.boxes(T("total") - 0.25, 64.9, steps=[(T("chicken"), "Chicken wrap", "box3"), (T("lauk", 51), "Ayam masak merah", "box3"),
                                             (T("nasi"), "Nasi", "box3")])
@@ -111,9 +113,9 @@ def build_b():
     T = lambda tok, after=0.0: at(ws, tok, after)
     c.camera21(punches=[(T("expensive"), 1.0), (T("power"), 0.9), (T("harga"), 1.1), (T("pink"), 0.9), (T("jotun"), 1.0),
                         (T("electrical"), 1.0)])
-    for t, same in c.cuts:
-        if not same:
-            c.flash(t)
+    # topic transitions
+    c.trans(12.40, "whip"); c.trans(27.29, "zoom"); c.trans(44.69, "wipe", "By the way", "Tip")
+    c.trans(58.23, "glitch"); c.trans(75.00, "whip"); c.trans(79.27, "zoom"); c.trans(95.84, "dip")
     c.price_hook(0.0, 4.9)
     loc(c, "Site Setia Alam", "projek kita", T("setia") - 0.3, 2.6)
     c.glass("Kenapa colour ni?", ["Terkenal among contractors", "Kualiti power", "Cantik", "Harga pun “cantik”"], T("terkenal") - 0.6,
@@ -121,7 +123,7 @@ def build_b():
             at=[T("terkenal"), T("power"), T("cantik", 22), T("harga")], icons=[("✓", ""), ("✓", ""), ("✓", ""), ("$", "w")])
     c.sfx("error", T("harga") + 0.05, 0.2, dur=0.5)
     c.swatches(T("pakai") - 0.2, T("by") - 0.1, t_pink=T("pink") - 0.3, t_grey=T("grey"))
-    c.glass("Tip: nak check colour?", ["Pergi supplier besar", "Contoh: Jotun"], T("by") + 0.05, T("subang") - T("by") - 0.1, top=270,
+    c.glass("Tip: nak check colour?", ["Pergi supplier besar", "Contoh: Jotun"], T("by") + 0.75, T("subang") - T("by") - 0.8, top=270,
             at=[T("supplier-supplier"), T("jotun")], icons=[("1", "n"), ("2", "n")])
     loc(c, "Jotun · Subang", "supplier cat", T("subang") - 0.1, T("kalau", 58) - T("subang") + 0.1)
     c.bancuh(T("tempat", 60) - 0.3, T("so", 77) - 0.1, t_go=T("tolong"), t_done=T("haa", 74.5))

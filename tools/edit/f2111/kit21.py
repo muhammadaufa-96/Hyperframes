@@ -379,3 +379,61 @@ class V21(V):
         J(f'tl.to("#{p}dn", {{ y: 26, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }}, {t_type + len(text) * 0.06 + 0.4:.3f});')
         J(f'tl.to(["#{p}cm", "#{p}dn"], {{ opacity: 0, y: -30, duration: 0.25 }}, {end - 0.25:.3f});')
         self.sfx("pop", start, 0.35); self.sfx("typing", t_type, 0.3, dur=len(text) * 0.06); self.sfx("ping", t_type + len(text) * 0.06, 0.35)
+
+
+gen.CSS += r"""
+/* transitions */
+.tw { position: absolute; top: -40px; bottom: -40px; left: 0; width: 1400px; background: #f5c22e; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+.tw-k { font-weight: 800; font-size: 44px; letter-spacing: 0.2em; text-transform: uppercase; color: #15171a; opacity: 0.7; padding-right: 320px; }
+.tw-t { font-weight: 800; font-size: 120px; line-height: 0.95; text-transform: uppercase; color: #15171a; text-align: center; padding-right: 320px; }
+.tw2 { position: absolute; top: -40px; bottom: -40px; left: 0; width: 1400px; background: #15171a; }
+.tdip { position: absolute; inset: 0; background: #000; }
+.tzf { position: absolute; inset: 0; background: radial-gradient(circle at 50% 45%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 35%, rgba(255,255,255,0) 70%); }
+.trgb { position: absolute; inset: 0; mix-blend-mode: screen; background: linear-gradient(0deg, rgba(255,0,60,0.35) 0 9%, transparent 9% 33%, rgba(0,255,255,0.3) 33% 39%, transparent 39% 64%, rgba(255,0,60,0.3) 64% 69%, transparent 69% 86%, rgba(0,255,255,0.25) 86% 90%, transparent 90%); }
+"""
+
+
+def _trans(self, t, kind, kicker=None, title=None):
+    """Section transition centred on cut time t. kinds: wipe (yellow panel + label), zoom (zoom through), whip, glitch, dip."""
+    k = self.uid("tr")
+    J = self.js.append
+    if kind == "wipe":
+        lab = f'<div class="tw-k">{esc(kicker or "")}</div><div class="tw-t">{title or ""}</div>' if title else ""
+        self.layers.append(f'<section id="{k}" class="clip" data-start="{t - 0.45:.3f}" data-duration="1.55" data-track-index="7">'
+                           f'<div class="tw2" id="{k}b"></div><div class="tw" id="{k}p">{lab}</div></section>')
+        J(f'tl.fromTo("#{k}b", {{ x: -1450 }}, {{ x: 0, duration: 0.4, ease: "power3.in" }}, {t - 0.45:.3f});')
+        J(f'tl.fromTo("#{k}p", {{ x: -1450 }}, {{ x: 0, duration: 0.42, ease: "power3.in" }}, {t - 0.4:.3f});')
+        if title:
+            J(f'tl.fromTo("#{k} .tw-t", {{ scale: 1.4, opacity: 0 }}, {{ scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2)" }}, {t - 0.05:.3f});')
+            J(f'tl.fromTo("#{k} .tw-k", {{ y: 20, opacity: 0 }}, {{ y: 0, opacity: 0.7, duration: 0.25 }}, {t:.3f});')
+        J(f'tl.to("#{k}p", {{ x: 1450, duration: 0.42, ease: "power3.in" }}, {t + 0.6:.3f});')
+        J(f'tl.to("#{k}b", {{ x: 1450, duration: 0.42, ease: "power3.in" }}, {t + 0.66:.3f});')
+        self.sfx("whoosh-cinematic", t - 0.5, 0.45)
+        self.sfx("impact-bass-1", t - 0.02, 0.45, dur=1.0)
+        self.sfx("whoosh", t + 0.6, 0.35)
+    elif kind == "zoom":
+        self.layers.append(f'<section id="{k}" class="clip" data-start="{t - 0.25:.3f}" data-duration="0.6" data-track-index="7"><div class="tzf" id="{k}f"></div></section>')
+        J(f'tl.to("#acam", {{ scale: 1.55, duration: 0.25, ease: "power3.in" }}, {t - 0.25:.3f});')
+        J(f'tl.fromTo("#acam", {{ scale: 1.4 }}, {{ scale: 1, duration: 0.4, ease: "expo.out", immediateRender: false }}, {t:.3f});')
+        J(f'tl.fromTo("#{k}f", {{ opacity: 0 }}, {{ keyframes: [{{ opacity: 1, duration: 0.25 }}, {{ opacity: 0, duration: 0.35 }}], ease: "none" }}, {t - 0.25:.3f});')
+        self.sfx("whoosh-short", t - 0.3, 0.4)
+        self.sfx("impact-bass-2", t, 0.4, dur=0.9)
+    elif kind == "whip":
+        self.layers.append(f'<section id="{k}" class="clip" data-start="{t - 0.2:.3f}" data-duration="0.45" data-track-index="7"><div class="ef" id="{k}x"></div></section>')
+        J(f'tl.to("#acam", {{ x: -700, duration: 0.18, ease: "power2.in" }}, {t - 0.18:.3f});')
+        J(f'tl.fromTo("#acam", {{ x: 700 }}, {{ x: 0, duration: 0.26, ease: "power3.out", immediateRender: false }}, {t:.3f});')
+        J(f'tl.fromTo("#{k}x", {{ x: -1200 }}, {{ x: 1200, duration: 0.4, ease: "power2.inOut" }}, {t - 0.2:.3f});')
+        self.sfx("whoosh", t - 0.22, 0.45)
+    elif kind == "glitch":
+        self.layers.append(f'<section id="{k}" class="clip" data-start="{t - 0.1:.3f}" data-duration="0.5" data-track-index="7"><div class="trgb" id="{k}g"></div></section>')
+        J(f'tl.fromTo("#{k}g", {{ opacity: 0, y: 0 }}, {{ keyframes: [{{ opacity: 1, y: -50 }}, {{ opacity: 0.3, y: 70 }}, {{ opacity: 1, y: -110 }}, {{ opacity: 0.4, y: 30 }}, {{ opacity: 0, y: 0 }}], duration: 0.45, ease: "none" }}, {t - 0.1:.3f});')
+        J(f'tl.to("#acam", {{ keyframes: [{{ x: -30, rotation: -1.4 }}, {{ x: 26, rotation: 1.1 }}, {{ x: -16, rotation: -0.6 }}, {{ x: 8, rotation: 0.2 }}, {{ x: 0, rotation: 0 }}], duration: 0.42, ease: "none" }}, {t - 0.05:.3f});')
+        self.sfx("glitch-short", t - 0.1, 0.35)
+        self.sfx("impact-bass-2", t + 0.05, 0.35, dur=0.8)
+    elif kind == "dip":
+        self.layers.append(f'<section id="{k}" class="clip" data-start="{t - 0.22:.3f}" data-duration="0.55" data-track-index="7"><div class="tdip" id="{k}d"></div></section>')
+        J(f'tl.fromTo("#{k}d", {{ opacity: 0 }}, {{ keyframes: [{{ opacity: 1, duration: 0.22, ease: "power2.in" }}, {{ opacity: 0, duration: 0.33, ease: "power2.out" }}] }}, {t - 0.22:.3f});')
+        self.sfx("whoosh-short", t - 0.25, 0.3)
+
+
+V21.trans = _trans
